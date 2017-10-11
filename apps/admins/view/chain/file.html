@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>病案归档</title>
+    <link rel="stylesheet" href="/admin/admins/css/pintuer.css">
+    <link rel="stylesheet" href="/admin/admins/css/admin.css">
+    <script src="/admin/admins/js/jquery.js"></script>
+    <script src="/admin/admins/js/pintuer.js"></script>
+</head>
+<body>
+<!--<div class="panel admin-panel">&lt;!&ndash;<a href="" style="float:right; display:none;">添加字段</a>&ndash;&gt;-->
+    <!--<div class="panel-head"><strong class="icon-reorder"> 病案入链状态</strong>-->
+        <!--<input type="radio" class="active_radio" name="already_chain" id="chain_status=2" value="2" runat="server" checked>全部&nbsp;&nbsp;-->
+        <!--<input type="radio" class="active_radio" name="already_chain" id="chain_status=0" value="0">已入链 &nbsp;&nbsp;-->
+        <!--<input type="radio" class="active_radio" name="already_chain" id="chain_status=1" value="1">未入链&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+        <!--病案归档时间<select name="">-->
+            <!--<option value="4" class="chain_option" id="chain_time=4" check="selected">全部时间</option>-->
+            <!--<option value="0" class="chain_option" id="chain_time=0">今天</option>-->
+            <!--<option value="1" class="chain_option" id="chain_time=1">最近一周</option>-->
+            <!--<option value="2" class="chain_option" id="chain_time=2">近一个月</option>-->
+            <!--<option value="3" class="chain_option" id="chain_time=3">近三个月</option>-->
+        <!--</select></div>-->
+    <!--<div class="padding border-bottom">-->
+        <!--<a href="medical_add"><button type="button" class="button border-yellow" id="button"><span class="icon-plus-square-o"></span>病案新增</button></a>-->
+    <!--</div>-->
+<!--</div>-->
+<table class="table table-hover text-center" border="2">
+    <tr>
+        <th><button class="checkall">全选</button></th>
+        <th width="100" style="text-align:left; padding-left:20px;">病案编号</th>
+        <th>标题</th>
+        <th>姓名</th>
+        <th>年龄</th>
+        <th>性别</th>
+        <th>病案号</th>
+        <th>出院科室</th>
+        <th>出院病区</th>
+        <th>病案归档</th>
+    </tr>
+    {volist name="data" id="v"}
+    <tr>
+        <td><input type="checkbox" name="check[]" value="{$v.chain_id}"></td>
+        <td>{$v.chain_id}</td>
+        <td>{$v.chain_title}</td>
+        <td>{$v.chain_user}</td>
+        <td>{$v.chain_age}</td>
+        <td>{if condition="$v.chain_sex eq 0"}
+            男
+            {else/}
+            女
+            {/if}
+        </td>
+        <td>{$v.chain_num}</td>
+        <td>{$v.chain_department}</td>
+        <td>{$v.chain_lesion}</td>
+        <td><a href="javascript:void(0)" id="{$v.chain_id}" class="aa" onclick="file(this)">归档</a></td>
+    </tr>
+    {/volist}
+    <table id="show" class="table table-hover text-center"></table>
+    <span style="margin-left: 45%;font-size: 28px;">{$res}</span>
+    <!--<input type="checkbox" value="批量删除" onclick="check_del();">-->
+    {if condition="$auto_load.auto_file eq 0"}
+    <div class="field" style="margin-left: 1530px;margin-top: -2px;">
+        <span id="Eerror1"></span>
+        <input type="button" onclick="check_up();" value="关闭自动归档" class="button bg-main icon-check-square-o">
+    </div>
+    {else/}
+    <div class="field" style="margin-left: 1530px;margin-top: -2px;">
+        <span id="Eerror"></span>
+        <input type="button" onclick="check_up();" value="开启自动归档" class="button bg-main icon-check-square-o">
+    </div>
+    {/if}
+    <tr>
+        <td class="button border-yellow">{$data->render()}</td>
+    </tr>
+</table>
+
+<script>
+    /**全选反选**/
+    $(document).on('click','.checkall',function(){
+        $("input[name='check[]']").each(function(){
+            if(this.checked){
+                this.checked=false;
+            }else{
+                this.checked=true;
+            }
+        })
+    })
+    /**归档操作**/
+    function file(obj) {
+        var id = obj.id;
+        var ajax=new XMLHttpRequest();
+        ajax.onreadystatechange=function()
+        {
+            if(ajax.readyState==4)
+            {
+                //alert(ajax.responseText);
+                if(ajax.responseText==1)
+                {
+                    alert('病案归档成功');
+                    obj.parentNode.parentNode.parentNode.removeChild(obj.parentNode.parentNode);
+                }
+                else{
+//
+                    alert("病案归档失败,请再试一次");
+                    window.location.reload();
+                }
+            }
+        }
+        ajax.open("get","chain_fadd?id="+id);
+        ajax.send(null);
+    }
+    /**自动归档**/
+    function check_up(){
+    var url = 'chain_aotomatic';
+    var obj = $(this);
+    $.post(url,{},function(msg){
+       if(msg.msg==0){
+
+           window.location.reload();
+       }else if(msg.msg==1){
+
+           window.location.reload();
+       }
+    })
+    }
+
+
+</script>

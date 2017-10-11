@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="admin/admins/css/pass.css">
+    <link rel="stylesheet" href="admin/admins/css/pintuer.css">
+    <link rel="stylesheet" href="admin/admins/css/style.css">
+
+    <title></title>
+</head>
+<body>
+<form class="pro_search_div">
+    <div class="pro_search_list pro_search_list_pro">归档时间<div class="calendarWarp">
+        <input type="text" name="date_start" class='ECalendar' id="date_start"  style='width:200px;' value=""/>
+    </div>
+        至<div class="calendarWarp">
+            <input type="text" name="date_end" class='ECalendar' id="date_end"  style='width:200px;' value=""/>
+        </div>
+        <input type="button" class="pro_search_button" value="查询"/><input type="button" class="pro_search_clear" value="清空"/>
+    </div>
+
+</form>
+<div class="table table-hover text-center" border="1">
+    <p>最新消息</p>
+    <table class="result_msg">
+        <tr>
+            <td>被修改记录id号</td>
+            <td>被修改用户名</td>
+            <td>修改后HASH值</td>
+            <td>修改用户名</td>
+            <td>修改时间</td>
+        </tr>
+    </table>
+    <div id="list">
+        <ul></ul>
+    </div>
+    <div id="pagecount"></div>
+</div>
+</body>
+</html>
+<script src="admin/admins/js/jquery.js"></script>
+<script src="admin/admins/js/Ecalendar.jquery.min.js"></script>
+<script>
+    $(function(){
+        $("#date_start").ECalendar({
+            type:"time",   //模式，time: 带时间选择; date: 不带时间选择;
+            stamp : false,   //是否转成时间戳，默认true;
+            offset:[0,2],   //弹框手动偏移量;
+            format:"yyyy-mm-dd hh:ii",   //时间格式 默认 yyyy-mm-dd hh:ii;
+            skin:2,   //皮肤颜色，默认随机，可选值：0-8,或者直接标注颜色值;
+            step:10,   //选择时间分钟的精确度;
+            callback:function(v,e){} //回调函数
+        });
+        $("#date_end").ECalendar({
+            type:"time",   //模式，time: 带时间选择; date: 不带时间选择;
+            stamp : false,   //是否转成时间戳，默认true;
+            offset:[0,2],   //弹框手动偏移量;
+            format:"yyyy-mm-dd hh:ii",   //时间格式 默认 yyyy-mm-dd hh:ii;
+            skin:2,   //皮肤颜色，默认随机，可选值：0-8,或者直接标注颜色值;
+            step:10,   //选择时间分钟的精确度;
+            callback:function(v,e){} //回调函数
+        });
+    })
+    var curPage = 1; //当前页码
+    var total,pageSize,totalPage; //总记录数，每页显示数，总页数
+    //获取数据
+    function getData(page){
+        $.ajax({
+            type: 'POST',
+            url: "{:url('invest/ajaxs')}",
+            data: {'pageNum':page-1,'time_start':$('#date_start').val(),'time_end':$('#date_end').val()},
+            dataType:'json',
+            beforeSend:function(){
+//           $("#result_msg ul").append("<li id='loading'>loading...</li>");//显示加载动画
+            },
+            success:function(json){
+                $(".result_msg").empty();//清空数据区
+                total = json.total; //总记录数
+                pageSize = json.pageSize; //每页显示条数
+                curPage = page; //当前页
+                totalPage = json.totalPage; //总页数
+                var htm = "<tr><td>被修改记录id号</td><td>被修改用户名</td><td>修改后HASH值</td><td>修改用户名</td><td>修改时间</td></tr>";
+                var list = json.list;
+                $.each(list,function(index,array){ //遍历json数据列
+                    htm += "<tr>";
+                    htm += "<td>"+array['chain_id']+"</td>";
+                    htm += "<td>"+array['chain_name']+"</td>";
+                    htm += "<td>"+array['chain_hash']+"</td>";
+                    htm += "<td>"+array['admin_name']+"</td>";
+                    htm += "<td>"+array['update_time']+"</td>";
+                    htm += "</tr>";
+                });
+                $(".result_msg").append(htm);
+            },
+            complete:function(){ //生成分页条
+                getPageBar();
+                fun();
+            },
+            error:function(){
+                alert("数据加载失败");
+            }
+        });
+    }
+    //获取分页条
+    function getPageBar(){
+        //页码大于最大页数
+        if(curPage>totalPage) curPage=totalPage;
+        //页码小于1
+        if(curPage<1) curPage=1;
+        pageStr = "<span>共"+total+"条</span><span>"+curPage
+            +"/"+totalPage+"</span>";
+
+        //如果是第一页
+        if(curPage==1){
+            pageStr += "<span>首页</span><span>上一页</span>";
+        }else{
+            pageStr += "<span><a href='javascript:void(0)' rel='1'>首页</a></span><span><a href='javascript:void(0)' rel='"+(curPage-1)+"'>上一页</a></span>";
+        }
+
+        //如果是最后页
+        if(curPage>=totalPage){
+            pageStr += "<span>下一页</span><span>尾页</span>";
+        }else{
+            pageStr += "<span><a href='javascript:void(0)' rel='"+(parseInt(curPage)+1)+"'> 下一页</a></span><span><a href='javascript:void(0)' rel='"+totalPage+"'>尾页</a></span>";
+        }
+        $("#pagecount").html(pageStr);
+    }
+    $('.pro_search_button').click(function(){
+        getData(1);
+    });
+    $(function(){
+        getData(1);
+    });
+    function fun(){
+        $("#pagecount span a").on('click',function(){
+            var rel = $(this).attr("rel");
+            if(rel){
+                getData(rel);
+            }
+        });
+    }
+</script>
+</script>

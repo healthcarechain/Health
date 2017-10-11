@@ -1,0 +1,50 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/admin/admins/css/pass.css">
+    <title>Title</title>
+</head>
+<body>
+<div class='msg_main'>
+    <input type='hidden' value="{$param_1}" name="param_1" />
+    <div class='msg_search'>
+        <input type='text'  class='msg_text' />
+        <input type='button'  class='msg_sub' value='查询'/>
+    </div>
+    <table class='result_msg'>
+        <tr>
+            <td>全选</td>
+            <td>病案标题</td>
+            <td>姓名</td>
+            <td>年龄</td>
+            <td>性别</td>
+            <td>病案号</td>
+            <td>出院科室</td>
+            <td>出院病区</td>
+            <td>操作</td>
+        </tr>
+        {foreach name='lists' id='lists'}
+        <tr>
+            <td><input type='checkbox' value='{$lists.chain_id}' /></td>
+            <td>{$lists.chain_title}</td>
+            <td>{$lists.chain_user}</td>
+            <td>{$lists.chain_age}</td>
+            <td>{$lists.chain_sex}</td>
+            <td>{$lists.chain_num}</td>
+            <td>{$lists.chain_department}</td>
+            <td>{$lists.chain_lesion}</td>
+            <td></td>
+        </tr>
+        {/foreach}
+    </table>
+    {$page}
+</div>
+</body>
+</html>
+<script src="/admin/admins/js/jquery.js"></script>
+<script>
+
+    $('.msg_sub').click(function(){
+        window.location.href="{:url('pass_result')}?doc="+$('.msg_text').val();
+    })
+</script>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="admin/admins/css/pass.css">
+    <title>病历修改</title>
+</head>
+<body>
+<div class='search_main'>
+    <p>病案修改情况查询</p>
+    <div class='write_search'>
+        <img src="admin/admins/images/search.png" />
+        <input type='text'  class='search_text' />
+        <input type='button'  class='search_sub' value='查询'/>
+    </div>
+</div>
+</body>
+</html>
+<script src="admin/admins/js/jquery.js"></script>
+<script>
+    $(function(){
+        document.onkeydown = function(e){
+            var ev = document.all ? window.event : e;
+            if(ev.keyCode==13) {
+
+                window.location.href="{:url('pass_result')}?doc="+$('.search_text').val();
+            }
+        }
+    });
+    $('.search_sub').click(function(){
+        window.location.href="{:url('pass_result')}?doc="+$('.search_text').val();
+    })
+</script>

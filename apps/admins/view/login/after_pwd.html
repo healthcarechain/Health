@@ -1,0 +1,482 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link type="text/css" href="admin/homes/pwd_back/css/css.css" rel="stylesheet" />
+    <link href="admin/homes/css/common.css" rel="stylesheet" />
+    <link href="admin/homes/css/register.css" rel="stylesheet" type="text/css">
+    <script src="admin/homes/pwd_back/js/jquery-1.8.3-min.js"></script>
+</head>
+
+<body>
+<!--<?php?>include_once "admin/homes/layout/header.php";<?php?>-->
+<!--加载头文件-->
+{include file='admin/homes/layout/header.php'}
+
+<div class="wrap">
+
+    <!--第一步  填写账户名-->
+    <div class="tdbModule login" style="display: block" id="one">
+        <div class="registerTitle">找回密码</div>
+
+        <div class="registerCont">
+
+            <div class="for-liucheng">
+                <div class="liulist for-cur"></div>
+                <div class="liulist"></div>
+                <div class="liulist"></div>
+                <div class="liulist"></div>
+                <div class="liutextbox">
+                    <div class="liutext for-cur"><em>1</em><br /><strong>填写账户名</strong></div>
+                    <div class="liutext"><em>2</em><br /><strong>验证身份</strong></div>
+                    <div class="liutext"><em>3</em><br /><strong>设置新密码</strong></div>
+                    <div class="liutext"><em>4</em><br /><strong>完成</strong></div>
+                </div>
+            </div>
+            <from action="forgetPwd2.html" method="get" class="forget-pwd">
+                <dl>
+                    <dt>账户名：</dt>
+                    <dd><input type="text" id="user_name" onblur="User_name()"/></dd><dd id="span_username"></dd>
+                    <div class="clears"></div>
+                </dl>
+                <dl>
+                    <!--<dt>验证码：</dt>-->
+                   <!--<dd>-->
+                   <!--<input type="text"  id="code"/>-->
+                    <!--<div class="yanzma">-->
+                       <!--<img src="{{ URL( 'login/captcha/1') }}" id="captcha" alt="点击更换验证码" title="点击更换验证码" style="cursor:pointer;" class="valign">&#45;&#45;}}-->
+                        <!--<a href="javascript:;">换一换</a>-->
+                        <!--</div>-->
+                    <!--</dd>-->
+                    <div class="clears"></div>
+                </dl>
+                <div class="subtijiao"><input type="submit" value="下一步" onclick="Write_username()" /></div>
+            </from><!--forget-pwd/-->
+        </div>
+    </div>
+    <!--第二步  验证身份-->
+    <div class="tdbModule login" id="two" style="display: none">
+        <div class="registerTitle">找回密码</div>
+        <div class="registerCont">
+            <div class="for-liucheng">
+                <div class="liulist for-cur"></div>
+                <div class="liulist for-cur"></div>
+                <div class="liulist"></div>
+                <div class="liulist"></div>
+                <div class="liutextbox">
+                    <div class="liutext for-cur"><em>1</em><br /><strong>填写账户名</strong></div>
+                    <div class="liutext for-cur"><em>2</em><br /><strong>验证身份</strong></div>
+                    <div class="liutext"><em>3</em><br /><strong>设置新密码</strong></div>
+                    <div class="liutext"><em>4</em><br /><strong>完成</strong></div>
+                </div>
+            </div>
+            <from action="forgetPwd3.html" method="get" class="forget-pwd">
+                <dl class="forget">
+                    <dt>验证方式：</dt>
+                    <dd>
+                        <select class="selyz">
+                            <option value="0">已验证手机</option>
+                            <option value="1">已验证邮箱</option>
+                        </select>
+                    </dd>
+                    <div class="clears"></div>
+                </dl>
+
+                <span class="sel-yzsj" >
+    <dl class="sel-yzsj">
+    <dt>已验证手机：</dt>
+    <dd><input type="text" value="" readonly id="tel" /><input type="hidden" readonly id="user_tel"></dd>
+    <div class="clears"></div>
+    </dl>
+    <dl>
+    <dt>手机校验码：</dt>
+    <dd><input type="text" id="code_tel" onblur="Code()"/> <button onclick="Code_send()">获取短信验证码</button></dd><dd id="span_code"></dd>
+    <div class="clears"></div>
+    </dl>
+    <div class="subtijiao"><input type="submit" value="下一步" onclick="Tel_code()"/></div>
+    </span>
+
+
+   <span class="sel-yzyx" style="display: none">
+    <dl class="sel-yzyx" >
+    <dt>已验证邮箱：</dt>
+    <dd><input type="text" value="" readonly id="email"/><input type="hidden" readonly id="user_email"><span id="pwd_email"></span></dd>
+    <div class="clears"></div>
+    </dl>
+    <div class="subtijiao"><input type="submit" value="发送邮件" onclick="Email_back()" /></div>
+    </span>
+
+            </from>
+        </div>
+    </div>
+
+
+    <!--第三步   修改密码-->
+    <div class="tdbModule login" id="three" style="display: none">
+        <div class="registerTitle">找回密码</div>
+        <div class="registerCont">
+            <div class="for-liucheng">
+                <div class="liulist for-cur"></div>
+                <div class="liulist for-cur"></div>
+                <div class="liulist for-cur"></div>
+                <div class="liulist"></div>
+                <div class="liutextbox">
+                    <div class="liutext for-cur"><em>1</em><br /><strong>填写账户名</strong></div>
+                    <div class="liutext for-cur"><em>2</em><br /><strong>验证身份</strong></div>
+                    <div class="liutext for-cur"><em>3</em><br /><strong>设置新密码</strong></div>
+                    <div class="liutext"><em>4</em><br /><strong>完成</strong></div>
+                </div>
+            </div><!--for-liucheng/-->
+            <from action="forgetPwd4.html" method="get" class="forget-pwd">
+                <dl>
+                    <dt>新密码：</dt>
+                    <dd><input type="password" onblur="New_pwd()" id="new_pwd"/><span id="span_new_pwd"></span></dd>
+                    <div class="clears"></div>
+                </dl>
+                <dl>
+                    <dt>确认密码：</dt>
+                    <dd><input type="password" onblur="Confirm_pwd()" id="confirm_pwd"/><span id="span_confirm_pwd"></span></dd>
+                    <div class="clears"></div>
+                </dl>
+                <div class="subtijiao"><input type="submit" value="下一步" onclick="Update_pwd()"/></div>
+            </from>
+        </div>
+    </div>
+
+    <!--第四步  成功-->
+    <div class="tdbModule login" id="four" style="display: none">
+        <div class="registerTitle">找回密码</div>
+        <div class="registerCont">
+            <div class="for-liucheng">
+                <div class="liulist for-cur"></div>
+                <div class="liulist for-cur"></div>
+                <div class="liulist for-cur"></div>
+                <div class="liulist for-cur"></div>
+                <div class="liutextbox">
+                    <div class="liutext for-cur"><em>1</em><br /><strong>填写账户名</strong></div>
+                    <div class="liutext for-cur"><em>2</em><br /><strong>验证身份</strong></div>
+                    <div class="liutext for-cur"><em>3</em><br /><strong>设置新密码</strong></div>
+                    <div class="liutext for-cur"><em>4</em><br /><strong>完成</strong></div>
+                </div>
+            </div><!--for-liucheng/-->
+            <div class="successs">
+                <span></span>
+                <form class="forget-pwd">
+                    <h3>恭喜您，找回成功！</h3>
+                    <a href="login" style="text-decoration: none;color: #0aaae1">返回登录</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{include file='admin/homes/layout/footer.php'}
+<!--<?php?> include_once "admin/homes/layout/footer.php";<?php?>-->
+</body>
+</html>
+<script type="text/javascript">
+    //第一步
+    function User_name()
+    {
+        var username = $("#user_name").val();
+        var Nullname = (username=="");
+
+        if(Nullname)
+        {
+            $("#span_username").html("<font color='red'>*用户名不能为空</font>");
+            return flag;
+        }
+        else
+        {
+            $.ajax({
+                type: "get",
+                dataType: "json",
+                url: "pwd_back", //发送请求地址
+                data: {
+                    username:username
+                },
+                success:function(data)
+                {
+                    if(data.success == 1)
+                    {
+//                        alert(data.success)
+                        var span="";
+                        span = "<font color='red'>*"+data.error+"</font>";
+                        $("#span_username").html(span);
+                        return flag=false;
+                    }
+                    else
+                    {
+//                        alert(data.success)
+                        $("#span_username").html('');
+                        $("#tel").val(data.tel);
+                        $("#user_tel").val(data.user_tel);
+                        $("#email").val(data.email);
+                        $("#user_email").val(data.user_email);
+                        if(!data.user_tel)
+                        {
+                            var option ="<option value='1'>已验证邮箱</option>";
+                            $(".selyz").html(option);
+                            $(".sel-yzsj").hide();
+                            $(".sel-yzyx").show()
+                        }
+                        if(!data.user_email)
+                        {
+                            var option ="<option value='0'>已验证手机</option>";
+                            $(".selyz").html(option);
+                            $(".sel-yzsj").show();
+                            $(".sel-yzyx").hide()
+                        }
+
+                    }
+
+                }
+
+            });
+            return flag=true;
+        }
+    }
+    function Write_username(){
+        if(User_name()){
+            $("#one").hide();
+            $("#two").show();
+        }
+    }
+    //第二步
+
+    //    手机找回
+    $(".selyz").change(function()
+    {
+        var selval=$(this).val();
+
+        if(selval=="0")
+        {
+            $(".sel-yzsj").show();
+            $(".sel-yzyx").hide()
+        }
+        else if(selval=="1")
+        {
+            $(".sel-yzsj").hide();
+            $(".sel-yzyx").show()
+        }
+    });
+
+    //发送验证码
+    function Code_send()
+    {
+        var tel = $("#user_tel").val();
+
+        $.ajax({
+            type: "get", //请求方式
+            dataType: "json",
+            url: "pwd_back_tel", //发送请求地址
+            async: false,
+            data: { //发送给数据库的数据
+                phone: tel
+            },
+            success: function (data) {
+                if (data.msg == 1)
+                {
+                    var span = "";
+                    span = "<font color='red'>请一分钟在重新获取短信验证码</font>";
+                    $("#span_code").html(span);
+                    return false;
+                }
+                else
+                {
+                    $("#span_code").html("");
+                }
+            }
+        });
+        return true;
+    }
+
+    //验证验证码
+    function Code()
+    {
+        var code = $("#code_tel").val();
+        var tel = $("#user_tel").val();
+//        alert(code);
+        var authCodeRegex="^[0-9]{6,6}$";
+        var mobile=$("#checkMonbileForm\\:mobileNumber").val();
+        var nullFlag=(code=="");
+        if(nullFlag)
+        {
+            var span = "";
+            span = "<font color='red'>*请输入验证码</font>";
+            $("#span_code").html(span);
+            return false;
+        }
+        var authCodePattern=new RegExp(authCodeRegex);
+        var legalFlag=authCodePattern.test(code);
+        if(!legalFlag)
+        {
+            var span = "";
+            span = "<font color='red'>*验证码错误，请重新输入</font>";
+            $("#span_code").html(span);
+            return false;
+        }
+        else
+        {
+            $.ajax({
+                type: "get", //请求方式
+                dataType: "json",
+                url: "tel_code", //发送请求地址
+                async: false,
+                data: { //发送给数据库的数据
+                    phone: tel,
+                    verifyCode: code
+                },
+                success: function (data)
+                {
+                    if(data.msg == 1)
+                    {
+                        $("#span_code").html("");
+                    }
+                    else if(data.msg == 2)
+                    {
+                        var span = "";
+                        span = "<font color='red'>*验证码错误，请重新输入</font>";
+                        $("#span_code").html(span);
+                        return false;
+                    }
+                    else
+                    {
+                        var span = "";
+                        span = "<font color='red'>*验证码已失效，请重新获取</font>";
+                        $("#span_code").html(span);
+                        return false;
+                    }
+                }
+            })
+        }
+        return true;
+    }
+
+
+    //验证所有
+    function Tel_code()
+    {
+        if(Code())
+        {
+            $("#one").hide();
+            $("#two").hide();
+            $("#three").show();
+        }
+    }
+
+
+    //邮箱找回
+    function Email_back()
+    {
+        var email = $("#user_email").val();
+        $.ajax({
+            type: "get", //请求方式
+            dataType: "json",
+            url: "pwd_email", //发送请求地址
+            async: false,
+            data: { //发送给数据库的数据
+                email: email
+            },
+            success:function(data)
+            {
+                if(data.success == 0)
+                {
+                    location.href='pwd_email';
+                }
+                else if(data.success == 1)
+                {
+                    $("#span_username").html("<font color='red'>*"+data.error+"</font>");
+                    return false;
+                }
+            }
+        })
+    }
+
+
+    //第三步
+    function New_pwd()
+    {
+        var new_pwd = $("#new_pwd").val();
+
+        var Nullpwd = (new_pwd=="");
+        if(Nullpwd)
+        {
+            $("#span_new_pwd").html("<font color='red'>*新密码不能为空</font>");
+            return false;
+        }
+        else if (!/^[a-z]\w{5,23}/.test(new_pwd))
+        {
+            $("#span_new_pwd").html("<font color='red'>*密码必须是字符开头,且密码小于6位或大于24位</font>");
+            return false;
+        }
+        else
+        {
+            $("#span_new_pwd").html("");
+            return true;
+        }
+    }
+
+    function Confirm_pwd()
+    {
+        var new_pwd = $("#new_pwd").val();
+        var confirm_pwd = $("#confirm_pwd").val();
+        var Nullpwd = (confirm_pwd=="");
+        if(Nullpwd)
+        {
+            $("#span_confirm_pwd").html("<font color='red'>*确认密码不能为空</font>");
+            return false;
+        }
+        else if(new_pwd != confirm_pwd)
+        {
+            $("#span_confirm_pwd").html("<font color='red'>*两次输入密码不一致</font>");
+            return false;
+        }
+        else
+        {
+            $("#span_confirm_pwd").html("");
+            return true;
+        }
+    }
+
+    //修改密码
+    function Update_pwd()
+    {
+        if(New_pwd() && Confirm_pwd())
+        {
+            var new_pwd = $("#new_pwd").val();
+            var tel = $("#user_tel").val();
+
+            $.ajax({
+                type: "get", //请求方式
+                dataType: "json",
+                url: "update_pwd", //发送请求地址
+                async: false,
+                data: { //发送给数据库的数据
+                    phone: tel,
+                    new_pwd: new_pwd
+                },
+                success:function(data)
+                {
+                    if(data.success == 0)
+                    {
+                        $("#one").hide();
+                        $("#two").hide();
+                        $("#three").hide();
+                        $("#four").show();
+                    }
+                    else
+                    {
+                        $("#span_new_pwd").html("<font color='red'>*密码不能与近期密码相同，</font>");
+                        return false;
+                    }
+                }
+            })
+        }
+
+    }
+
+
+</script>

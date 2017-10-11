@@ -1,0 +1,14 @@
+table{
+    margin:0 auto;
+    width:90%;
+    min-width:800px;
+    height:200px;
+}
+.pagination{
+
+}
+.pagination li{
+    list-style: none;
+    float:left;
+    width:30px;
+}

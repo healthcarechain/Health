@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/admin/admins/css/pass.css">
+    <title></title>
+</head>
+<body>
+<form class="pro_search_div">
+    <div class="pro_search_list">患者姓名<input type="text" class='pro_search_text' name="chain_user" value='<?php if(isset($search_data["chain_user"])){ echo $search_data["chain_user"];}?>'/></div>
+    <div class="pro_search_list">病案号<input type="text" class='pro_search_text' name="chain_num" value='<?php if(isset($search_data["chain_num"])){ echo $search_data["chain_num"];}?>'/></div>
+    <div class="pro_search_list">出院科室<input type="text" class='pro_search_text' name="chain_department" value='<?php if(isset($search_data["chain_department"])){ echo $search_data["chain_department"];}?>'/></div>
+    <div class="pro_search_list">出院病区<input type="text" class='pro_search_text' name="chain_lesion" value='<?php if(isset($search_data["chain_lesion"])){ echo $search_data["chain_lesion"];}?>'/></div>
+    <div class="pro_search_list pro_search_list_pro">
+        医保类型<input type="text" class='pro_search_text' name="health_insurance"/>
+        修改标志<input type="radio" class="eidt_type" name="archives_modify" value="" checked="checked"/>全部
+        <input type="radio" class="eidt_type" name="archives_modify" value="1"/>已修改
+        <input type="radio" class="eidt_type" name="archives_modify" value="0"/>未修改
+    </div>
+    <div class="pro_search_list pro_search_list_pro">归档时间<input type="text" class='pro_search_text' name="time_start"/>
+        至<input type="text" class='pro_search_text' name="time_end"/>
+        <input type="button" class="pro_search_button" value="查询"/><input type="button" class="pro_search_clear" value="清空"/>
+    </div>
+
+</form>
+<div class="pro_result_table">
+    <p>抽查结果</p>
+    <table class="result_msg">
+        <tr>
+            <td>姓名</td>
+            <td>年龄</td>
+            <td>性别</td>
+            <td>病案号</td>
+            <td>出院科室</td>
+            <td>出院病室</td>
+            <td>修改状态</td>
+            <td>详细信息</td>
+        </tr>
+    </table>
+    <div id="list">
+        <ul></ul>
+    </div>
+    <div id="pagecount"></div>
+</div>
+</body>
+</html>
+<script src="/admin/admins/js/jquery.js"></script>
+<script>
+
+    //    $('.pro_search_button').click(function(){
+    //        var params = $('.pro_search_div').serialize(); // http request parameters.
+    //        params = decodeURIComponent(params,true);
+    ////        window.location.href="{:url('pass_pro')}?arr="+params;
+    //        $.ajax({
+    //            type: "POST",
+    //            url:"{:url('pass/search_pass')}",
+    //            data:{'arr':params},// 序列化表单值
+    //            dataType: "json",
+    //            success: function(data) {
+    //
+    //            }
+    //        });
+    //    })
+    var curPage = 1; //当前页码
+    var total,pageSize,totalPage; //总记录数，每页显示数，总页数
+    //获取数据
+    function getData(page){
+        var params = $('.pro_search_div').serialize(); // http request parameters.
+        params = decodeURIComponent(params,true);
+        $.ajax({
+            type: 'POST',
+            url: "{:url('pass/ajaxs')}",
+            data: {'pageNum':page-1,'arr':params},
+            dataType:'json',
+            beforeSend:function(){
+//            $("#result_msg ul").append("<li id='loading'>loading...</li>");//显示加载动画
+            },
+            success:function(json){
+                $(".result_msg").empty();//清空数据区
+                total = json.total; //总记录数
+                pageSize = json.pageSize; //每页显示条数
+                curPage = page; //当前页
+                totalPage = json.totalPage; //总页数
+                var htm = "<tr><td>姓名</td><td>年龄</td><td>性别</td><td>病案号</td><td>出院科室</td><td>出院病室</td><td>修改状态</td><td>详细信息</td></tr>";
+                var list = json.list;
+                $.each(list,function(index,array){ //遍历json数据列
+                    htm += "<tr>";
+                    htm += "<td>"+array['chain_user']+"</td>";
+                    htm += "<td>"+array['chain_age']+"</td>";
+                    htm += "<td>"+array['chain_sex']+"</td>";
+                    htm += "<td>"+array['chain_num']+"</td>";
+                    htm += "<td>"+array['chain_department']+"</td>";
+                    htm += "<td>"+array['chain_lesion']+"</td>";
+                    htm += "<td>"+array['archives_modify']+"</td>";
+                    htm += "</tr>";
+                });
+                $(".result_msg").append(htm);
+            },
+            complete:function(){ //生成分页条
+                getPageBar();
+                fun();
+            },
+            error:function(){
+                alert("数据加载失败");
+            }
+        });
+    }
+    //获取分页条
+    function getPageBar(){
+        //页码大于最大页数
+        if(curPage>totalPage) curPage=totalPage;
+        //页码小于1
+        if(curPage<1) curPage=1;
+        pageStr = "<span>共"+total+"条</span><span>"+curPage
+            +"/"+totalPage+"</span>";
+
+        //如果是第一页
+        if(curPage==1){
+            pageStr += "<span>首页</span><span>上一页</span>";
+        }else{
+            pageStr += "<span><a href='javascript:void(0)' rel='1'>首页</a></span><span><a href='javascript:void(0)' rel='"+(curPage-1)+"'>上一页</a></span>";
+        }
+
+        //如果是最后页
+        if(curPage>=totalPage){
+            pageStr += "<span>下一页</span><span>尾页</span>";
+        }else{
+            pageStr += "<span><a href='javascript:void(0)' rel='"+(parseInt(curPage)+1)+"'> 下一页</a></span><span><a href='javascript:void(0)' rel='"+totalPage+"'>尾页</a></span>";
+        }
+        $("#pagecount").html(pageStr);
+    }
+    $('.pro_search_button').click(function(){
+        getData(1);
+    })
+    $(function(){
+        getData(1);
+    });
+    function fun(){
+        $("#pagecount span a").on('click',function(){
+            var rel = $(this).attr("rel");
+            if(rel){
+                getData(rel);
+            }
+        });
+    }
+</script>
+</script>

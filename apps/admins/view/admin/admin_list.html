@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel='stylesheet' type="text/css" href="admin/admins/css/admin_control.css" />
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tr>
+        <td>姓名</td>
+        <td>邮箱</td>
+        <td>电话</td>
+        <td>操作</td>
+    </tr>
+
+    {foreach name='user' id='use'}
+    <tr>
+        <td>{$use.username}</td>
+        <td>{$use.user_email}</td>
+        <td>{$use.user_tel}</td>
+        <td><span onclick='del({$use.id})' class="operation">删除</span><span onclick="edit({$use.id})" class="operation">修改</span></td>
+    </tr>
+
+    {/foreach}
+</table>
+{$page}
+</body>
+</html>
+<script src="admin/admins/js/jquery.min.js"></script>
+<script>
+    window.alert = function(){
+        //创建一个大盒子
+        var box = document.createElement("div");
+        //创建一个关闭按钮
+        var button = document.createElement("button");
+        //定义一个对象保存样式
+        var boxName = {
+            width:"500px",
+            height:"180px",
+            backgroundColor:"#f8f8f8",
+            border:"1px solid #ccc",
+            position:"absolute",
+            top:"50%",
+            left:"50%",
+            margin:"-90px 0 0 -250px",
+            zIndex:"999",
+            textAlign:"center",
+            lineHeight:"180px"
+        }
+        //给元素添加元素
+        for(var k in boxName){
+            box.style[k] = boxName[k];
+        }
+        //把创建的元素添加到body中
+        document.body.appendChild(box);
+        //把alert传入的内容添加到box中
+        if(arguments[0]){
+            box.innerHTML = arguments[0];
+        }
+        button.innerHTML = "关闭";
+        //定义按钮样式
+        var btnName = {
+            border:"1px solid #ccc",
+            backgroundColor:"#fff",
+            width:"70px",
+            height:"30px",
+            textAlign:"center",
+            lineHeight:"30px",
+            outline:"none",
+            position:"absolute",
+            bottom:"10px",
+            right:"20px",
+        }
+        for(var j in btnName){
+            button.style[j] = btnName[j];
+        }
+        //把按钮添加到box中
+        box.appendChild(button);
+        //给按钮添加单击事件
+        button.addEventListener("click",function(){
+            box.style.display = "none";
+        })
+    }
+    function del(id){
+        //confirm('确认删除?');
+        $.ajax({
+            type: 'POST',
+            url: "{:url('admin/del_user')}",
+            data: {'id':id},
+            dataType:'json',
+            success:function(data){
+                alert(data);
+                //location.reload();
+            }
+        })
+    }
+</script>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>病案修改</title>
+    <link rel="stylesheet" href="admin/admins/css/pintuer.css">
+    <link rel="stylesheet" href="admin/admins/css/admin.css">
+    <script src="admin/admins/js/jquery.js"></script>
+    <script src="admin/admins/js/pintuer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel"><!--<a href="" style="float:right; display:none;">添加字段</a>-->
+    <div class="panel-head"><strong class="icon-reorder"> 病案修改</strong></div>
+    <div class="padding border-bottom">
+        <a href="#"><button type="button" class="button border-yellow" id="button"><span class="icon-plus-square-o"></span>病案修改不可追溯</button></a>
+    </div>
+</div>
+<table class="table table-hover text-center" border="1">
+    <tr>
+        <th class="checkall">全选</th>
+        <th width="100" style="text-align:left; padding-left:20px;">病案标题</th>
+        <th>姓名</th>
+        <th>年龄</th>
+        <th>性别</th>
+        <th>病案号</th>
+        <th>出院科室</th>
+        <th>出院病区</th>
+        <th>操作</th>
+    </tr>
+    {volist name="data" id="v"}
+    <tr>
+        <td><input type="checkbox" name="check[]" value="{$v.chain_id}"></td>
+        <td>{$v.chain_title}</td>
+        <td>{$v.chain_user}</td>
+        <td>{$v.chain_age}</td>
+        <td>{if condition="$v.chain_sex eq 0"}
+            男
+            {else/}
+            女
+            {/if}
+        </td>
+        <td>{$v.chain_num}</td>
+        <td>{$v.chain_department}</td>
+        <td>{$v.chain_lesion}</td>
+        <td><a href="medical_update?id={$v.chain_id}">修改</a></td>
+    </tr>
+    {/volist}
+</table>
+<div class="field" style="margin-left: 1190px">
+    <span id="Eerror"></span>
+    <!--<input type="checkbox" value="批量删除" onclick="check_del();">-->
+    <!--<input type="button" onclick="check_up();" value="批量修改" class="button bg-main icon-check-square-o">-->
+</div>
+<tr>
+    <td class="button border-yellow">{$data->render()}</td>
+</tr>
+
+</div>
+<script type="text/javascript">
+    function page(page){
+        $url='medical_delete';
+        $.get(url,{page:page},function(){
+
+        })
+    }
+    $(".up").click(function(){
+        var id=$(this).attr('article');
+        var status=$(this).attr('status');
+        var obj=$(this);
+        $.ajax({
+            url:'status_up?id='+id+'&status='+status,
+            type:'get',
+            dataType:'json',
+            success:function(msg){
+                if(msg==1) {
+                    obj.html("<b style='color:green;'>✔</b>");
+                    obj.attr('status','1');
+                }
+                if(msg==0) {
+                    obj.html("<b style='color:red;'>✘</b>");
+                    obj.attr('status','0');
+                }
+            }
+        })
+    });
+
+    //全选
+    $(".checkall").click(function(){
+        $("input[name='check[]']").each(function(){
+            if (this.checked) {
+                this.checked = false;
+            }
+            else {
+                this.checked = true;
+            }
+        });
+    })
+</script>
+</body>
+</html>
+

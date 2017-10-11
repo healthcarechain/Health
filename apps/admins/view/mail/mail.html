@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>后台管理中心</title>
+    <link rel="stylesheet" href="/admin/assets/css/pintuer.css">
+    <link rel="stylesheet" href="/admin/assets/css/admin.css">
+    <script src="/admin/assets/js/jquery.js"></script>
+</head>
+<body style="background-color:#f2f9fd;">
+<div class="header bg-main">
+    <div class="logo margin-big-left fadein-top">
+        <h1><img src="/admin/assets/images/y.jpg" class="radius-circle rotate-hover" height="50" alt="" />后台管理中心</h1>
+    </div>
+    <div class="head-l"><a class="button button-little bg-green" href="index_admin"><span class="icon-home"></span>后台首页</a>&nbsp;&nbsp;<a class="button button-little bg-red" href="logout"><span class="icon-power-off"></span> 退出登录</a> </div>
+</div>
+<div class="leftnav">
+    <div class="leftnav-title"><strong><span class="icon-list"></span>菜单列表</strong></div>
+
+
+
+
+   <h2><span class="icon-user"></span>管理员控制</h2>
+        <ul style="display:none">
+            <li><a href="admin_list" target="right"><span class="icon-caret-right"></span>管理员管理</a></li>
+            <li><a href="admin_add" target="right"><span class="icon-caret-right"></span>管理员添加</a></li>
+        </ul>
+
+        <h2><span class="icon-user"></span>权限控制</h2>
+        <ul style="display:none">
+            <li><a href="role_list" target="right"><span class="icon-caret-right"></span>角色管理</a></li>
+            <li><a href="node_list" target="right"><span class="icon-caret-right"></span>权限管理</a></li>
+        </ul>
+        <h2><span class="icon-user"></span>病案管理</h2>
+        <ul style="display:none">
+        <li><a href="medical_add" target="right"><span class="icon-caret-right"></span>添加病案</a></  li>
+        <li><a href="medical_delete" target="right"><span class="icon-caret-right"></span>病案删除</a></li>
+        <li><a href="medical_up" target="right"><span class="icon-caret-right"></span>病案修改</a></li>
+        </ul>
+        <h2><span class="icon-user"></span>监控查询</h2>
+        <ul style="display:none">
+            <li><a href="pass_index" target="right"><span class="icon-caret-right"></span>病案修改情况查询</a></li>
+            <li><a href="pass_pro" target="right"><span class="icon-caret-right"></span>病案高级查询</a></li>
+            <!--<li><a href="adv.html" target="right"><span class="icon-caret-right"></span>风险</a></li>-->
+            <!--<li><a href="adv.html" target="right"><span class="icon-caret-right"></span>列表</a></li>-->
+        </ul>
+
+        <h2><span class="icon-user"></span>病案入链</h2>
+        <ul style="display:none">
+            <li><a href="chain_list" target="right"><span class="icon-caret-right"></span>病案入链</a></li>
+            <li><a href="chain_file" target="right"><span class="icon-caret-right"></span>病案归档</a></li>
+            <li><a href="chain_uplist" target="right"><span class="icon-caret-right"></span>入链修改</a></li>
+            <!--<li><a href="adv.html" target="right"><span class="icon-caret-right"></span>自动入链</a></li>-->
+        </ul>
+
+        <h2><span class="icon-user"></span>消息通知</h2>
+        <ul style="display:none">
+            <li><a href="invest_list" target="right"><span class="icon-caret-right"></span>通知列表</a></li>
+            <!--<li><a href="invest_record" target="right"><span class="icon-caret-right"></span>记录</a></li>-->
+            <!--<li><a href="invest_plan" target="right"><span class="icon-caret-right"></span>进度统计</a></li>-->
+        </ul>
+
+      <h2><span class="icon-pencil-square-o"></span>系统设置</h2>
+      <ul>
+        <li><a href="adv" target="right"><span class="icon-caret-right"></span>系统首页</a></li>
+        <li><a href="notice_list" target="right"><span class="icon-caret-right"></span>系统管理</a></li>
+        <li><a href="notice_add" target="right"><span class="icon-caret-right"></span>清楚缓存</a></li>
+      </ul>
+
+</div>
+<script type="text/javascript">
+    $(function(){
+        $(".leftnav h2").click(function(){
+            $(this).next().slideToggle(200);
+            $(this).toggleClass("on");
+        })
+        $(".leftnav ul li a").click(function(){
+            $("#a_leader_txt").text($(this).text());
+            $(".leftnav ul li a").removeClass("on");
+            $(this).addClass("on");
+        })
+    });
+</script>
+<ul class="bread">
+    <li><a href="personal" target="right" class="icon-home"> 首页</a></li>
+    <li><a href="##" id="a_leader_txt">个人信息</a></li>
+    <li><b>当前语言：</b><span style="color:red;">中文</php></span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;切换语言：<a href="##">中文</a> &nbsp;&nbsp;<a href="##">英文</a> </li>
+</ul>
+<div class="admin">
+    <iframe scrolling="auto" rameborder="0" src="personal" name="right" width="100%" height="100%"></iframe>
+</div>
+<div style="text-align:center;">
+    <p>医疗链网站后台</p>
+</div>
+</body>
+</html>
+

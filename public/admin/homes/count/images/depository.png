@@ -1,0 +1,714 @@
+<!doctype html>
+
+
+    
+    
+    
+    
+    
+
+
+    
+
+    
+    
+
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <script>
+            window._jHeadStart = ( new Date() ).getTime();
+            window.tplConf = {
+                user : {
+                    userId : 'null'
+                },
+                pageKey : '',
+                autoPV : true,
+                autoIdentify : true,
+                we_renrendai_host: 'https://www.renrendai.com',
+                _isWeCom: 'false',
+                target: '_self',
+                isProduction : true
+            };
+        </script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <meta name="renderer" content="webkit">
+        <meta name="google-site-verification" content="oQXrGa_mTgxg7joO0himE0QuFeqOVmm-SDC1H2dzT4c">
+        <meta name="baidu-site-verification" content="wibJopuIuI" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        
+<meta name="keywords" content="WE|计算器|理财计算器|U计划|薪计划|散标投资|人人贷|WE理财">
+<meta name="description" content="Wealth Evolution( www.we.com) (简称人人贷WE理财)是人人贷公司旗下的理财品牌。人人贷WE理财作为原人人贷平台(www.renrendai.com)理财端的升级，为广大理财用户提供更多元的投资选择与更优质的综合理财服务。投资理财用户可通过WE官方网站进行散标投资、加入U计划、薪计划、购买债权转让等方式进行投资获得稳定收益。">
+
+<title>理财计算器-人人贷理财官网</title>
+
+
+        
+            <link rel="shortcut icon" type="image/x-icon" href="/ps/static/common/static/img/favicon-rrd.ico" />
+        
+
+        <link rel="stylesheet" type="text/css" href="/ps/static/common/static/css/base_55954ec.css">
+
+        
+        
+
+
+        
+        
+        
+
+        
+        
+
+        
+        
+        <script type="text/javascript">
+    window.zhuge = window.zhuge || [];
+    window.zhuge.methods = "_init debug identify track trackLink trackForm page".split(" ");
+    window.zhuge.factory = function(b) {
+        return function() {
+            var a = Array.prototype.slice.call(arguments);
+            a.unshift(b);
+            window.zhuge.push(a);
+            return window.zhuge;
+        }
+    };
+    for (var i = 0; i < window.zhuge.methods.length; i++) {
+        var key = window.zhuge.methods[i];
+        window.zhuge[key] = window.zhuge.factory(key);
+    }
+    window.zhuge.load = function(b, x) {
+        if (!document.getElementById("zhuge-js")) {
+            var a = document.createElement("script");
+            var verDate = new Date();
+            var verStr = verDate.getFullYear().toString()
+                + verDate.getMonth().toString() + verDate.getDate().toString();
+
+            a.type = "text/javascript";
+            a.id = "zhuge-js";
+            a.async = !0;
+            a.src = "https://www.we.com/cms/5864b0d6a24d131067ef7956/js/zhuge.js?v=" + verStr;
+            a.onerror = function(){
+                window.zhuge.identify = window.zhuge.track = function(ename, props, callback){
+                    if(callback && Object.prototype.toString.call(callback) === '[object Function]')callback();
+                };
+            };
+            var c = document.getElementsByTagName("script")[0];
+            c.parentNode.insertBefore(a, c);
+            window.zhuge._init(b, x)
+        }
+    };
+    //区分线上线下上报的app key
+    var app_key = window.tplConf.isProduction?"ee112f4bcbe648a0a0958ff03af06b2a":"2da9e18043f74bceb761b72ca6f3ae78";
+    window.zhuge.load(app_key);
+</script>
+        
+
+
+
+        
+    <link rel="stylesheet" href="/ps/static/pkg/common_wdg_2070c43.css" /><link rel="stylesheet" href="/ps/static/pkg/common_nm_75043ea.css" /><link rel="stylesheet" href="/ps/static/pkg/p2p_wdg_a6d1551.css" /><link rel="stylesheet" href="/ps/static/p2p/page/calculator/calculator_c3a570d.css" /></head>
+
+    <body >
+
+        <!--[if lt IE 8]>
+        <div style='border: 4px solid #FFF500; background: #FDFDC8; text-align: center; clear: both; height: 75px; position: absolute; z-index:999999999; right: 2px; bottom: 2px; padding:0 8px;'>
+            <div style='position: absolute; right: 3px; top: 3px; font-weight: bold;z-index:999999999'><a href='#' onclick='javascript:this.parentNode.parentNode.style.display="none"; return false;'>关闭</a></div>
+            <div style='width: 740px; margin: 0 auto; text-align: left; padding: 0; overflow: hidden; color: black;'>
+                <div style='width: 675px; float: left;'>
+                    <div style='font-size: 16px; font-weight: bold; margin-top: 12px;'>您使用的是已经过时的IE浏览器</div>
+                    <div style='font-size: 13px; margin-top: 6px; line-height: 16px;'>为了让您在人人贷有最佳的使用体验，请升级到 <a href="http://windows.microsoft.com/en-US/internet-explorer/download-ie">最新版本IE浏览器</a>, 或者使用其他高级浏览器如 <a href="https://www.google.com/intl/en/chrome/browser/">Chrome(谷歌浏览器)</a> 或 <a href="http://www.mozilla.org/en-US/firefox/new">Firefox(火狐浏览器)</a></div>
+                </div>
+            </div>
+        </div>
+        <![endif]-->
+
+        
+        <img style="display: none;" src="/jsid" />
+
+        
+            
+            <div class="wdg-werenrendai-top-header">
+    <div class="main-section">
+        <span class="tel-phone"><i class="icon-phone"></i>客服电话: 400-090-6600</span>
+        <ul class="site-nav">
+            <li class="nav-item padding-item"><a target="_blank" href="https://www.we.com" style="color: #ff711c">返回WE理财首页</a></li>
+            
+
+            <li class="nav-item padding-item"><a target="_blank" href="/pc/about/rrd">关于我们</a></li>
+
+            <li class="nav-item padding-item"><a target="_blank" href="/pc/about/rrdHelp/help">帮助中心</a></li>
+
+            <li class="nav-item padding-item"><a target="_blank" href="http://bbs.we.com/">用户论坛</a></li>
+
+            <li class="nav-item padding-item"><i class="icon-mobile3"></i><a target="_blank" href="/pc/app-download.html">移动客户端</a></li>
+        </ul>
+    </div>
+</div>
+
+            <div class="wdg-werenrendai-second-header">
+    <div class="main-section current-channel-index">
+        <a href="/" class="brand-logo mt15">
+            
+            <!--首页对logo添加h1标签-->
+            <h1 class="rrd-logo">人人贷</h1>
+            
+        </a>
+        
+        <ul class="site-nav">
+            <li class="channel-item active-channel"><a href="/">首页</a></li>
+            <li class="channel-item ">
+                <a href="/pc/uPlan.html">U计划</a>
+            </li>
+            <li class="channel-item "><a href="/financeplan/listPlan!detailPlan.action?cmsParam=12" id="J_premium">优选计划</a></li>
+            <li class="channel-item "><a href="/autoinvestplan">薪计划</a></li>
+            <li class="channel-item "><a href="/loan">债权</a></li>
+            <li class="channel-item ">
+                <a href="/pc/college.html" target="_blank">人人学院</a>
+            </li>
+
+            <li class="channel-item" style="width: 144px;"><a href="/credit" target="_blank">我要借款/还款</a></li>
+            <li class="user-item fn-clear" num="">
+                
+                    <div class="denglu">
+                        <a target="_self" href="/pc/passport/index/register?registerSource=web_top&wpFromPos=topHeader">注册</a> / <a target="_self" href="/pc/passport/index/login">登录</a>
+                    </div>
+                
+            </li>
+        </ul>
+        
+    </div>
+</div>
+<div id="header-helper" style="display: none;">
+    <span id="header-helper-authenticated">
+         false 
+    </span>
+</div>
+
+
+            
+        
+
+        <div class="main-content">
+
+            
+    <div class="main-section page-section pg-calculator">
+    <h2 class="section-title">投资计算器</h2>
+    <div class=" ui-invest-tab">
+        <div class="container_12_1080" >
+            <!-- Uplan Fixed Loanplan-->
+            <div class="ui-tab ui-tab-transparent invest-tab-title " id="calculate-tab">
+                <ul class="ui-tab-items fn-clear " id="calculate">
+                    <li data-name="J_tab_uplan" class="ui-tab-item ui-tab-item-4 ">
+                        <a class="ui-tab-item-link">U计划</a>
+                    </li>
+                    <li data-name="J_tab_fixed" class="ui-tab-item ui-tab-item-4 ">
+                        <a class="ui-tab-item-link">优选计划</a>
+                    </li>
+                    <li data-name="J_tab_fixed" class="ui-tab-item ui-tab-item-4 ">
+                        <a class="ui-tab-item-link">薪计划</a>
+                    </li>
+                    <li data-name="J_tab_loan" class="ui-tab-item ui-tab-item-4  ui-tab-item-current ">
+                        <a class="ui-tab-item-link">散标投资</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container_12_1080" id="calculate-tab-content">
+            <div class="" id="calculate-tab-item">
+                <!--U计划详情-->
+                <div id="J_tab_uplan" class="ui-tab-content " data-name="J_tab_uplan">
+                    <form class="ui-form j-card uplan-form" id="calcForm1" method="post" data-name="calculator">
+    <div class="fn-clear input-div" style="z-index:99990; position:relative;">
+        <span class="fn-left w250 align-right label">产品类型</span>
+        <div class="fn-left ui-form-item ui-form-item-nolabel last ui-selectdrop">
+            <div class="s_select_bg  clearfix J_select_btn">
+                <span class="txt J_txt">U计划 - 1月</span>
+                <span class="arrow"><i class="icon-down3"></i></span>
+                <input lockPeriod="1" type="hidden" class="affix" name="UType" value="A" id="UType">
+            </div>
+            <ul style="display: none;" class="popBox selectAttach J_popBox" style="height:123px;">
+                
+                <li month="1"><span>U计划 - 1月</span></li>
+                
+                <li month="3"><span>U计划 - 3月</span></li>
+                
+                <li month="6"><span>U计划 - 6月</span></li>
+                
+                <li month="12"><span>U计划 - 12月</span></li>
+                
+                <li month="24"><span>U计划 - 24月</span></li>
+                
+            </ul>
+        </div>
+        <span class="fn-left  w208 align-right label">收益处理方式</span>
+        <div class="fn-left ui-form-item ui-form-item-nolabel last ui-selectdrop">
+            <div id="" class="s_select_bg clearfix J_select_btn">
+                <span class="txt J_txt">收益再投资</span>
+                <span class="arrow"><i class="icon-down3"></i></span>
+                <input type="hidden" class="affix" name="rType" value="INVEST" id="rType">
+            </div>
+            <ul style="display: none;" class="popBox selectAttach J_popBox ">
+                <li datavalue="INVEST" class=""><span>收益再投资</span></li>
+                <li datavalue="RRD" class=""><span>提取至账户</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="fn-clear input-div" style="z-index:999; position:relative;">
+        <span class="ui-label fn-left  w250 align-right label mt6">投资金额</span>
+        <div class="fn-left ui-form-item ui-form-item-nolabel mt6">
+            <input class="ui-input w110 new-input" type="text" id="touziAmount" name="touziAmount" data-is="istouziAmount" maxlength=10>
+            <p class="unit">元</p>
+            <label for="touziAmount" id="touziAmount-error-label" class="error" style="display: none;">投资金额范围须为1000的整数倍且不能为空</label>
+        </div>
+        <div class="submit-wrap fn-left ml224">
+            <input id="calcbt1" type="submit" class="ui-button w180 fn-left ui-button-mid mr20 j-btn j-btn-blue" value="开始计算">
+        </div>
+    </div>
+</form>
+
+
+<!--计算结果-->
+<div class="page-section result-con  j-card">
+    <div id="calcResult_u" class="calc-result-uplan ">
+        <div class="ui-box-title-new fn-clear">
+            <h2 class="J_tit section-title bd-bottom">收益描述 </h2>
+        </div>
+        <div class=" fn-clear result-info-wrap color-white-bg">
+            <dl class="fn-left result-info-item col-1-2">
+                <dt class="">- 投资金额 -</dt>
+                <dd>
+                    <span class="highlight num-family" id="J_CJJE">0.00</span>元
+                </dd>
+            </dl>
+            <div class="fn-left result-info-split"></div>
+            <dl class="fn-left result-info-item col-1-2">
+                <dt class="">- 预期收益 -</dt>
+                <dd>
+                    <span class="highlight num-family" id="J_YQSY">0.00</span>元
+                </dd>
+                <dd style="color: #cecece;font-size: 12px;">预期收益不代表实际收益</dd>
+            </dl>
+            <!--<ul class="U_detail_ul">--%>
+                <%--<li><span>投资金额</span><br><em id="J_CJJE">￥0.00</em></li>--%>
+                <%--<li><span>预期收益</span><br><em id="J_YQSY">￥0.00</em></li>--%>
+            <%--</ul>-->
+        </div>
+    </div><!--/.calcResult_u-->
+</div>
+                </div>
+                <!--优选-->
+                <div id="J_tab_premium" class="ui-tab-content " data-name="J_tab_premium">
+                    <form class="ui-form form-fixed j-card premium-form" method="post" data-name="calculator">
+    <div class="fn-clear input-div">
+        <span class="ui-label fn-left w80 label mt6">投资金额</span>
+        <div class="fn-left ui-form-item ui-form-item-nolabel mt6">
+            <input class="ui-input w110 new-input" type="text" id="premiumAmount" name="fixedAmount" data-is="isFixedAmount"
+                   maxlength="10" data-condition="12" data-start="1000" data-append="1000">
+            <p class="unit">元</p>
+            <label for="premiumAmount" id="premiumAmount-error-label" class="error" style="display: none;">金额500-20000元之间，且100的倍数</label>
+        </div>
+        <div class="submit-wrap fn-left">
+            <input id="calcbtFxied" type="submit" class="ui-button ui-button-mid mr20 j-btn j-btn-blue w230" value="开始计算">
+        </div>
+    </div>
+</form>
+
+<div class="page-section j-card premium-result" id="J_premium_result">
+    <div class="calc-result-fixed pg-calculator-content color-white-bg ">
+        <div class="ui-box-title-new fn-clear">
+            <h2 class="section-title bd-bottom">收益描述</h2>
+        </div>
+        <div class="result-table">
+            <div class="rate-wrap fn-clear">
+                <div>预期年化利率&nbsp;<span class="percent"><span>8.8</span>%</span></div>
+                <div>期限&nbsp;<span class="font-bold limit"><span>12</span>个月</span></div>
+                <div>自由期&nbsp;<span class="font-bold free-limit"><span>2</span>年</span></div>
+            </div>
+            <div class="table-wrap">
+                <table class="table">
+                    <tr class="t-header">
+                        <th>期限</th>
+                        <th>年预期收益</th>
+                        <th>日预期收益</th>
+                    </tr>
+                    <tr>
+                        <td>12个月内</td>
+                        <td class="year-res-first t-orange">--</td>
+                        <td class="day-res-first t-orange">--</td>
+                    </tr>
+                    <tr>
+                        <td>自由期第1年</td>
+                        <td class="year-res-second t-orange">--</td>
+                        <td class="day-res-second t-orange">--</td>
+                    </tr>
+                    <tr>
+                        <td>自由期第2年</td>
+                        <td class="year-res-third t-orange">--</td>
+                        <td class="day-res-third t-orange">--</td>
+                    </tr>
+                </table>
+                <div class="tip-text">预期收益不代表实际收益</div>
+            </div>
+        </div>
+    </div>
+</div>
+                </div>
+                <!--薪计划详情-->
+                <div id="J_tab_fixed" class="ui-tab-content " data-name="J_tab_fixed">
+                    <form class="ui-form form-fixed j-card salary-form" id="calcFormFixed" method="post" data-name="calculator">
+    <div class="fn-clear input-div">
+        <span class="ui-label fn-left w80 label ml75 mt6">每月投资金额</span>
+        <div class="fn-left ui-form-item ui-form-item-nolabel mt6">
+            <input class="ui-input w110 new-input" type="text" id="fixedAmount" name="fixedAmount" data-is="isFixedAmount"
+                   maxlength="10">
+            <p class="unit">元</p>
+            <label for="fixedAmount" id="fixedAmount-error-label" class="error" style="display: none;">金额500-20000元之间，且100的倍数</label>
+        </div>
+        <span class="fn-left w80 label ml58 mt6">投资期限</span>
+        <div class="fn-left ui-form-item ui-form-item-nolabel last ui-selectdrop ui-selectdrop-disabled mt6">
+            <div id="" class="s_select_bg  clearfix J_select_btn fix-month">
+                <span id="isfixMonth" data-month="12" class="txt J_txt">12个月</span>
+                <span class="arrow"><i class="icon-down3"></i></span>
+            </div>
+        </div>
+        <div class="submit-wrap fn-left ml58">
+            <input id="calcbtFxied" type="submit" class="ui-button ui-button-mid mr20 w230 j-btn j-btn-blue" value="开始计算">
+        </div>
+
+    </div>
+
+</form>
+
+
+<!--计算结果-->
+<div class="page-section result-con  j-card">
+    <div id="calcResult_fixed" class="calc-result-fixed pg-calculator-content color-white-bg ">
+        <div class="ui-box-title-new fn-clear">
+            <h2 class="section-title bd-bottom">收益描述</h2>
+        </div>
+        <div class=" fn-clear result-info-wrap color-white-bg">
+            <dl class="fn-left result-info-item">
+                <dt>- 总投资金额 -</dt>
+                <dd>
+                    <span id="isFixAount" class="highlight num-family">0.00</span>元
+                </dd>
+            </dl>
+            <div class="fn-left result-info-split"></div>
+            <dl class="fn-left result-info-item">
+                <dt>- 预期年化利率 -</dt>
+                <dd>
+                    <span id="isFixRate" class="highlight num-family">0</span>%
+                </dd>
+            </dl>
+            <div class="fn-left result-info-split"></div>
+            <dl class="fn-left result-info-item">
+                <dt>- 预期收益 -</dt>
+                <dd>
+                    <span id="isFixEarn" class="highlight num-family">0.00</span>元
+                </dd>
+            </dl>
+
+        </div>
+        <div class="result-tip section-padding">注：预期年化利率仅供参考，因存在延期支付及资金闲置等因素，最终收益会与预期有所偏差，请以实际为准。</div>
+
+    </div>
+</div>
+
+                </div>
+                <!--散标投资详情-->
+                <div id="J_tab_loan" class="ui-tab-content  ui-tab-content-current " data-name="J_tab_loan">
+                    <!--散标投资-->
+<form class="ui-form pleft20 j-card loan-form" id="calcForm" method="post" data-name="calculator">
+    <div class="fn-clear input-div">
+        <span class="ui-label fn-left w80 label">出借金额</span>
+        <div class="fn-left w240 ui-form-item ui-form-item-nolabel">
+            <input class="ui-input w110 new-input" type="text" id="borrowAmount" name="borrowAmount" data-is="isBorrowAmount" maxlength=10>
+            <p class="unit">元</p>
+            <label for="borrowAmount" id="borrowAmount-error-label" class="error" style="display: none;">出借金额范围须为50的倍数</label>
+        </div>
+        <span class="fn-left w80 label new-column">年化利率</span>
+        <div class="fn-left w240 ui-form-item ui-form-item-nolabel last">
+            <input class="ui-input w110 new-input" type="text" id="yearRate" name="yearRate" data-is="isOneDecimal isRateOver" maxlength=10>
+            <p class="unit">%</p>
+            <label for="yearRate" id="yearRate-error-label" class="error" style="display: none;">您输入的借款年利率超出范围，请重新输入！</label>
+        </div>
+    </div>
+    <div class="fn-clear input-div">
+        <span class="fn-left w80 label mt6">借款期限</span>
+        <div class="fn-left ui-form-item ui-form-item-nolabel mt6">
+            <input class="ui-input w110 new-input" type="text" value="" id="repayDate" name="repayDate" data-is="isIntNum isRepayDate" maxlength=10>
+            <p class="unit" >个月</p>
+            <label for="repayDate" id="repayDate-error-label" class="error" style="display: none;">借款期限须为1-48个月</label>
+        </div>
+        <span class="fn-left w80 label new-column mt6">还款方式</span>
+        <div class="fn-left ui-form-item ui-form-item-nolabel last ui-selectdrop mt6">
+            <div id="" class="s_select_bg clearfix J_select_btn">
+                <span class="txt J_txt">等额本息</span>
+                <span class="arrow"><i class="icon-down3"></i></span>
+                <input type="hidden" class="affix" name="repayType" value="DEBX" id="repayType">
+            </div>
+            <ul style="display: none;" class="popBox selectAttach J_popBox ">
+                <li datavalue="DEBX" class=""><span>等额本息</span></li>
+                <li datavalue="FXHB" class=""><span>每月付息，到期还本</span></li>
+            </ul>
+        </div>
+        <div class="fn-left submit-wrap">
+            <input type="checkbox" id="isShowTable" name="isShowTable" checked="checked" value="true" />
+            <input type="hidden" name="mgmtAmount" value="0.3" />
+            <input id="calcbt" type="submit" class="ui-button ui-button-mid j-btn j-btn-blue" value="开始计算">
+        </div>
+    </div>
+</form>
+
+<!--计算结果-->
+<div class="page-section result-con  j-card">
+    <div id="calcResult" class=""></div>
+    <div id="J_calculator-article" class="section-padding calculator-article ">
+        <ul class="text-small">
+            <li><em>等额本息</em>，即借款人每月以相等的金额偿还借款本息，也是银行房贷等采用的方法。因计算中存在四舍五入，最后一期还款金额与之前略有不同。</li>
+            <li><em>每月付息，到期还本</em>，即借款人每月偿还固定利息，最后一期偿还全部本金。</li>
+            <li><em>注</em>：因计算器采用了以50元为一份的计算方式，计算结果与2013年10月14日之前的债权存在偏差，具体情况以账户中显示的信息为准。</li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        </div>
+
+        
+
+        
+            
+            <div class="werenrendai-footer">
+    <div class="footer-center">
+        <div class="friend-link">
+            <div class="f-l-l">友情链接</div>
+            <div class="f-l-r">
+                <ul>
+                    <li class="fn-left">
+                        <a class="gray" target="_blank" href="https://www.renrendai.com/pc/college.html">人人学院</a>
+                    </li>
+                    <li class="fn-left">
+                        <a class="gray" target="_blank" href="https://www.we.com">WE理财</a>
+                    </li>
+                    <li class="fn-left">
+                        <a class="gray" target="_blank" href="https://www.renrendai.com/pc/uPlan.html">U计划</a>
+                    </li>
+                    <li class="fn-left">
+                        <a class="gray" target="_blank" href="http://www.ucredit.com">人人友信</a>
+                    </li>
+                    <li class="fn-left">
+                        <a class="gray" target="_blank" href="http://bbs.we.com">用户论坛</a>
+                    </li>
+                    <li class="fn-left">
+                        <a class="gray" target="_blank" href="https://www.renrendai.com/autoinvestplan">薪计划</a>
+                    </li>
+                    <li class="fn-left">
+                        <a class="gray" target="_blank" href="https://www.renrendai.com/loan">债权</a>
+                    </li>
+                </ul>
+                <!--<span class="sanjiao icon-show"><i></i></span>-->
+            </div>
+        </div>
+        <div class="introduce" style="display: none;">
+            <ul class="fn-clear">
+                <li class="fn-left">
+                    <a class="gray" target="_blank" href="/about/about.action?flag=contact">联系我们</a>
+                </li>
+            </ul>
+        </div>
+        <div class="introduce">
+            <ul class="fn-clear icons">
+                <li class="fn-left">
+                    客户服务
+                </li>
+                <li class="fn-left"><a id="wexinBtn" class="gray" href="javascript:;" tabindex="-1">
+                    微信</a></li>
+                <li class="fn-left"><a class="gray" target="_blank" rel="external nofollow" href="http://e.weibo.com/renrendai?ref=http%3A%2F%2Fwww.renrendai.com%2F">新浪微博</a></li>
+                <li class="fn-left"><a class="gray cursor-pointer" rel="external nofollow" target="_blank" onclick="online_service();">在线客服</a></li>
+            </ul>
+        </div>
+        <div class="desc">
+            <span class="up-line"></span>
+            <span class="down-line"></span>
+            <div class="d-l">
+                <p class="first">© <span class="year">2017</span> 人人贷商务顾问(北京)有限公司 All rights reserved </p>
+                <p class="gray"><span>京ICP证 100953号</span> <span style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">京公网安备 11010802021944</span> 京ICP备12025643号-1</p>
+                <p>人人贷商务顾问(北京)有限公司: 市场有风险  投资需谨慎  座机号码 010-53232880</p>
+            </div>
+            <div class="d-c">
+                <div class="d-c-wx"><img src="/ps/static/common/widget/werenrendai-home/footer/assets/we-weixing_10afe11.png" alt="人人贷微信公众号"/></div>
+                <div class="d-c-app"><img src="/ps/static/common/widget/werenrendai-home/footer/assets/app-weixin_e175ae1.png" alt="人人贷app下载"/></div>
+            </div>
+            <div class="d-r">
+                <div class="phone">400-090-6600</div>
+                <div class="time">服务时间: 9:00-21:00</div>
+            </div>
+        </div>
+        <div class="img-show">
+            <a rel="external nofollow" class="ui-footer-verification-item fn-left trust" id="kx_verify" href="https://ss.knet.cn/verifyseal.dll?sn=e13042311010040288j4wq000000&ct=df&a=1&pa=931969"title="人人贷已通过中网权威数据库对比，获得“可信网站”身份验证，您可放心使用。"  target="_blank">
+            </a>
+            <a rel="external nofollow" class="ui-footer-verification-item fn-left internet" href="http://si.trustutn.org/info?sn=881141203000033878231" title="人人贷已通过认证联盟权威数据库对比，获得“互联网金融行业认证”，您可放心使用。" target="_blank"></a>
+            <a rel="external nofollow" class="ui-footer-verification-item fn-left itrust" title="人人贷已经成为中国互联网信用评价中心网络诚信联盟成员，并且完成企业信用评级 " href="http://www.itrust.org.cn/home/index/itrust_certifi/wm/2554879344" target="_blank"></a>
+            <a rel="external nofollow" class="ui-footer-verification-item fn-left customer" title="人人贷获评12315.com客户满意度测评中心最高等级满意度" href="http://www.itrust.org.cn/home/index/satification_certificate/wm/MY2017061202" target="_blank"></a>
+            <a rel="external nofollow" class="ui-footer-verification-item fn-left copper" title="人人贷已经完成在公安机关的信息备案，您可了解网站相关备案信息。" href="http://gawa.bjchy.gov.cn/websearch/" target="_blank" ></a>
+            <!--<a class="ui-footer-verification-item fn-left certificate" title="人人贷已经完成在北京市工商局网站备案，您可了解网站相关备案信息。" href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202013052900002" target="_blank" ></a>-->
+            <a rel="external nofollow" class="ui-footer-verification-item fn-left hundred" title="人人贷为AAA级信用企业的互联网百强企业证书。" href="http://www.we.com/cms/5788c3322fc6cb3b46b9e7e2/common/footer/2016%E5%B9%B4%E4%BA%92%E8%81%94%E7%BD%91%E7%99%BE%E5%BC%BA%E4%BC%81%E4%B8%9A-%E8%AF%81%E4%B9%A6.pdf" target="_blank" ></a>
+            <a rel="external nofollow" class="ui-footer-verification-item fn-left norton" title="人人贷已引入VeriSign SSL加密技术，您的隐私及个人资料安全已受最高级别的保护。" href="https://trustsealinfo.websecurity.norton.com/splash?form_file=fdf/splash.fdf&dn=renrendai.com&lang=zh_cn" target="_blank" ></a>
+
+        </div>
+    </div>
+</div>
+<!--<ul class="fixed-download-goBack">
+    <li class="fixed-calculator">
+        <a class="fixed-icon" target="_blank" href="/lend/calculator.action?prodType=Loanplan"></a>
+    </li>
+    <li class="fixed-service">
+        <a class="fixed-icon" href="javascript:" onclick="online_service();"></a>
+    </li>
+    <li class="fixed-download">
+        <a class="fixed-icon" href="javascript:"></a>
+        <div class="download-app-wrap-opacity">
+            <div class="fixed-arrow"></div>
+        </div>
+        <div class="download-app-wrap">
+            <h2>人人贷WE理财APP下载</h2>
+            <div class="fn-clear">
+                <div class="ewm-big">
+                    <img src="assets/ewm-big.png?__inline" alt="二维码" />
+                </div>
+                <div class="download-btns">
+                    <a target="_blank" class="ios" href="http://itunes.apple.com/us/app/id883561142?mt=8"><img src="assets/ios.png?__inline" alt="ios下载" /></a>
+                    <a target="_blank" href="http://www.we.com/event/download.action?type=apk"><img src="assets/android.png?__inline" alt="android下载" /></a>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="fixed-goTop">
+        <a class="fixed-icon" href="javascript:"></a>
+    </li>
+</ul>-->
+
+<div class="fixed-download-link">
+    <div class="download-link-wrap">
+        <a class="calc" href="/pc/calculator/prodType/Loanplan" target="_blank">
+            <img src="/ps/static/common/widget/werenrendai-home/footer/assets/fixed/calc_7165130.png" />
+            <div class="hover">收益计算</div>
+        </a>
+        <a class="help" onclick="online_service();" href="javascript:;">
+            <img src="/ps/static/common/widget/werenrendai-home/footer/assets/fixed/help_9d76e33.png" />
+            <div class="hover">在线客服</div>
+        </a>
+        <a class="download">
+            <img src="/ps/static/common/widget/werenrendai-home/footer/assets/fixed/download_c30dbfb.png" />
+            <div class="hover">下载APP</div>
+        </a>
+        <a class="top">
+            <img src="/ps/static/common/widget/werenrendai-home/footer/assets/fixed/arrow_fbf4659.png" alt="" />
+        </a>
+    </div>
+    <div class="app-link-wrap">
+        <img class="qrcode" src="/ps/static/common/widget/werenrendai-home/footer/assets/fixed/qrcode_c0a844e.png" alt="" />
+        <div class="link">
+            <div class="text">人人贷理财APP下载</div>
+            <a rel="external nofollow" href="https://itunes.apple.com/us/app/id883561142?mt=8" target="_blank" class="ios">iOS版</a>
+            <a href="/event/download.action?type=apk" target="_blank" class="android">Android版</a>
+        </div>
+    </div>
+</div>
+
+<div class="fn-hide">
+    <div id="weixin-content" class="p20 text-center">
+        <img src="/ps/static/common/static/img/weixin_rrd_5b83f9c.jpg" style="width:250px" />
+        <p>微信扫一扫，人人贷理财里动态全知道！</p>
+    </div>
+</div>
+
+
+<script type='text/javascript'>
+    function online_service() {
+        
+            window.open('http://chat.looyuoms.com/chat/chat/p.do?c=20000293&f=10042100&g=10048378&site=5372&r=%23params%3A姓名%2C游客', '_blank', 'height=544, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');
+        
+    }
+
+</script>
+
+
+
+            
+        
+
+        
+        
+    
+
+
+        <script>
+            /*
+            var _hmt = _hmt || [];
+            (function() {
+                var hm = document.createElement("script");
+                //we，rerendai使用不同的百度统计代码
+                if(window.tplConf._isWeCom == 'true'){
+                    hm.src = "//hm.baidu.com/hm.js?16f9bb97b83369e62ee1386631124bb1";
+                }else{
+                    hm.src = "https://hm.baidu.com/hm.js?a00f46563afb7c779eef47b5de48fcde";
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+            */
+
+            //ga统计
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+            ga('create', 'UA-93150356-1', 'auto');
+            ga('send', 'pageview');
+        </script>
+        
+
+        
+        
+    <script type="text/javascript" src="/ps/static/common/static/js/mod_f76e019.js"></script><script type="text/javascript" src="/ps/static/pkg/common_nm_65b3a3a.js"></script><script type="text/javascript" src="/ps/static/pkg/common_wdg_d63814f.js"></script><script type="text/javascript" src="/ps/static/pkg/p2p_wdg_e6a2cc4.js"></script><script type="text/javascript" src="/ps/static/p2p/page/calculator/calculator_e5feb1d.js"></script><script type="text/javascript" src="/ps/static/common/page/layout_b972aa2.js"></script><script type="text/javascript">!function() {
+            require(["common:page/layout.js"] , function(app){
+                
+                app.initUtmOperate();
+            });
+        }();
+!function() {
+    require(["common:widget/werenrendai-home/second-header/second-header"], function(header){
+    header.init();
+    });
+}();
+!function() {
+    require(["common:widget/werenrendai-home/footer/footer"], function(){});
+}();
+!function() {
+        require(["p2p:page/calculator/calculator.js"], function(calc){
+            calc.init();
+        });
+    }();
+!function() {
+
+
+        }();</script></body>
+
+</html>

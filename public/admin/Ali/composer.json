@@ -1,0 +1,5 @@
+{
+    "autoload": {
+    	"files": ["comm/functions.php"]
+    }
+}

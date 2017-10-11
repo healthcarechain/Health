@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>病案添加</title>
+    <link rel="stylesheet" href="admin/admins/css/pintuer.css">
+    <link rel="stylesheet" href="admin/admins/css/admin.css">
+    <script src="admin/admins/js/jquery.js"></script>
+    <script src="admin/admins/js/pintuer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>病案入链信息</strong></div>
+    <div class="body-content">
+        <form class="form-x">
+            <div class="form-group">
+                <div class="label">
+                    <label>病案标题</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" value="{$data.chain_title}" name="chain_title" id="chain_title" data-validate="required:请输入标题" />
+                    <div class="tips"></div>
+                    <input type="hidden" id="chain_id" value="{$data.chain_id}">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>姓名</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" value="{$data.chain_user}" name="chain_user" id="chain_user" data-validate="required:请输入姓名" />
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>年龄</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" value="{$data.chain_age}" name="chain_age" id="chain_age" data-validate="required:请输入年龄" />
+                    <div class="tips"></div>
+                </div>
+            </div><div class="form-group">
+            <div class="label">
+                <label>性别</label>
+            </div>
+            <div class="field">
+                <select name="" class="input w50" value="{$data.chain_sex}" name="chain_sex" id="chain_sex" data-validate="required:请选择性别">
+                    <option value="{$data.chain_sex}">{if condition="$data.chain_sex eq 0"}男{else/}女{/if}</option>
+                </select>
+                <div class="tips"></div>
+            </div>
+        </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>病案号</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" value="{$data.chain_num}" name="chain_num" id="chain_num" data-validate="required:请输入病案号" />
+                    <div class="tips"></div>
+                </div>
+            </div><div class="form-group">
+            <div class="label">
+                <label>出院科室</label>
+            </div>
+            <div class="field">
+                <input type="text" class="input w50" value="{$data.chain_department}" name="chain_department" id="chain_department" data-validate="required:请输入出院科室" />
+                <div class="tips"></div>
+            </div>
+        </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>出院病区</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" value="{$data.chain_lesion}" name="chain_lesion" id="chain_lesion" data-validate="required:请输入出院病区" />
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>病案备注</label>
+                </div>
+                <div >
+                    <textarea name="chain_content" id="chain_content" cols="4" rows="3" style="width: 359px; height: 200px;">{$data.chain_content}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <span id="Eerror"></span>
+                    <input type="button" onclick="Submit()" value="提交" class="button bg-main icon-check-square-o">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body></html>
+<script>
+    function Submit(){
+        var id = $("#chain_id").val();
+        var title = $("#chain_title").val();
+        var name = $("#chain_user").val();
+        var age = $("#chain_age").val();
+        var sex = $("#chain_sex").val();
+        var num = $("#chain_num").val();
+        var department = $("#chain_department").val();
+        var lesion = $("#chain_lesion").val();
+        var content = $("#chain_content").val();
+        var url ='chain_newdate';
+        $.get('chain_newdate',{id:id,title:title,name:name,age:age,sex:sex,num:num,department:department,lesion:lesion,content:content},function(msg){
+//            alert(msg)
+            if(msg.status==0){
+                alert('病案修改成功,入链可追溯');
+                location.href="chain_uplist";
+            }else if(msg.status==1){
+                $("#Eerror").html(msg.error);
+            }
+        });
+    }
+    //    $("document").ready(function(){
+    //        Submit();
+    //    })
+</script>

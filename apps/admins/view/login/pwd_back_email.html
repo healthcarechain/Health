@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link type="text/css" href="admin/homes/pwd_back/css/css.css" rel="stylesheet" />
+    <link href="admin/homes/css/common.css" rel="stylesheet" />
+    <link href="admin/homes/css/register.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+{include file='admin/homes/layout/header.php'}
+
+<div class="wrap">
+
+   <!--第三步   修改密码-->
+    <input type="hidden" value="{{$email}}" id="email">
+    <div class="tdbModule login" id="three" style="display: block">
+        <div class="registerTitle">找回密码</div>
+        <div class="registerCont">
+            <div class="for-liucheng">
+                <div class="liulist for-cur"></div>
+                <div class="liulist for-cur"></div>
+                <div class="liulist for-cur"></div>
+                <div class="liulist"></div>
+                <div class="liutextbox">
+                    <div class="liutext for-cur"><em>1</em><br /><strong>填写账户名</strong></div>
+                    <div class="liutext for-cur"><em>2</em><br /><strong>验证身份</strong></div>
+                    <div class="liutext for-cur"><em>3</em><br /><strong>设置新密码</strong></div>
+                    <div class="liutext"><em>4</em><br /><strong>完成</strong></div>
+                </div>
+            </div><!--for-liucheng/-->
+            <from action="forgetPwd4.html" method="get" class="forget-pwd">
+                <dl>
+                    <dt>新密码：</dt>
+                    <dd><input type="password" onblur="New_pwd()" id="new_pwd"/><span id="span_new_pwd"></span></dd>
+                    <div class="clears"></div>
+                </dl>
+                <dl>
+                    <dt>确认密码：</dt>
+                    <dd><input type="password" onblur="Confirm_pwd()" id="confirm_pwd"/><span id="span_confirm_pwd"></span></dd>
+                    <div class="clears"></div>
+                </dl>
+                <div class="subtijiao"><input type="submit" value="下一步" onclick="Update_pwd()"/></div>
+            </from>
+        </div>
+    </div>
+
+    <!--第四步  成功-->
+    <div class="tdbModule login" id="four" style="display: none">
+        <div class="registerTitle">找回密码</div>
+        <div class="registerCont">
+            <div class="for-liucheng">
+                <div class="liulist for-cur"></div>
+                <div class="liulist for-cur"></div>
+                <div class="liulist for-cur"></div>
+                <div class="liulist for-cur"></div>
+                <div class="liutextbox">
+                    <div class="liutext for-cur"><em>1</em><br /><strong>填写账户名</strong></div>
+                    <div class="liutext for-cur"><em>2</em><br /><strong>验证身份</strong></div>
+                    <div class="liutext for-cur"><em>3</em><br /><strong>设置新密码</strong></div>
+                    <div class="liutext for-cur"><em>4</em><br /><strong>完成</strong></div>
+                </div>
+            </div><!--for-liucheng/-->
+            <div class="successs">
+                <span></span>
+                <form class="forget-pwd">
+                    <h3>恭喜您，修改成功！</h3>
+                    <a href="/" style="text-decoration: none;color: #0aaae1">返回登录</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+{include file='admin/homes/layout/footer.php'}
+</body>
+</html>
+<script src="admin/homes/pwd_back/js/jquery-1.8.3-min.js"></script>
+<script type="text/javascript">
+
+
+    //第三步
+    function New_pwd()
+    {
+        var new_pwd = $("#new_pwd").val();
+
+        var Nullpwd = (new_pwd=="");
+        if(Nullpwd)
+        {
+            $("#span_new_pwd").html("<font color='red'>*新密码不能为空</font>");
+            return false;
+        }
+        else if (!/^[a-z]\w{5,23}/.test(new_pwd))
+        {
+            $("#span_new_pwd").html("<font color='red'>*密码必须是字符开头,且密码小于6位或大于24位</font>");
+            return false;
+        }
+        else
+        {
+            $("#span_new_pwd").html("");
+            return true;
+        }
+    }
+    function Confirm_pwd()
+    {
+        var new_pwd = $("#new_pwd").val();
+        var confirm_pwd = $("#confirm_pwd").val();
+        var Nullpwd = (confirm_pwd=="");
+        if(Nullpwd)
+        {
+            $("#span_confirm_pwd").html("<font color='red'>*确认密码不能为空</font>");
+            return false;
+        }
+        else if(new_pwd != confirm_pwd)
+        {
+            $("#span_confirm_pwd").html("<font color='red'>*两次输入密码不一致</font>");
+            return false;
+        }
+        else
+        {
+            $("#span_confirm_pwd").html("");
+            return true;
+        }
+    }
+    //修改密码
+    function Update_pwd()
+    {
+        if(New_pwd() && Confirm_pwd())
+        {
+            var new_pwd = $("#new_pwd").val();
+            var email = $("#email").val();
+
+            $.ajax({
+                type: "get", //请求方式
+                dataType: "json",
+                url: "update_pwd", //发送请求地址
+                async: false,
+                data: { //发送给数据库的数据
+                    email: email,
+                    new_pwd: new_pwd
+                },
+                success:function(data)
+                {
+//                    if(data.success == 0)
+//                    {
+                    $("#three").hide();
+                    $("#four").show();
+//                    }
+//                    else
+//                    {
+//                        $("#span_new_pwd").html("<font color='red'>*密码不能与近期密码相同，</font>");
+//                        return false;
+//                    }
+                }
+            })
+        }
+
+    }
+</script>
