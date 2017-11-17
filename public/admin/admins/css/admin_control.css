@@ -1,8 +1,8 @@
 table{
-    margin:0 auto;
+    margin:4% auto;
     width:90%;
     min-width:800px;
-    height:200px;
+    height:340px;
 }
 .pagination{
 
@@ -11,4 +11,23 @@ table{
     list-style: none;
     float:left;
     width:30px;
+}
+.add_admin{
+    margin-left: 5%;
+    margin-top: 8%;
+}
+.admin-content-pagination{
+    margin-left:4%;
+}
+.admin-content-pagination li{
+    list-style: none;
+    float:left;
+    width:5%;
+}
+#pagination_title{
+    width:20%;
+}
+.admin-content-pagination li a{
+    text-decoration: none;
+    color: #000000;
 }

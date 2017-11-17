@@ -185,7 +185,9 @@ $(function(){
 				}
 		}
 	};
+	//改
 	$('form').submit(function(){
+        // $(document).on('click keyup','#submit',function(){
 		$(this).find('input[data-validate],textarea[data-validate],select[data-validate]').trigger("blur");
 		$(this).find('input[placeholder],textarea[placeholder]').each(function(){$hideplaceholder($(this));});
 		var numError = $(this).find('.check-error').length;

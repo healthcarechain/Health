@@ -2,7 +2,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/admin/admins/css/pass.css">
+    <link rel="stylesheet" href="admin/admins/css/pass.css">
+    <link rel="stylesheet" href="admin/admins/css/pintuer.css">
+    <link rel="stylesheet" href="admin/admins/css/style.css" />
+
     <title></title>
 </head>
 <body>
@@ -12,18 +15,26 @@
     <div class="pro_search_list">出院科室<input type="text" class='pro_search_text' name="chain_department" value='<?php if(isset($search_data["chain_department"])){ echo $search_data["chain_department"];}?>'/></div>
     <div class="pro_search_list">出院病区<input type="text" class='pro_search_text' name="chain_lesion" value='<?php if(isset($search_data["chain_lesion"])){ echo $search_data["chain_lesion"];}?>'/></div>
     <div class="pro_search_list pro_search_list_pro">
-        医保类型<input type="text" class='pro_search_text' name="health_insurance"/>
-        修改标志<input type="radio" class="eidt_type" name="archives_modify" value="" checked="checked"/>全部
-        <input type="radio" class="eidt_type" name="archives_modify" value="1"/>已修改
-        <input type="radio" class="eidt_type" name="archives_modify" value="0"/>未修改
+        医保类型<select class='' name="">
+        <option>城镇职工基本医疗保险</option>
+        <option>城镇居民基本医疗保险</option>
+        <option>新型农村合作医疗</option>
+    </select>
+        修改标志<input type="radio" class="eidt_type" name="chain_modify" value="" checked="checked"/>全部
+        <input type="radio" class="eidt_type" name="chain_modify" value="1"/>已修改
+        <input type="radio" class="eidt_type" name="chain_modify" value="0"/>未修改
     </div>
-    <div class="pro_search_list pro_search_list_pro">归档时间<input type="text" class='pro_search_text' name="time_start"/>
-        至<input type="text" class='pro_search_text' name="time_end"/>
-        <input type="button" class="pro_search_button" value="查询"/><input type="button" class="pro_search_clear" value="清空"/>
+    <div class="pro_search_list pro_search_list_pro">归档时间<div class="calendarWarp">
+        <input type="text" name="date_start" class='ECalendar' id="date_start"  style='width:200px;' value=""/>
+    </div>
+        至<div class="calendarWarp">
+            <input type="text" name="date_end" class='ECalendar' id="date_end"  style='width:200px;' value=""/>
+        </div>
+        <input type="button" class="pro_search_button" value=""/><input type="button" class="pro_search_clear" value=""/>
     </div>
 
 </form>
-<div class="pro_result_table">
+<div class="table table-hover text-center" border="1">
     <p>抽查结果</p>
     <table class="result_msg">
         <tr>
@@ -42,11 +53,38 @@
     </div>
     <div id="pagecount"></div>
 </div>
+<div class="haxi_data">
+    <div class="d_title"><img src="admin/admins/images/close.png" /></div>
+    <div class="data_show">
+        <ul></ul>
+    </div>
+</div>
+    <button type="button" class="button border-green" id="button" style="margin-left: 1300px;"><span class="icon-plus-square-o"></span>导出数据</button>
 </body>
 </html>
-<script src="/admin/admins/js/jquery.js"></script>
+<script src="admin/admins/js/jquery.js"></script>
+<script src="admin/admins/js/Ecalendar.jquery.min.js"></script>
 <script>
-
+    $(function(){
+        $("#date_start").ECalendar({
+            type:"time",   //模式，time: 带时间选择; date: 不带时间选择;
+            stamp : false,   //是否转成时间戳，默认true;
+            offset:[0,2],   //弹框手动偏移量;
+            format:"yyyy-mm-dd hh:ii",   //时间格式 默认 yyyy-mm-dd hh:ii;
+            skin:2,   //皮肤颜色，默认随机，可选值：0-8,或者直接标注颜色值;
+            step:10,   //选择时间分钟的精确度;
+            callback:function(v,e){} //回调函数
+        });
+        $("#date_end").ECalendar({
+            type:"time",   //模式，time: 带时间选择; date: 不带时间选择;
+            stamp : false,   //是否转成时间戳，默认true;
+            offset:[0,2],   //弹框手动偏移量;
+            format:"yyyy-mm-dd hh:ii",   //时间格式 默认 yyyy-mm-dd hh:ii;
+            skin:2,   //皮肤颜色，默认随机，可选值：0-8,或者直接标注颜色值;
+            step:10,   //选择时间分钟的精确度;
+            callback:function(v,e){} //回调函数
+        });
+    })
     //    $('.pro_search_button').click(function(){
     //        var params = $('.pro_search_div').serialize(); // http request parameters.
     //        params = decodeURIComponent(params,true);
@@ -73,7 +111,8 @@
             data: {'pageNum':page-1,'arr':params},
             dataType:'json',
             beforeSend:function(){
-//            $("#result_msg ul").append("<li id='loading'>loading...</li>");//显示加载动画
+//           $("#result_msg ul").append("<li id='loading'>loading...</li>");//显示加载动画
+
             },
             success:function(json){
                 $(".result_msg").empty();//清空数据区
@@ -81,20 +120,29 @@
                 pageSize = json.pageSize; //每页显示条数
                 curPage = page; //当前页
                 totalPage = json.totalPage; //总页数
-                var htm = "<tr><td>姓名</td><td>年龄</td><td>性别</td><td>病案号</td><td>出院科室</td><td>出院病室</td><td>修改状态</td><td>详细信息</td></tr>";
+                var htm = "<tr style='background: #F0F0F0;font-size:15px;font-weight: bold'><td><input type='button' id='check_all' value='全选' style='font-weight: bold;'></td><td>姓名</td><td>年龄</td><td>性别</td><td>病案号</td><td>出院科室</td><td>出院病室</td><td>修改状态</td><td>详细信息</td></tr>";
                 var list = json.list;
                 $.each(list,function(index,array){ //遍历json数据列
                     htm += "<tr>";
+                    htm += "<td><input type='checkbox' id='check_id' name='check[]' value="+array['chain_id']+"></td>";
                     htm += "<td>"+array['chain_user']+"</td>";
                     htm += "<td>"+array['chain_age']+"</td>";
                     htm += "<td>"+array['chain_sex']+"</td>";
                     htm += "<td>"+array['chain_num']+"</td>";
                     htm += "<td>"+array['chain_department']+"</td>";
                     htm += "<td>"+array['chain_lesion']+"</td>";
-                    htm += "<td>"+array['archives_modify']+"</td>";
+                    if(array['chain_modify'] == '已修改'){
+                        htm += "<td style='color:red;font-weight:bold'>"+array['chain_modify']+"</td>";
+                        htm += "<td>"+"<input type='button' class='show_d' onclick='show_data("+array['chain_id']+")' value='查看信息'/>"+"</td>";
+                    }else {
+                        htm += "<td>" + array['chain_modify'] + "</td>";
+                        htm += "<td>" + '' + "</td>";
+                    }
                     htm += "</tr>";
-                });
+
+                 });
                 $(".result_msg").append(htm);
+
             },
             complete:function(){ //生成分页条
                 getPageBar();
@@ -131,7 +179,7 @@
     }
     $('.pro_search_button').click(function(){
         getData(1);
-    })
+    });
     $(function(){
         getData(1);
     });
@@ -143,5 +191,79 @@
             }
         });
     }
+    function show_data(id){
+        $.ajax({
+            type: 'POST',
+            url: "{:url('pass/show_hash')}",
+            data: {'id':id},
+            dataType:'json',
+            success:function(data){
+                htm = '';
+                $.each(data,function(i,val){
+                    htm += '<li>&nbsp;&nbsp;原来的哈希值：'+ val.original_hash + '<br/><br>被修改的哈希值：'+ val.chain_hash + '<br/>修改者id：'+val.admin_name+'<br />修改时间：'+val.update_time+'</li>';
+                });
+                $('.haxi_data ul').append(htm);
+                return;
+            },
+            error:function(){
+                alert("数据加载失败");
+            }
+        });
+        $('.haxi_data').css('display','block');
+    }
+    $('.d_title img').click(function(){
+        $('.haxi_data ul').empty();
+        $('.haxi_data').css('display','none');
+    })
+    //导出数据
+    $(document).on('click','#button',function(){
+       var obj = $("input[name='check[]']");
+//       var str = '';
+//       for(var i=0;i<obj.length;i++)
+//       {
+//        if(obj.eq(i).prop('checked'))
+//        {
+//            str+=obj.eq(i).val()+',';
+//        }
+//       }
+        //处理选择的值
+        var str=[];
+       for(var i=0;i<obj.length;i++)
+       {
+           if(obj[i].checked==true)
+           {
+               str.push(obj[i].value)
+           }
+       }
+       var url = 'export_excel';
+        $.post(url,{str:str},function (msg){
+            if(msg.success == 1){
+                window.location.href=("export_demo?data="+str);
+
+            }
+            else if(msg.success == 2)
+            {
+                alert(2)
+            }
+        },'json');
+
+
+    });
+    //全选数据
+    $(document).on('click','#check_all',function(){
+//        alert(1)
+       $("input[name='check[]']").each(function(){
+           if(this.checked)
+           {
+               this.checked=false;
+           }
+           else
+           {
+               this.checked=true;
+           }
+       })
+    });
+
+
 </script>
 </script>

@@ -40,17 +40,17 @@
                     <dd><input type="text" id="user_name" onblur="User_name()"/></dd><dd id="span_username"></dd>
                     <div class="clears"></div>
                 </dl>
-                <dl>
-                    <!--<dt>验证码：</dt>-->
-                   <!--<dd>-->
-                   <!--<input type="text"  id="code"/>-->
-                    <!--<div class="yanzma">-->
-                       <!--<img src="{{ URL( 'login/captcha/1') }}" id="captcha" alt="点击更换验证码" title="点击更换验证码" style="cursor:pointer;" class="valign">&#45;&#45;}}-->
-                        <!--<a href="javascript:;">换一换</a>-->
-                        <!--</div>-->
-                    <!--</dd>-->
-                    <div class="clears"></div>
-                </dl>
+                <!--<dl>-->
+                <!--<dt>验证码：</dt>-->
+                <!--<dd>-->
+                <!--<input type="text"  id="code"/>-->
+                <!--<div class="yanzma">-->
+                <!--<img src="{{ URL( 'login/captcha/1') }}" id="captcha" alt="点击更换验证码" title="点击更换验证码" style="cursor:pointer;" class="valign">&#45;&#45;}}-->
+                <!--<a href="javascript:;">换一换</a>-->
+                <!--</div>-->
+                <!--</dd>-->
+                <!--<div class="clears"></div>-->
+                <!--</dl>-->
                 <div class="subtijiao"><input type="submit" value="下一步" onclick="Write_username()" /></div>
             </from><!--forget-pwd/-->
         </div>
@@ -98,7 +98,7 @@
     </span>
 
 
-   <span class="sel-yzyx" style="display: none">
+                <span class="sel-yzyx" style="display: none">
     <dl class="sel-yzyx" >
     <dt>已验证邮箱：</dt>
     <dd><input type="text" value="" readonly id="email"/><input type="hidden" readonly id="user_email"><span id="pwd_email"></span></dd>
@@ -177,6 +177,23 @@
 </body>
 </html>
 <script type="text/javascript">
+    var flag=false;
+    function Write_username()
+    {
+
+        if(User_name())
+        {
+            if(flag=false){
+                $("#one").hide();
+            }else if(flag=true){
+                $("#two").show();
+            }
+
+
+
+        }
+        return User_name();
+    }
     //第一步
     function User_name()
     {
@@ -238,12 +255,6 @@
             return flag=true;
         }
     }
-    function Write_username(){
-        if(User_name()){
-            $("#one").hide();
-            $("#two").show();
-        }
-    }
     //第二步
 
     //    手机找回
@@ -261,7 +272,7 @@
             $(".sel-yzsj").hide();
             $(".sel-yzyx").show()
         }
-    });
+    })
 
     //发送验证码
     function Code_send()
@@ -386,7 +397,7 @@
                 {
                     location.href='pwd_email';
                 }
-                else if(data.success == 1)
+                else
                 {
                     $("#span_username").html("<font color='red'>*"+data.error+"</font>");
                     return false;

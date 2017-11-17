@@ -11,7 +11,7 @@ use think\Db;
 use think\Request;
 use think\Query;
 use think\View;
-class Mail extends controller{
+class Mail extends Common{
     public function index(){
 
         return view('mail');

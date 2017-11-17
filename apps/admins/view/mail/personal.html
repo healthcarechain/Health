@@ -4,37 +4,39 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title> new document </title>
 
-    <script src="/admin/admins/js/jquery-1.7.1.js" type="text/javascript"></script>
-    <script src="/admin/admins/js/amcharts.js" type="text/javascript"></script>
-    <script src="/admin/admins/js/serial.js" type="text/javascript"></script>
-    <script src="/admin/admins/js/pie.js" type="text/javascript"></script>
+    <script src="admin/admins/js/jquery-1.7.1.js" type="text/javascript"></script>
+    <script src="admin/admins/js/amcharts.js" type="text/javascript"></script>
+    <script src="admin/admins/js/serial.js" type="text/javascript"></script>
+    <script src="admin/admins/js/pie.js" type="text/javascript"></script>
+
+
 
     <style type="text/css">
         .main
         {
-            width: 350px;
-            height: 200px;
-            border: 1px solid #ccc;
+            width: 50%;
+            height: 28em;
             /*margin: 0 auto;*/
             margin-top: 10px;
             overflow: hidden;
+            float:left;
         }
         #cylindrical
         {
-            width: 350px;
-            height: 200px;
+            width: 100%;
+            height: 100%;
             margin-top: -15px;
         }
         #line
         {
-            width: 350px;
-            height: 200px;
-            margin-top: -15px;
+            width: 100%;
+            height: 100%;
+            margin-top: -36px;
         }
-        #pie
+        #price
         {
-            width: 350px;
-            height: 200px;
+            width: 100%;
+            height: 21em;
             margin-top: -15px;
         }
     </style>
@@ -42,28 +44,24 @@
 </head>
 
 <body>
-<h2>我们的网站</h2>
---柱形图
-<div class="main">
+<h2>HCC</h2>
+<div class="main" id="data">
     <div id="cylindrical">
     </div>
 </div>
 <br />
---会员统计
-<div class="main">
+<div class="main" id="user">
     <div id="line">
     </div>
 </div>
 <br />
---资金统计
-<div class="main">
+<div class="main" id="price">
     <div id="pie">
     </div>
 </div>
 <script type="text/javascript">
     $(document).ready(function (e) {
         GetSerialChart();
-        MakeChart(json);
     });
     var json = [
         { "name": "数据1", "value": "35" },
@@ -119,7 +117,7 @@
         //左边刻度线颜色
         valueAxis.axisColor = "#ccc";
         //标题
-        valueAxis.title = "3D柱状图Demo";
+        valueAxis.title = "病案入链比率";
         //刻度线透明度
         valueAxis.gridAlpha = 0.2;
         chart.addValueAxis(valueAxis);
@@ -128,7 +126,7 @@
         graph.valueField = "value";
         graph.type = "column";
         //鼠标移入提示信息
-        graph.balloonText = "测试数据[[category]] [[value]]";
+        graph.balloonText = "病案入链比率[[category]] [[value]]";
         //边框透明度
         graph.lineAlpha = 0.3;
         //填充颜色
@@ -157,7 +155,7 @@
         chart.angle = 30;
         chart.depth3D = 20;
         //标题
-        chart.addTitle("会员统计", 15);
+        chart.addTitle("", 15);
         var graph = new AmCharts.AmGraph();
         chart.addGraph(graph);
         graph.valueField = "value";
@@ -179,24 +177,259 @@
     });
     //饼图
     //根据json数据生成饼状图，并将饼状图显示到div中
-    function MakeChart(value) {
-        chartData = eval(value);
-        //饼状图
-        chart = new AmCharts.AmPieChart();
-        chart.dataProvider = chartData;
-        //标题数据
-        chart.titleField = "name";
-        //值数据
-        chart.valueField = "value";
-        //边框线颜色
-        chart.outlineColor = "#fff";
-        //边框线的透明度
-        chart.outlineAlpha = .8;
-        //边框线的狂宽度
-        chart.outlineThickness = 1;
-        chart.depth3D = 20;
-        chart.angle = 30;
-        chart.write("pie");
+    //    function MakeChart(value) {
+    //        chartData = eval(value);
+    //        //饼状图
+    //        chart = new AmCharts.AmPieChart();
+    //        chart.dataProvider = chartData;
+    //        //标题数据
+    //        chart.titleField = "name";
+    //        //值数据
+    //        chart.valueField = "value";
+    //        //边框线颜色
+    //        chart.outlineColor = "#fff";
+    //        //边框线的透明度
+    //        chart.outlineAlpha = .8;
+    //        //边框线的狂宽度
+    //        chart.outlineThickness = 1;
+    //        chart.depth3D = 20;
+    //        chart.angle = 30;
+    //        chart.write("pie");
+    //    }
+    var chart = AmCharts.makeChart("price", {
+        "type": "serial",
+        "theme": "light",
+        "marginTop":0,
+        "marginRight": 80,
+        "dataProvider": [{
+            "year": "1950",
+            "value": -0.307
+        }, {
+            "year": "1951",
+            "value": -0.168
+        }, {
+            "year": "1952",
+            "value": -0.073
+        }, {
+            "year": "1953",
+            "value": -0.027
+        }, {
+            "year": "1954",
+            "value": -0.251
+        }, {
+            "year": "1955",
+            "value": -0.281
+        }, {
+            "year": "1956",
+            "value": -0.348
+        }, {
+            "year": "1957",
+            "value": -0.074
+        }, {
+            "year": "1958",
+            "value": -0.011
+        }, {
+            "year": "1959",
+            "value": -0.074
+        }, {
+            "year": "1960",
+            "value": -0.124
+        }, {
+            "year": "1961",
+            "value": -0.024
+        }, {
+            "year": "1962",
+            "value": -0.022
+        }, {
+            "year": "1963",
+            "value": 0
+        }, {
+            "year": "1964",
+            "value": -0.296
+        }, {
+            "year": "1965",
+            "value": -0.217
+        }, {
+            "year": "1966",
+            "value": -0.147
+        }, {
+            "year": "1967",
+            "value": -0.15
+        }, {
+            "year": "1968",
+            "value": -0.16
+        }, {
+            "year": "1969",
+            "value": -0.011
+        }, {
+            "year": "1970",
+            "value": -0.068
+        }, {
+            "year": "1971",
+            "value": -0.19
+        }, {
+            "year": "1972",
+            "value": -0.056
+        }, {
+            "year": "1973",
+            "value": 0.077
+        }, {
+            "year": "1974",
+            "value": -0.213
+        }, {
+            "year": "1975",
+            "value": -0.17
+        }, {
+            "year": "1976",
+            "value": -0.254
+        }, {
+            "year": "1977",
+            "value": 0.019
+        }, {
+            "year": "1978",
+            "value": -0.063
+        }, {
+            "year": "1979",
+            "value": 0.05
+        }, {
+            "year": "1980",
+            "value": 0.077
+        }, {
+            "year": "1981",
+            "value": 0.12
+        }, {
+            "year": "1982",
+            "value": 0.011
+        }, {
+            "year": "1983",
+            "value": 0.177
+        }, {
+            "year": "1984",
+            "value": -0.021
+        }, {
+            "year": "1985",
+            "value": -0.037
+        }, {
+            "year": "1986",
+            "value": 0.03
+        }, {
+            "year": "1987",
+            "value": 0.179
+        }, {
+            "year": "1988",
+            "value": 0.18
+        }, {
+            "year": "1989",
+            "value": 0.104
+        }, {
+            "year": "1990",
+            "value": 0.255
+        }, {
+            "year": "1991",
+            "value": 0.21
+        }, {
+            "year": "1992",
+            "value": 0.065
+        }, {
+            "year": "1993",
+            "value": 0.11
+        }, {
+            "year": "1994",
+            "value": 0.172
+        }, {
+            "year": "1995",
+            "value": 0.269
+        }, {
+            "year": "1996",
+            "value": 0.141
+        }, {
+            "year": "1997",
+            "value": 0.353
+        }, {
+            "year": "1998",
+            "value": 0.548
+        }, {
+            "year": "1999",
+            "value": 0.298
+        }, {
+            "year": "2000",
+            "value": 0.267
+        }, {
+            "year": "2001",
+            "value": 0.411
+        }, {
+            "year": "2002",
+            "value": 0.462
+        }, {
+            "year": "2003",
+            "value": 0.47
+        }, {
+            "year": "2004",
+            "value": 0.445
+        }, {
+            "year": "2005",
+            "value": 0.47
+        }],
+        "valueAxes": [{
+            "axisAlpha": 0,
+            "position": "left"
+        }],
+        "graphs": [{
+            "id":"g1",
+            "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
+            "bullet": "round",
+            "bulletSize": 8,
+            "lineColor": "#d1655d",
+            "lineThickness": 2,
+            "negativeLineColor": "#637bb6",
+            "type": "smoothedLine",
+            "valueField": "value"
+        }],
+        "chartScrollbar": {
+            "graph":"g1",
+            "gridAlpha":0,
+            "color":"#888888",
+            "scrollbarHeight":55,
+            "backgroundAlpha":0,
+            "selectedBackgroundAlpha":0.1,
+            "selectedBackgroundColor":"#888888",
+            "graphFillAlpha":0,
+            "autoGridCount":true,
+            "selectedGraphFillAlpha":0,
+            "graphLineAlpha":0.2,
+            "graphLineColor":"#c2c2c2",
+            "selectedGraphLineColor":"#888888",
+            "selectedGraphLineAlpha":1
+
+        },
+        "chartCursor": {
+            "categoryBalloonDateFormat": "YYYY",
+            "cursorAlpha": 0,
+            "valueLineEnabled":true,
+            "valueLineBalloonEnabled":true,
+            "valueLineAlpha":0.5,
+            "fullWidth":true
+        },
+        "dataDateFormat": "YYYY",
+        "categoryField": "year",
+        "categoryAxis": {
+            "minPeriod": "YYYY",
+            "parseDates": true,
+            "minorGridAlpha": 0.1,
+            "minorGridEnabled": true
+        },
+        "export": {
+            "enabled": true
+        }
+    });
+
+    chart.addListener("rendered", zoomChart);
+    if(chart.zoomChart){
+        chart.zoomChart();
+    }
+
+    function zoomChart(){
+        chart.zoomToIndexes(Math.round(chart.dataProvider.length * 0.4), Math.round(chart.dataProvider.length * 0.55));
     }
 </script>
 

@@ -6,10 +6,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="renderer" content="webkit">
     <title>病案修改清单</title>
-    <link rel="stylesheet" href="/admin/admins/css/pintuer.css">
-    <link rel="stylesheet" href="/admin/admins/css/admin.css">
-    <script src="/admin/admins/js/jquery.js"></script>
-    <script src="/admin/admins/js/pintuer.js"></script>
+    <link rel="stylesheet" href="admin/admins/css/pintuer.css">
+    <link rel="stylesheet" href="admin/admins/css/admin.css">
+    <link rel="stylesheet" href="admin/assets/css/pintuer.css">
+    <script src="admin/admins/js/jquery.js"></script>
+    <script src="admin/admins/js/pintuer.js"></script>
+    <style>
+        .active_radio{
+            z-index: 3;
+            position: relative;
+            top: 0;
+            bottom: 0;
+            margin: auto; /* 这里及以上的定位，可以让该元素竖直居中。(top: 0; bottom: 0;) */
+            opacity: 0;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+        .radio_demo{
+            width: 25px;
+            position: relative;
+            top: 9px;
+            bottom: 0;
+            left: -22px;
+            margin: auto;
+            background: url('admin/admins/images/radio_no.png') no-repeat;
+            background-size: contain;
+            cursor: pointer;
+            padding: 8px;
+        }
+        .active{
+            background: url('admin/admins/images/radio_yes.png') no-repeat;
+        }
+        .border-bottom{
+            width: 13%;
+            height: 5em;
+            margin-left: 4%;
+        }
+        .admin_lisd{
+            width:100%;
+            height:100%;
+        }
+        .long_button{
+            background: url('admin/admins/images/medical_add.png') no-repeat;
+            background-size: contain;
+        }
+        .table tr{
+            line-height: 320%;
+        }
+        #page{
+            margin-left:4%;
+        }
+    </style>
     <!--<link rel="stylesheet" type="text/css" href="admin/admins/css/normalize.css" />-->
     <!--<link rel="stylesheet" type="text/css" href="admin/admins/css/default.css">-->
     <!--<link rel='stylesheet prefetch' href='admin/admins/css/font-awesome.min.css'>-->
@@ -18,10 +66,10 @@
 </head>
 <body>
 <div class="panel admin-panel"><!--<a href="" style="float:right; display:none;">添加字段</a>-->
-    <div class="panel-head"><strong class="icon-reorder"> 病案入链状态</strong>
-        <input type="radio" class="active_radio" name="already_chain" id="chain_status=2" value="2" runat="server" checked>全部&nbsp;&nbsp;
-        <input type="radio" class="active_radio" name="already_chain" id="chain_status=0" value="0">已入链 &nbsp;&nbsp;
-        <input type="radio" class="active_radio" name="already_chain" id="chain_status=1" value="1">未入链&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <div class="panel-head" style="width: 90%; height: 5em; background: #F0F0F0; line-height: 3em;margin: 3% auto;"><strong class="icon-reorder" style="margin-right: 2%;"> 病案入链状态</strong>
+        <input type="radio" class="active_radio" name="already_chain" id="chain_status=2" value="2" runat="server" checked><span class="radio_demo"></span>全部&nbsp;&nbsp;
+        <input type="radio" class="active_radio" name="already_chain" id="chain_status=0" value="0"><span class="radio_demo"></span>已入链 &nbsp;&nbsp;
+        <input type="radio" class="active_radio" name="already_chain" id="chain_status=1" value="1"><span class="radio_demo"></span>未入链&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         病案归档时间<select name="">
             <option value="4" class="chain_option" id="chain_time=4" check="selected">全部时间</option>
             <option value="0" class="chain_option" id="chain_time=0">今天</option>
@@ -30,13 +78,13 @@
             <option value="3" class="chain_option" id="chain_time=3">近三个月</option>
         </select></div>
     <div class="padding border-bottom">
-        <a href="medical_add"><button type="button" class="button border-yellow" id="button"><span class="icon-plus-square-o"></span>病案新增</button></a>
+        <a href="medical_add"><div type="button" class="long_button" id="button"></div></a>
     </div>
 </div>
-<table class="table table-hover text-center" border="2">
-    <tr>
+<table class="table table-hover text-center" cellspacing="0">
+    <tr style="background-color: #F0F0F0;">
         <!--<th><input type="button" id="chain_block"></th>-->
-       <th><button class="checkall">全选</button></th>
+        <th><button class="checkall" style="border:none;background-color: #F0F0F0;">全选</button></th>
         <th width="100" style="text-align:left; padding-left:20px;">姓名</th>
         <th>年龄</th>
         <th>性别</th>
@@ -47,7 +95,7 @@
         <th>归档时间</th>
         <th>入链操作</th>
     </tr>
-<table id="show" class="table table-hover text-center"></table>
+    <tbody id="show"></tbody>
 
 </table>
 {if condition="$auto_load.auto_chain eq 0"}
@@ -68,6 +116,10 @@
 {/if}
 <div id="page"></div>
 <script type="text/javascript">
+    $('.active_radio').click(function(){
+        $('.radio_demo').removeClass('active');
+        $(this).next().addClass('active');
+    })
     /**自动入链**/
     function check_chain(){
         var url = 'chain_checkchain';
@@ -82,42 +134,42 @@
             }
         });}
     //全选
-  $(".checkall").click(function(){
-      $("input[name='check[]']").each(function(){
+    $(".checkall").click(function(){
+        $("input[name='check[]']").each(function(){
 //          alert(this.val());
-          if(this.checked){
-              this.checked=false;
-          }else{
-              this.checked=true;
-          }
-      })
-  });
-  /**获取radio里的值做多条件查询**/
-  $("document").ready(function(){
-      var active = $(".active_radio");
-      var str='';
-      for(var i=0;i<active.length;i++){
-          if(active.eq(i).prop('checked')){
-              str+=active.eq(i).attr('id')+'&';
-          }
+            if(this.checked){
+                this.checked=false;
+            }else{
+                this.checked=true;
+            }
+        })
+    });
+    /**获取radio里的值做多条件查询**/
+    $("document").ready(function(){
+        var active = $(".active_radio");
+        var str='';
+        for(var i=0;i<active.length;i++){
+            if(active.eq(i).prop('checked')){
+                str+=active.eq(i).attr('id')+'&';
+            }
 
-      }
-      var res = $(".chain_option");
-      for(var i=0;i<res.length;i++){
+        }
+        var res = $(".chain_option");
+        for(var i=0;i<res.length;i++){
 //         alert(res.eq(i).prop('selected'))
-          if(res.eq(i).prop('selected')){
-              str+=res.eq(i).prop('id');
-          }
+            if(res.eq(i).prop('selected')){
+                str+=res.eq(i).prop('id');
+            }
 
-      }
-    page(1,str)
+        }
+        page(1,str)
 //      alert(str)
-  });
-  $(".panel-head input:radio").click(function(){
+    });
+    $(".panel-head input:radio").click(function(){
         var _this = $(this);
 //        if(_this.eq(i).checked)
-      var str = _this.attr('id')+'&';
-      var res = $(".chain_option");
+        var str = _this.attr('id')+'&';
+        var res = $(".chain_option");
 //      for(var i=0;i<res.length;i++){
 ////         alert(res.eq(i).prop('selected'))
 //          if(res.eq(i).prop('selected')){
@@ -125,17 +177,17 @@
 //          }
 //
 //      }
-      str+=fire(res);
+        str+=fire(res);
 //      alert(str)
-      page(1,str);
+        page(1,str);
 //        alert(_this.prop('checked'));
-  });
+    });
     $(".panel-head option").click(function(){
         var active = $(".active_radio");
         var str = six(active);
-         var _this = $(this);
+        var _this = $(this);
 //        if(_this.eq(i).checked)
-         str += _this.attr('id');
+        str += _this.attr('id');
 //         alert(str)
         page(1,str);
     });
@@ -146,7 +198,7 @@
             date = 'page='+page;
         }else{
             date = 'page='+page+'&'+str;
-          }
+        }
 //        alert(date)
         $.ajaxSetup({
             async : false
@@ -182,9 +234,9 @@
                         st+='<td>未归档时间</td>';
                     }
                     if(v.chain_status==1){
-                        st+='<td class="block"><input type="button" id="block_chain" date_id = "'+v.chain_id+'" name="block_chain" value="入链✘" style="color: red"></td>';
+                        st+='<td class="block"><input type="button" id="block_chain" date_id = "'+v.chain_id+'" name="block_chain" value="入链✘" style="color: red;border:none;background-color: white;"></td>';
                     }else if(v.chain_status==0){
-                        st+='<td style="color: green">已入链✔</td>';
+                        st+='<td style="color: green;border:none;background-color: white;">已入链✔</td>';
                     }
 //
                     st+='</tr>';
@@ -194,13 +246,12 @@
                 $("#show").html(st);
                 $("#page").html(msg.page);
             }else if(msg.status==0){
-
-                var st='还没有数据：）';
+                var st="<font style='color: #00a4ac' size='6' face='微软雅黑'>暂时没有数据:)</font>";
                 $("#show").html(st);
                 $("#page").html('');
             }
         });
-}
+    }
     /**委托事件**/
     $(document).on('click','#block_chain',function(){
         var chain_id = $(this).attr('date_id');
@@ -219,9 +270,9 @@
         });
     });
 
-//    $("#block_chain").click(function(){
-//       alert(2)
-//    });
+    //    $("#block_chain").click(function(){
+    //       alert(2)
+    //    });
 
 
 
@@ -245,7 +296,7 @@
         }
         return str;
     }
-/**即点即改**/
+    /**即点即改**/
 //    $(".up").click(function(){
 //        var id=$(this).attr('article');
 //        var status=$(this).attr('status');

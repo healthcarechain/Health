@@ -1,98 +1,148 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
-    <meta charset="UTF-8">
-    <link rel='stylesheet' type="text/css" href="admin/admins/css/admin_control.css" />
-    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>管理员管理</title>
+    <link rel="stylesheet" href="admin/admins/css/admin.css">
+    <link rel="stylesheet" href="admin/assets/css/pintuer.css">
+    <script src="admin/admins/js/jquery.js"></script>
+    <script src="admin/admins/js/pintuer.js"></script>
 </head>
+<style>
+    #a_style{
+        height: 21px;
+        line-height: 21px;
+        padding: 0 11px;
+        background: #02bafa;
+        border: 1px #2a3e93 solid;
+        border-radius: 3px;
+        /*color: #fff;*/
+        display: inline-block;
+        text-decoration: none;
+        font-size: 12px;
+        outline: none;
+    }
+    .border-bottom{
+        width: 13%;
+        height: 4em;
+    }
+    .admin_lisd{
+        width:100%;
+        height:100%;
+    }
+    .long_button{
+        margin-top: 60%;
+        margin-left: 76%;
+    }
+    #page{
+        margin-left: 10%;
+    }
+    .check{
+        margin-left:35%;
+    }
+</style>
 <body>
-<table>
-    <tr>
-        <td>姓名</td>
-        <td>邮箱</td>
-        <td>电话</td>
-        <td>操作</td>
+<div class="panel admin-panel">
+    <div class="padding border-bottom">
+        <a href="admin_lisd"><div class="long_button"></div></a>
+    </div>
+</div>
+<table class="table table-hover text-center"  cellspacing="0" style="width: 80%;line-height:400%;margin:0 auto;">
+    <tr style="background-color: #F0F0F0;">
+        <th><button class="checkall" style="border:none;background-color: #F0F0F0;">全选</button></th>
+        <th width="100" style="text-align:left; padding-left:20px;">管理员姓名</th>
+        <th>管理员邮箱</th>
+        <th>管理员电话</th>
+        <th>账户状态</th>
     </tr>
-
-    {foreach name='user' id='use'}
-    <tr>
-        <td>{$use.username}</td>
-        <td>{$use.user_email}</td>
-        <td>{$use.user_tel}</td>
-        <td><span onclick='del({$use.id})' class="operation">删除</span><span onclick="edit({$use.id})" class="operation">修改</span></td>
-    </tr>
-
-    {/foreach}
+    <tbody id="show"></tbody>
 </table>
-{$page}
+<div id="page"></div>
 </body>
 </html>
-<script src="admin/admins/js/jquery.min.js"></script>
 <script>
-    window.alert = function(){
-        //创建一个大盒子
-        var box = document.createElement("div");
-        //创建一个关闭按钮
-        var button = document.createElement("button");
-        //定义一个对象保存样式
-        var boxName = {
-            width:"500px",
-            height:"180px",
-            backgroundColor:"#f8f8f8",
-            border:"1px solid #ccc",
-            position:"absolute",
-            top:"50%",
-            left:"50%",
-            margin:"-90px 0 0 -250px",
-            zIndex:"999",
-            textAlign:"center",
-            lineHeight:"180px"
+    function check_check(obj){
+        var flag = 1;
+        if(flag == 1){
+            $(obj).addClass('ck');
+            flag = 0;
+        } else{
+            $(obj).removeClass('ck');
+            flag = 1;
         }
-        //给元素添加元素
-        for(var k in boxName){
-            box.style[k] = boxName[k];
-        }
-        //把创建的元素添加到body中
-        document.body.appendChild(box);
-        //把alert传入的内容添加到box中
-        if(arguments[0]){
-            box.innerHTML = arguments[0];
-        }
-        button.innerHTML = "关闭";
-        //定义按钮样式
-        var btnName = {
-            border:"1px solid #ccc",
-            backgroundColor:"#fff",
-            width:"70px",
-            height:"30px",
-            textAlign:"center",
-            lineHeight:"30px",
-            outline:"none",
-            position:"absolute",
-            bottom:"10px",
-            right:"20px",
-        }
-        for(var j in btnName){
-            button.style[j] = btnName[j];
-        }
-        //把按钮添加到box中
-        box.appendChild(button);
-        //给按钮添加单击事件
-        button.addEventListener("click",function(){
-            box.style.display = "none";
-        })
     }
-    function del(id){
-        //confirm('确认删除?');
-        $.ajax({
-            type: 'POST',
-            url: "{:url('admin/del_user')}",
-            data: {'id':id},
-            dataType:'json',
-            success:function(data){
-                alert(data);
-                //location.reload();
+    /***进行分页展示数据**/
+    $(document).on('ready',function(){
+        page(1);
+    });
+    /***全选反选**/
+    $(document).on('click','.checkall',function(){
+       $("input[name='check[]']").each(function () {
+           if(this.checked)
+           {
+               this.checked=false;
+           }
+           else
+           {
+               this.checked=true;
+           }
+       })
+    });
+    function page(page){
+        $.ajaxSetup({
+            async : false
+        });
+        var url = 'admin_lis';
+        $.post(url,{page:page},function(msg){
+            if(msg.status==1){
+                var str='';
+                $.each(msg.data,function(k,v){
+                    str+='<tr><td><input type="checkbox" name="check[]" value="'+v.id+'"/></td>';
+                    str+='<td>'+v.username+'</td>';
+                    str+='<td>'+v.user_email+'</td>';
+                    str+='<td>'+v.user_tel+'</td>';
+                    if(v.user_status == 0)
+                        str+='<td class="block"><input type="button" id="jin_status" date_id = "'+v.id+'" name="jin_status" value="已禁用" style="border:none;background-color:white;color: red">&nbsp;&nbsp;&nbsp;<a href="admin_role?id='+v.id+'" id="a_style">修改角色</a></td>';
+                    else if(v.user_status==1){
+                        str+='<td class="block"><input type="button" id="jin_status" date_id = "'+v.id+'" name="jie_status" value="未禁用" style="border:none;background-color:white;color:springgreen">';
+                    }
+                    str+='</tr>';
+                });
+
+                $("#show").html(str);
+                $("#page").html(msg.page);
+            }else if(msg.status==0){
+                $("#show").html("暂时没有数据：）");
+                $("#page").html(msg.page);
             }
-        })
+
+        });
     }
+    $(document).on('click','#jin_status',function(){
+        var id = $(this).attr('date_id');
+        var url = 'admin_jin';
+        var obj = $(this);
+        $.post(url,{id:id},function(msg){
+            if(msg.status==1){
+                window.location.reload();
+//                obj.parent().child().html("<td><input type='button' id='jie_status' date_id='+id+' value='解除禁用' style='color:#00a4ac;'></td>");
+            }else{
+                window.location.reload();
+//               obj.parent().html("<td><input type='button' id='jie_status' date_id='+id+' value='点击禁用' style='color:red;'></td>");
+            }
+        });
+    });
+    //修改角色
+    $(document).on('click','#update_role',function(){
+        var admin_id = $(this).attr('update_id');
+        window.location.href="admin_role";
+//        var url='admin_role';
+//        $.post(url,{admin_id:admin_id},function(msg){
+//            alert(msg)
+//        });
+    });
+
 </script>

@@ -1,132 +1,72 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>欢迎登录医疗网后台管理系统</title>
-    <link href="admin/logins/css/style.css" rel="stylesheet" type="text/css" />
+    <link type="text/css" href="admin/logins/css/index.css" rel="stylesheet" />
     <script language="JavaScript" src="admin/logins/js/jquery.js"></script>
-    <script src="admin/logins/js/cloud.js" type="text/javascript"></script>
     <script src="admin/logins/js/md5.js" type="text/javascript"></script>
-    <link href="admin/homes/css/common.css" rel="stylesheet" type="text/css">
-    <link href="admin/homes/css/drag.css" rel="stylesheet" type="text/css">
-    <link href="admin/homes/css/register.css" rel="stylesheet" type="text/css">
-    <script language="javascript">
-        $(function(){
-            $('.loginbox').css({'position':'absolute','left':($(window).width()-692)/2});
-            $(window).resize(function(){
-                $('.loginbox').css({'position':'absolute','left':($(window).width()-692)/2});
-            })
-        });
-    </script>
-
+    <link rel="stylesheet" href="admin/logins/css/jquery.slider.css" />
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script src="admin/logins/js/jquery.slider.min.js"></script>
 </head>
-
-<body style="background-color:#1c77ac; background-image:url(__PUBLIC__/images/light.png); background-repeat:no-repeat; background-position:center top; overflow:hidden;">
-<div id="mainBody">
-    <div id="cloud1" class="cloud"></div>
-    <div id="cloud2" class="cloud"></div>
-</div>
-
-
-<div class="logintop">
-    <span>欢迎登录医疗后台管理界面平台</span>
-    <ul>
-        <li><a href="/">回首页</a></li>
-        <li><a href="#">帮助</a></li>
-        <li><a href="#">关于</a></li>
-    </ul>
-</div>
-
-<div class="loginbody">
-
-    <span class="systemlogo"></span>
-
-    <div class="loginbox">
-
-        <ul>
-            <li><input name="" type="text" class="loginuser" value="admin" maxlength="24" id="j_username" onBlur="return checkUsername()" placeholder="请输入用户名" onclick="JavaScript:this.value=''"/></li><span id="j_usernameErrorDiv"></span>
-            <li><input name="" type="password" class="loginpwd" value="密码" maxlength="24" id="j_password" onBlur="return checkPassword()" placeholder="请输入密码" onclick="JavaScript:this.value=''"/></li><span id="j_passwordErrorDiv"></span>
-            <li><input name="" type="button" class="loginbtn" value="登录" onclick="loginCheck();"/><label><input name="" type="checkbox" value="" checked="checked" id="ifRemember"/>记住密码</label><label><a href="pwd_list">忘记密码？</a></label><label><a href="login_index">立即注册</a></label></li><span id="j_yzmErrorDiv"></span>
-            <li><div style="margin-left: 1%; margin-top: -20px;"><div id="drag"></div></div></li>
-            <li><div style="margin-left: 1%; margin-top: -20px;"><div id="wrong"></div></div></li>
-        </ul>
+<body>
+<div class="login_left">
+    <div class="login_left_main">
+        <div class="left_main_pic"></div>
+        <p>欢迎使用HCC</p><p style="padding-bottom:5%;">信息管理系统界面</p>
+        <span>Welcome to use HCC<br/></span>
+        <span>Interface of information management system<br/></span>
     </div>
-
+    <div class="login_left_bottom">
+        <li>帮助</li>
+        <li>关于</li>
+        <li>返回首页</li>
+    </div>
 </div>
+<div class="loginbody">
+    <p class="systemlogo">登录到您的账户</p>
+    <div class="loginbox">
+        <li style="padding-top:5.3%;">
+            <p>用户名</p>
+            <input name="" type="text" class="loginuser" value="" maxlength="24" id="j_username" onBlur="return checkUsername()" placeholder="请输入用户名" onclick="JavaScript:this.value=''"/><span id="j_usernameErrorDiv"></span>
+        </li>
+
+        <li>
+            <p>密码</p>
+            <input name="" type="password" class="loginpwd" value="" maxlength="24" id="j_password" onBlur="return checkPassword()" placeholder="请输入密码" onclick="JavaScript:this.value=''"/><span id="j_passwordErrorDiv"></span>
+        </li>
+
+        <li>
+            <label>
+                <div class="check" id="checks">
+                    <input type="checkbox" name="get_pass" class="get_pass" />
+                </div><span class="lab_1">自动登陆</span><div id="slider1" class="slider" style="float:right;margin-right:18%;"></div><input type="hidden" id="result1" value="" /></label>
+        </li>
+        <span id="j_yzmErrorDiv"></span>
+</div>
+    <div class="login_in">
+        <label><input name="" type="button" class="loginbtn" value="登录" onclick="loginCheck();"/></label><label><a href="pwd_list">忘记密码？</a></label>
+    </div>
+    <div class="login_bottom">
+        <label><span>未拥有账号?</span><a href="login_index">注册</a></label>
+    </div>
+</div>
+</body>
+</html>
 <script>
-    var aaa = false;
-    (function($){
-        $.fn.drag = function(options){
-            var x, drag = this, isMove = false, defaults = {
-            };
-            var options = $.extend(defaults, options);
-            //添加背景，文字，滑块
-            var html = '<div class="drag_bg"></div>'+
-                '<div class="drag_text" onselectstart="return false;" unselectable="on">拖动滑块验证</div>'+
-                '<div class="handler handler_bg"></div>';
-            this.append(html);
-            var handler = drag.find('.handler');
-            var drag_bg = drag.find('.drag_bg');
-            var text = drag.find('.drag_text');
-            var maxWidth = drag.width() - handler.width();  //能滑动的最大间距
-
-            //鼠标按下时候的x轴的位置
-            handler.mousedown(function(e){
-                isMove = true;
-                x = e.pageX - parseInt(handler.css('left'), 10);
-            });
-
-            //鼠标指针在上下文移动时，移动距离大于0小于最大间距，滑块x轴位置等于鼠标移动距离
-            $(document).mousemove(function(e){
-                var _x = e.pageX - x;
-                if(isMove){
-                    if(_x > 0 && _x <= maxWidth){
-                        handler.css({'left': _x});
-                        drag_bg.css({'width': _x});
-                    }else if(_x > maxWidth){  //鼠标指针移动距离达到最大时清空事件
-                        dragOk();
-                    }
-                }
-            }).mouseup(function(e){
-                isMove = false;
-                var _x = e.pageX - x;
-                if(_x < maxWidth){ //鼠标松开时，如果没有达到最大距离位置，滑块就返回初始位置
-                    handler.css({'left': 0});
-                    drag_bg.css({'width': 0});
-                }
-            });
-
-            //清空事件
-            function dragOk(){
-                handler.removeClass('handler_bg').addClass('handler_ok_bg');
-                text.text('验证通过');
-                aaa = true;
-                drag.css({'color': '#fff'});
-                handler.unbind('mousedown');
-                $(document).unbind('mousemove');
-                $(document).unbind('mouseup');
-                if($("#j_username").val() == ""||$("#j_password").val() == ""){
-                    $('#wrong').html('<font color="red">记得要输入帐号密码：）</font>');
-                    e.preventDefault();
-                }else{
-                    $('#wrong').empty();
-                }
+    $(document).ready(function(){
+        var flag = 1;
+        $(".check").click(function(){
+            if(flag == 1){
+                $(".check").addClass('ck');
+                flag = 0;
+            } else{
+                $(".check").removeClass('ck');
+                flag = 1;
             }
-        };
-    })(jQuery);
-
-    var a = $('#drag').drag();
-
-    $("input").keyup(function(){
-        if($("#j_username").val() == ""||$("#j_password").val() == ""){
-            $('#wrong').html('<font color="red">记得要输入帐号密码：）</font>');
-            e.preventDefault();
-        }else{
-            $('#wrong').empty();
-        }
+        })
     });
-
-
+</script>
+<script>
     var v1 = false;
     var v2 = false;
     //验证用户名
@@ -151,7 +91,7 @@
 
         if (!usernameFlag)
         {
-            $("#j_usernameErrorDiv").html("请输入正确格式的用户名");
+            $("#j_usernameErrorDiv").html("输入正确格式的用户名");
             v1 = false;
             return false;
         }
@@ -185,7 +125,7 @@
         var passwordFlag=passwordRegex.test(password);
 
         if(!passwordFlag){
-            $("#j_passwordErrorDiv").html("请检查密码格式");
+            $("#j_passwordErrorDiv").html("检查密码格式");
             v2 = false;
             return false;
         }
@@ -201,45 +141,178 @@
     function loginCheck()
     {
 
-        if (v1&&v2&&aaa==true)
+        if (v1 && v2)
         {
 
             var username = $("#j_username").val();
-            var pwd = $("#j_password").val();
-            var password = hex_md5(pwd);
-            var checkname = $("#ifRemember").is(':checked');
+            var password = $("#j_password").val();
+            var result = $("#result1").val();
+
+            var remember = $("#checks").attr("class");
+            if(remember == 'check ck')
+            {
+            if(result == 'true')
+            {
             var url ='index_index';
-            $.post(url,{username:username,password:password},function(msg){
+            $.post(url,{username:username,password:password,remember:remember},function(msg){
                 if(msg.status==0)
                 {
                     location.href='index_admin';
                 }
-                else if(msg.status==1)
+                else if(msg.status==2)
                 {
-                    $("#wrong").html('<font color="red"></font>')
                     $("#j_usernameErrorDiv").html(msg.error);
                     $("#j_passwordErrorDiv").html('');
                 }
-                else if(msg.status==2)
+                else if(msg.status==1)
                 {
                     $("#j_passwordErrorDiv").html(msg.error);
                     $("#j_usernameErrorDiv").html('');
                 }
+                else if(msg.status==3)
+                {
+                    alert("账户异常，请联系管理员解锁");
+                }
             },'json');
             $("#j_yzmErrorDiv").empty();
+           }
+           else
+           {
+               $("#j_yzmErrorDiv").empty();
+               $("#j_yzmErrorDiv").html("<font style='font-size: 1' color='#f0f8ff' prefix='宋体'>提示：滑动验证码</font>");
+               return false;
+           }
+            }
+            else
+            {
+                if(result == 'true')
+                {
+                    var url ='index_index';
+                    $.post(url,{username:username,password:password},function(msg){
+                        if(msg.status==0)
+                        {
+                            location.href='index_admin';
+                        }
+                        else if(msg.status==2)
+                        {
+                            $("#j_usernameErrorDiv").html(msg.error);
+                            $("#j_passwordErrorDiv").html('');
+                        }
+                        else if(msg.status==1)
+                        {
+                            $("#j_passwordErrorDiv").html(msg.error);
+                            $("#j_usernameErrorDiv").html('');
+                        }
+                        else if(msg.status==3)
+                        {
+                            alert("账户异常，请联系管理员解锁");
+                        }
+                    },'json');
+                    $("#j_yzmErrorDiv").empty();
+                }
+                else
+                {
+                    $("#j_yzmErrorDiv").empty();
+                    $("#j_yzmErrorDiv").html("<font style='font-size: 1' color='#f0f8ff' prefix='宋体'>提示：滑动验证码</font>");
+                    return false;
+                }
+            }
+
+
+//                $.ajax({
+//                    type: "GET",
+////							   url: "http://api.publicfunction.cn/login",
+//                    url: "http://api.publicfunction.cn/login",
+//                    dataType: "jsonp",
+//                    data: {"username":username,"password":password},
+//                    success: function(msg)
+//                    {
+////							   	console.log(msg)
+//                        if(msg.code != 200)
+//                        {
+//                            $("#j_yzmErrorDiv").html(msg.message);
+//                        }
+//                        else
+//                        {
+//                            if (checkname)//判断是否自动登录
+//                            {
+//                                localStorage.setItem('user_id',msg.data.user_id);
+//                                localStorage.setItem('username',username);
+//                                localStorage.setItem('token',msg.data.token);
+//                            }
+//                            else
+//                            {
+//                                localStorage.setItem('user_id',msg.data.user_id);
+//                                localStorage.setItem('username',username);
+//                                localStorage.setItem('token',msg.data.token);
+//                            }
+//                            location.href = msg.redirect;
+//                        };
+//
+//                    }
+//                });
+//
+
+
         }
         else{
-//            $("#j_yzmErrorDiv").html("请仔细检查账号密码格式");
-//            return false;
-            $('#wrong').html('<font color="white">请仔细检查账号和密码：）</font>');
-            e.preventDefault();
+            $("#j_yzmErrorDiv").html("<font style='font-size: 1' color='#f0f8ff' prefix='宋体'>提示：输入用户名 密码</font>");
+            return false;
         }
-        return false;
+
+    }
+    $("#slider1").slider({
+        callback: function(result) {
+            $("#result1").val(result);
+        }
+    });
+    window.alert = function(str)
+    {
+        var shield = document.createElement("DIV");
+        shield.id
+
+            = "shield";
+        shield.style.position = "absolute";
+        shield.style.left = "0px";
+        shield.style.top = "0px";
+        shield.style.width = "100%";
+        shield.style.height = document.body.scrollHeight+"px";
+//弹出对话框时的背景颜色
+        shield.style.background = "#fff";
+        shield.style.textAlign = "center";
+        shield.style.zIndex = "25";
+//背景透明 IE有效
+//shield.style.filter = "alpha(opacity=0)";
+        var alertFram = document.createElement("DIV");
+        alertFram.id
+
+            ="alertFram";
+        alertFram.style.position = "absolute";
+        alertFram.style.left = "50%";
+        alertFram.style.top = "50%";
+        alertFram.style.marginLeft = "-225px";
+        alertFram.style.marginTop = "-75px";
+        alertFram.style.width = "450px";
+        alertFram.style.height = "150px";
+        alertFram.style.background = "#ff0000";
+        alertFram.style.textAlign = "center";
+        alertFram.style.lineHeight = "150px";
+        alertFram.style.zIndex = "300";
+        strHtml = "<ul style=\"list-style:none;margin:0px;padding:0px;width:100%\">\n";
+        strHtml += " <li style=\"background:#00a6fe;text-align:left;padding-left:20px;font-size:14px;font-weight:bold;height:25px;line-height:25px;border:1px solid #F9CADE;\">[系统提示]</li>\n";
+        strHtml += " <li style=\"background:#fff;text-align:center;font-size:12px;height:120px;line-height:120px;border-left:1px solid #F9CADE;border-right:1px solid #F9CADE;\">"+str+"</li>\n";
+        strHtml += " <li style=\"background:#FDEEF4;text-align:center;font-weight:bold;height:25px;line-height:25px; border:1px solid #F9CADE;\"><input type=\"button\" value=\"确 定\" onclick=\"doOk()\" /></li>\n";
+        strHtml += "</ul>\n";
+        alertFram.innerHTML = strHtml;
+        document.body.appendChild(alertFram);
+        document.body.appendChild(shield);
+        var ad = setInterval("doAlpha()",5);
+        this.doOk = function(){
+            alertFram.style.display = "none";
+            shield.style.display = "none";
+        }
+        alertFram.focus();
+        document.body.onselectstart = function(){return false;};
     }
 
 </script>
-
-
-<div class="loginbm">医疗后台1.0v</div>
-</body>
-</html>

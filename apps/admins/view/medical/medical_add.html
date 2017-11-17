@@ -94,7 +94,7 @@
                 </div>
                 <div class="field">
                     <span id="Eerror"></span>
-                    <input type="button" onclick="Submit()" value="提交" class="button bg-main icon-check-square-o">
+                    <input type="button" onclick="Submit()" value="" class="button bg-main icon-check-square-o">
                 </div>
             </div>
         </form>
@@ -119,7 +119,7 @@
             $.post(url,{title:title,name:name,age:age,sex:sex,num:num,department:department,lesion:lesion,content:content},function(msg){
 //            alert(msg.status)
                 if(msg.status==0){
-                    location.href="chain_list";
+                    location.href="medical_up";
                 }else if(msg.status==1){
                     $("#Eerror").html(msg.error);
                 }

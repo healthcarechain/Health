@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="admin/admins/css/pintuer.css">
+    <link rel="stylesheet" href="admin/admins/css/admin.css">
+    <script src="admin/admins/js/jquery.js"></script>
+    <script src="admin/admins/js/pintuer.js"></script>
+    <style>
+        .short_button {
+            width: 6.1%;
+            height: 3em;
+            border:none;
+            background:url('admin/admins/images/submit.png') no-repeat;
+        }
+    </style>
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 管理员修改</strong></div>
+    <div class="body-content">
+        <div class="form-x">
+            <div class="form-group">
+                <div class="label">
+                    <label>管理员账号：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" id="admin_user" value="{$user.username}"/>
+                    <div class="tips"></div><input type="hidden" id="admin_id" value="{$admin_id}">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>管理员密码：</label>
+                </div>
+                <div class="field">
+                    <input type="password" class="input w50" id="admin_pwd" value="<?php echo '******';?>" disabled/>
+                    <div class="dips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>所属角色 ：</label>
+                </div>
+                <div class="field" style="padding-top:8px;">
+                    <?php foreach($role as $k=>$v):?>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="role[]" value="<?=$v['role_id']?>" class="role" id="rols"<?php if(in_array($v['role_id'],$role_id)):?><?php echo ("checked");?><?php endif;?>><span><?=$v['role_name']?></span>
+                        </label>
+                    </div>
+                    <?php endforeach;?>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <button class="button bg-main icon-check-square-o" id="submit"> </button><div class="divError"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body></html>
+<script>
+    var falg = false;
+    /**验证用户名**/
+    $(document).on('blur',"#admin_user",function(){
+        var admin_user = $("#admin_user").val();
+        var userRegex = /^[a-zA-Z][a-zA-Z0-9_]{6,24}/;
+        if(!userRegex.test($('#admin_user').val())){
+            $(".tips").text("");
+            $(".tips").append("<span style=color:#ff7800>用户名只能为以字母开头,字母、数字下划线组成且不能少于六个字符</span>");
+            falg = false;
+            return false;
+
+        }else{
+            $(".tips").text("");
+            falg = true;
+            return true;
+        }
+    });
+    /**验证登录**/
+
+    $(document).on('click keyup','#submit',function(){
+       if(falg){
+          var admin_id=$("#admin_id").val();
+           //获取复选框里选中的数据
+           var role_id = $("input[name='role[]']");
+           var str = [];//push
+           for(var i=0;i<role_id.length;i++){
+               if(role_id[i].checked == true){
+                   str.push(role_id[i].value);
+               }
+           }
+           var username = document.getElementById('admin_user').value;
+           $.ajax({
+               async:false,
+               url:"admin_update",
+               type:"post",
+               data:{
+                   username:username,
+                   admin_id:admin_id,
+                   str:str,
+               },
+               success:function(msg){
+                   if(msg.status==1){
+                       alert('管理员角色，修改成功');
+                       window.location.href="admin_list";
+                       $(".divError").html("");
+//                       $(".divError").html("<span style='margin-left: 25%;font-size: 28px;'>用户名已经存在：）</span>");
+                   }else if(msg.status==0){
+                       $(".divError").html("");
+                       $(".divError").html("<span style='margin-left: 25%;font-size: 28px;'>网络异常，请稍后再试</span>");
+                   }else if(msg.status==3){
+                       $(".divError").html("");
+                       $(".divError").html("<span style='margin-left: 25%;font-size: 28px;'>用户名已经存在：）</span>");
+                   }
+// else if(msg.status==4){
+//                       $(".divError").html("");
+//                       $(".divError").html("<span style='margin-left: 25%;font-size: 28px;'>网络异常，请稍后再试：（</span>");
+//                   }else if(msg.status==6){
+//                       window.location.reload();
+//                       $(".divError").html("");
+//                       $(".divError").html("<span style='margin-left: 25%;font-size: 28px;'>添加管理员成功：）</span>");
+//                   }
+               }
+           },'json');
+       }
+
+//
+    });
+
+    //alert（）
+    window.alert = function(str)
+    {
+        var shield = document.createElement("DIV");
+        shield.id = "shield";
+        shield.style.position = "absolute";
+        shield.style.left = "0px";
+        shield.style.top = "0px";
+        shield.style.width = "100%";
+        shield.style.height = document.body.scrollHeight+"px";
+//弹出对话框时的背景颜色
+        shield.style.background = "#fff";
+        shield.style.textAlign = "center";
+        shield.style.zIndex = "25";
+//背景透明 IE有效
+//shield.style.filter = "alpha(opacity=0)";
+        var alertFram = document.createElement("DIV");
+        alertFram.id="alertFram";
+        alertFram.style.position = "absolute";
+        alertFram.style.left = "50%";
+        alertFram.style.top = "50%";
+        alertFram.style.marginLeft = "-225px";
+        alertFram.style.marginTop = "-75px";
+        alertFram.style.width = "450px";
+        alertFram.style.height = "150px";
+        alertFram.style.background = "#ff0000";
+        alertFram.style.textAlign = "center";
+        alertFram.style.lineHeight = "150px";
+        alertFram.style.zIndex = "300";
+        strHtml = "<ul style=\"list-style:none;margin:0px;padding:0px;width:100%\">\n";
+        strHtml += " <li style=\"background:#DD828D;text-align:left;padding-left:20px;font-size:14px;font-weight:bold;height:25px;line-height:25px;border:1px solid #F9CADE;\">[系统提示]</li>\n";
+        strHtml += " <li style=\"background:#fff;text-align:center;font-size:12px;height:120px;line-height:120px;border-left:1px solid #F9CADE;border-right:1px solid #F9CADE;\">"+str+"</li>\n";
+        strHtml += " <li style=\"background:#FDEEF4;text-align:center;font-weight:bold;height:25px;line-height:25px; border:1px solid #F9CADE;\"><input type=\"button\" value=\"确 定\" onclick=\"doOk()\" /></li>\n";
+        strHtml += "</ul>\n";
+        alertFram.innerHTML = strHtml;
+        document.body.appendChild(alertFram);
+        document.body.appendChild(shield);
+        var ad = setInterval("doAlpha()",5);
+        this.doOk = function(){
+            alertFram.style.display = "none";
+            shield.style.display = "none";
+        }
+        alertFram.focus();
+        document.body.onselectstart = function(){return false;};
+    }
+</script>

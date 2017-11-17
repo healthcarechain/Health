@@ -23,32 +23,70 @@ use Vendor\Alidayu\TopLogger;
 use think\cache\Driver;
 class Login extends Controller{
 
-    public function index(){
-        //加载文件
-        $view = new view();
-        return $view->fetch('login');
+    public function index()
+    {
+            /***
+             *七天免登录
+             */
+            $username = @$_COOKIE['user'];
+            $password = @$_COOKIE['pwd'];
+            if(!empty($username&&$password))
+            {
+
+                $Info = Db::table('health_user')->where('username',$username)->where('password',$password)->find();
+                if($Info)
+                {
+                    session_start();
+                    $_SESSION['admin_id'] = $Info['id'];
+                    return view('mail/mail');
+                }
+                else
+                {
+                    setcookie('user','',0);
+                    setcookie('pwd','',0);
+                    echo "<script>alert('登陆已过期，请重新登陆');location.href='/';</script>";
+                }
+            }
+            else
+            {
+            $view = new view();
+            return $view->fetch('login');
+            }
 
     }
     //登陆
     public function add()
     {
-
-        $name = $_POST['username'];
-        $pwd = $_POST['password'];
-//        echo 1;die;
-        $info = Db::table('health_user')->where("username",$name)->find();
+        $userName = $_POST['username'];
+        $passWord = md5($_POST['password']);
+        $remember = isset($_POST['remember'])?$_POST['remember']:'';
+        $info = Db::table('health_user')->where("username",$userName)->find();
+//        dump($info);
         if($info)
         {
-            $pwd = Db::table('health_user')->where("password",$pwd)->find();
-            if($pwd)
+            $PassInfo = Db::table('health_user')->where("password",$passWord)->find();
+//            dump($passWord);die;
+            if($PassInfo)
             {
-                $info  = Db::table('health_user')->where("username",$name)->find();
-                $admin_id = $info['id'];
-//               开启session 将信息存入session中
-                session_start();
-                $_SESSION['admin_id'] = $admin_id;
-//                dump($_SESSION);die;
-                $data = array("status"=>0);
+                $info_id= Db::table('health_user')->where('username',$userName)->where("user_status",1)->find();
+//                dump($res);die;
+                if($info_id)
+                {
+                   // 开启session 将信息存入session中
+                    session_start();
+                    $_SESSION['admin_id'] = $info_id['id'];
+                    if(!empty($remember))
+                    {
+                        setcookie('user',$userName,time()+7*24*3600);
+                        setcookie('pwd',$passWord,time()+7*24*3600);
+                    }
+                    $data = array("status"=>0);
+                }
+                else
+                {
+                    $data = array('status'=>3,'error'=>'账户异常,请联系管理员');
+                }
+
             }
             else
             {
@@ -59,7 +97,7 @@ class Login extends Controller{
         {
             $data = array("status"=>2,'error'=>'用户名错误');
         }
-        echo json_encode($data);die;
+        return $data;die;
     }
     //退出登陆
     public function logout()
@@ -70,6 +108,8 @@ class Login extends Controller{
         {
             setcookie(session_name(),'',time()-1,'/');
         }
+        setcookie('user','',0);
+        setcookie('pwd','',0);
         session_destroy();  					//清除服务器的sesion文件
         return redirect("/");
     }
@@ -83,9 +123,8 @@ class Login extends Controller{
     public function success_index()
     {
         session_start();
-        $user_id=$_SESSION['user_id'];
+        $user_id=$_SESSION['admin_id'];
         $user_name=$_SESSION['user_name'];
-//        dump($_SESSION);die;
         return view("login_list",['username'=>$user_name,'user_id'=>$user_id]);
     }
 
@@ -226,7 +265,7 @@ class Login extends Controller{
         $data = $_POST;
 //        dump($data);die;
         //用户名密码
-        $data['user_pwd'] = (md5($data['user_pwd']));
+        $data['user_pwd'] = md5($data['user_pwd']);
         $data['registered_time'] = date("Y-m-d H:m:s");
         $token = md5( $data['user_pwd']."finance".$data['user_account']);
         $login_time = date("Y-m-d H:i:s",time());
@@ -235,38 +274,40 @@ class Login extends Controller{
         if($arr)
         {
             $error['msg']=2;
-            exit(json_encode($error));
+
         }
         else
         {
             $email = Db::table('health_user')->where('user_email',$data['user_email'])->find();
             if($email){
                $error['msg']=6;
-               exit(json_encode($error));
+
             }else{
                 $iphone = Db::table('health_user')->where('user_tel',$data['user_tel'])->find();
-                if($iphone){
+                if($iphone)
+                {
                     $error['msg']=9;
-                    exit(json_encode($error));
-                }else{
-                    $result = DB::table('health_user')->insert(['username'=>$data['user_account'],'password'=>$data['user_pwd'],'user_tel'=>$data['user_tel'],'user_email'=>$data['user_email'],'registered_time'=>$login_time,'user_ip'=>$login_ip]);
-                    if($result){
+
+                }
+                else
+                    {
+                    $result_id = DB::table('health_user')->insertGetId(['username'=>$data['user_account'],'password'=>$data['user_pwd'],'user_tel'=>$data['user_tel'],'user_email'=>$data['user_email'],'registered_time'=>$login_time,'user_ip'=>$login_ip]);
+                    if($result_id)
+                    {
                         //注册成功
-                        $name=$data['user_account'];
-                        $arr = db('health_user')->where('username',$name)->find();
-                        $id=$arr['id'];
-                        $name=$arr['username'];
                         session_start();
-                        $_SESSION['user_id']=$id;
-                        $_SESSION['user_name']=$name;
+                        $_SESSION['admin_id']=$result_id;
+                        $_SESSION['user_name'] = $data['user_account'];
                         $error['msg']=1;
-                        exit(json_encode($error));
+
                     }
                 }
 
             }
 
         }
+//        dump($error);die;
+        return $error;
 
     }
     /**忘记密码模块**/

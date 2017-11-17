@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="admin/assets/css/pintuer.css">
+    <script language="JavaScript" src="admin/logins/js/jquery.js"></script>
+</head>
+<body class="test">
+/*长按钮*/
+<div class="long_button"></div>
+/*中等长输入框*/
+<div class="medium_input">medium_input</div>
+/*时间输入框*/
+<div class="date_input">date_input</div>
+/*短按钮*/
+<div class="short_button"></div>
+/*入链增加*/
+<div class="add_button"></div>
+/*表头*/
+<div class="title"></div>
+/*单选框*/
+<div class="check">
+    <input type="checkbox" name="get_pass" class="get_pass" />
+</div>
+</body>
+</html>
+<script>
+    $(document).ready(function(){
+        var flag = 1;
+        $(".check").click(function(){
+            if(flag == 1){
+                $(".check").addClass('ck');
+                flag = 0;
+            } else{
+                $(".check").removeClass('ck');
+                flag = 1;
+            }
+        })
+    });
+</script>

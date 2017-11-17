@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="admin/admins/css/pintuer.css">
+    <link rel="stylesheet" href="admin/admins/css/admin.css">
+    <link rel="stylesheet" href="admin/assets/css/pintuer.css">
+    <script src="admin/admins/js/jquery.js"></script>
+    <script src="admin/admins/js/pintuer.js"></script>
+    <style>
+        .short_button {
+            width: 6.1%;
+            height: 3em;
+            border:none;
+            background:url('admin/admins/images/submit.png') no-repeat;
+        }
+    </style>
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>权限添加</strong></div>
+    <div class="body-content">
+        <div class="form-x">
+            <div class="form-group">
+                <div class="label">
+                    <label>权限名称：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" id="node_name" data-validate="required:请输入权限名称" placeholder="请输入合法权限" />
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>权限url：</label>
+                </div>
+                <div class="field">
+                    <textarea class="input w50" id="node_url" name="node_url" placeholder="注:一行一个url"></textarea>
+                    <div class="dips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>权限简介：</label>
+                </div>
+                <div class="field">
+                    <textarea class="input w50" id="node_desc" placeholder="输入权限简介"></textarea>
+                    <div class="dips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <button class="short_button" id="submit"></button><div class="divError"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body></html>
+<script>
+    var falg = false;
+    /**验证权限**/
+    $(document).on('blur',"#node_name",function(){
+        var node_name = $("#node_name").val();
+        var userRegex = /[\u4e00-\u9fa5]+/g;
+        if(!userRegex.test($('#node_name').val())){
+            $(".tips").text("");
+            $(".tips").append("<span style=color:#ff7800>权限名称必须是中文</span>");
+            falg = false;
+            return false;
+
+        }else{
+            $(".tips").text("");
+            falg = true;
+            return true;
+        }
+    });
+    /**验证提交**/
+    $(document).on('click keyup','#submit',function(){
+        if(falg){
+//            var node_url = new Array();
+            var node_name = $("#node_name").val();
+            var node_url = $("#node_url").val();
+//            $(".access_set_wrap input[name='title']").val();
+            var node_desc = $("#node_desc").val();
+            $.ajax({
+                async:false,
+                url:"node_add",
+                type:"post",
+                dataType:"json",
+                data:{
+                    node_name:node_name,
+                    node_url:node_url,
+                    node_desc:node_desc,
+                },
+                success:function(msg){
+                    if(status==0){
+                        $(".divError").html("");
+                        alert('添加权限成功');
+                    }else if(status==1){
+                        $(".divError").html("");
+                        $(".divError").html("<font style='color: #00a4ac' size='6' face='微软雅黑'>权限名称已存在：）</font>");
+                    }else if(status==3){
+                        $(".divError").html("");
+                        $(".divError").html("<font style='color: #00a4ac' size='6' face='微软雅黑'>网络异常，添加失败：（</font>");
+                    }
+                }
+            })
+        }
+
+    });
+
+    window.alert = function(str)
+    {
+        var shield = document.createElement("DIV");
+        shield.id = "shield";
+        shield.style.position = "absolute";
+        shield.style.left = "0px";
+        shield.style.top = "0px";
+        shield.style.width = "100%";
+        shield.style.height = document.body.scrollHeight+"px";
+//弹出对话框时的背景颜色
+        shield.style.background = "#fff";
+        shield.style.textAlign = "center";
+        shield.style.zIndex = "25";
+//背景透明 IE有效
+//shield.style.filter = "alpha(opacity=0)";
+        var alertFram = document.createElement("DIV");
+        alertFram.id="alertFram";
+        alertFram.style.position = "absolute";
+        alertFram.style.left = "50%";
+        alertFram.style.top = "50%";
+        alertFram.style.marginLeft = "-225px";
+        alertFram.style.marginTop = "-75px";
+        alertFram.style.width = "450px";
+        alertFram.style.height = "150px";
+        alertFram.style.background = "#ff0000";
+        alertFram.style.textAlign = "center";
+        alertFram.style.lineHeight = "150px";
+        alertFram.style.zIndex = "300";
+        strHtml = "<ul style=\"list-style:none;margin:0px;padding:0px;width:100%\">\n";
+        strHtml += " <li style=\"background:#DD828D;text-align:left;padding-left:20px;font-size:14px;font-weight:bold;height:25px;line-height:25px;border:1px solid #F9CADE;\">[系统提示]</li>\n";
+        strHtml += " <li style=\"background:#fff;text-align:center;font-size:12px;height:120px;line-height:120px;border-left:1px solid #F9CADE;border-right:1px solid #F9CADE;\">"+str+"</li>\n";
+        strHtml += " <li style=\"background:#FDEEF4;text-align:center;font-weight:bold;height:25px;line-height:25px; border:1px solid #F9CADE;\"><input type=\"button\" value=\"确 定\" onclick=\"doOk()\" /></li>\n";
+        strHtml += "</ul>\n";
+        alertFram.innerHTML = strHtml;
+        document.body.appendChild(alertFram);
+        document.body.appendChild(shield);
+        var ad = setInterval("doAlpha()",5);
+        this.doOk = function(){
+            alertFram.style.display = "none";
+            shield.style.display = "none";
+        }
+        alertFram.focus();
+        document.body.onselectstart = function(){return false;};
+    }
+</script>

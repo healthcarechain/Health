@@ -234,7 +234,7 @@ return [
 
     //分页配置
     'paginate'               => [
-        'type'      => 'bootstrap',
+        'type'      => 'amazeui',
         'var_page'  => 'page',
         'list_rows' => 15,
     ],

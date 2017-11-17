@@ -1,0 +1,157 @@
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="admin/admins/css/pintuer.css">
+    <link rel="stylesheet" href="admin/admins/css/admin.css">
+    <link rel="stylesheet" href="admin/assets/css/pintuer.css">
+    <script src="admin/admins/js/jquery.js"></script>
+    <script src="admin/admins/js/pintuer.js"></script>
+    <style>
+        .short_button {
+            width: 6.1%;
+            height: 3em;
+            border:none;
+            background:url('admin/admins/images/submit.png') no-repeat;
+        }
+    </style>
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>角色添加</strong></div>
+    <div class="body-content">
+        <div class="form-x">
+            <div class="form-group">
+                <div class="label">
+                    <label>角色名称：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" id="role_name" data-validate="required:请输入角色名称" />
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>角色简介：</label>
+                </div>
+                <div class="field">
+                    <textarea type="text" class="input w50" id="role_desc" style="height:100px; width:300px;" ></textarea>
+                    <div class="dips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>所属权限 ：</label>
+                </div>
+                <div class="field" style="padding-top:8px;">
+                    <?php foreach($data as $k=>$v):?>
+                    <?php if($v['lev']==1):?>
+                    <?php echo $v['node_name']?><input type='checkbox' name='node_id[]'  value="<?php echo $v['node_id']?>">
+                    <?php else:?>
+                    <?php echo $v['node_name']?><input type='checkbox' name='node_id[]'  value="<?php echo $v['node_id']?>">
+                    <?php endif;?>
+                    <?php endforeach;?>
+                    <!--<select name="node_id">-->
+                    <!--<option>&#45;&#45;请选择权限&#45;&#45;</option>-->
+                    <!--{volist name="data" id="v"}-->
+                    <!--{if condition="$v.lev eq 0"}-->
+                    <!--<option value="{$v.node_id}">{$v.node_name}</option>-->
+                    <!--{else}-->
+                    <!--<option value="{$v.node_id}">{$v.flg}&nbsp;{$v.node_name}</option>-->
+                    <!--{/if}-->
+                    <!--{/volist}-->
+                    <!--</select>-->
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <button class="short_button" id="submit"></button><div class="divError"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var falg = false;
+    $(document).on('blur',"#role_name",function(){
+        var role_name = $("#role_name").val();
+        var userRegex = /[\u4e00-\u9fa5]+/g;
+        if(!userRegex.test($('#role_name').val())){
+            $(".tips").text("");
+            $(".tips").append("<span style=color:#ff7800>角色名称必须是中文</span>");
+            falg = false;
+            return false;
+
+        }else{
+            $(".tips").text("");
+            falg = true;
+            return true;
+        }
+    });
+
+    $(document).on('click','#submit',function(){
+        if(falg)
+        {
+            var role_name = document.getElementById("role_name").value;
+            var role_desc = document.getElementById("role_desc").value;
+            var node_id = [];
+            var node = $("input[name='node_id[]']");
+            for(var i=0;i<node.length;i++)
+            {
+                if(node[i].checked == true)
+                {
+                    node_id.push(node[i].value);
+                }
+            }
+//      alert(node_id)
+//      alert(role_name)
+            $.ajax({
+                async:false,
+                url:"role_adds",
+                type:"post",
+                data:{
+                    role_name:role_name,
+                    role_desc:role_desc,
+                    node_id:node_id,
+                },
+                success:function(date)
+                {
+                    if(date.status==0)
+                    {
+                        $(".divError").html("");
+                        $(".divError").html("<font style='color: #00a4ac' size='6' face='微软雅黑'>添加角色成功：）</font>");
+                    }
+                    else if(date.status==1)
+                    {
+                        $(".divError").html("");
+                        $(".divError").html("<font style='color: #00a4ac' size='6' face='微软雅黑'>角色已经存在：）</font>");
+                    }
+                    else if(date.status==2)
+                    {
+                        $(".divError").html("");
+                        $(".divError").html("<font style='color: #00a4ac' size='6' face='微软雅黑'>角色权限不能为空：）</font>");
+                    }
+                    else if(date.status==3)
+                    {
+                        $(".divError").html("");
+                        $(".divError").html("<font style='color: #00a4ac' size='6' face='微软雅黑'>网络异常，请稍后再试：）</font>");
+                    }
+                    else if(date.status==4)
+                    {
+                        $(".divError").html("");
+                        $(".divError").html("<font style='color: #00a4ac' size='6' face='微软雅黑'>角色添加失败：）</font>");
+                    }
+                }
+            });
+        }
+
+    })
+</script>
+</html>

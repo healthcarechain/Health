@@ -1,0 +1,174 @@
+body,html{
+    width:100%;
+    height:100%;
+    min-width: 800px;
+    min-height: 600px;
+    margin:0px;
+    padding:0px;
+}
+p{
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    margin-top: 0em;
+    margin-bottom: 0em;
+}
+.login_left{
+    width:50%;
+    height:100%;
+    background: #212531;
+    float:left;
+}
+.login_left_main{
+    width:62.5%;
+    height:27.8%;
+    position: relative;
+    left:37.5%;
+    top:37.1%;
+    background-color: #1E212C;
+    font-family: PingFangSC-Thin;
+    font-size: 18px;
+    color: #FFFFFF;
+}
+.left_main_pic{
+    width:13%;
+    height:26.6%;
+    position: relative;
+    left:9.8%;
+    top:-20%;
+    background: url('../images/Group.png') no-repeat;
+    background-size: contain;
+}
+.login_left_main p{
+    font-family: PingFangSC-Medium;
+    font-size: 24px;
+    color: #FFFFFF;
+    margin-left:10%;
+}
+.login_left_main span{
+    padding-left:10%;
+    font-weight: 200;
+}
+.login_left_bottom{
+    width:25%;
+    height:1.5%;
+    position: relative;
+    left:76%;
+    top:64%;
+}
+.login_left_bottom li{
+    list-style: none;
+    float:left;
+    width:29%;
+    height:100%;
+    font-family: PingFangSC-Light;
+    font-size: 14px;
+    color: #FFFFFF;
+}
+.loginbody{
+    width:50%;
+    height:100%;
+    float:left;
+    background-color:  #299DF5;
+
+}
+.loginbody .systemlogo{
+    width:50%;
+    height:2.2%;
+    position: relative;
+    left:6.2%;
+    top:28.3%;
+    font-family: PingFangSC-Regular;
+    font-size: 24px;
+    color:#ffffff;
+}
+.loginbox{
+    width:62.5%;
+    height:27.8%;
+    position: relative;
+    left:0px;
+    top:35%;
+    background-color: #ffffff;
+}
+.loginbox li{
+    height:26.6%;
+    font-size: 14px;
+    list-style: none;
+    margin-left:10%;
+    padding-top:2%;
+    padding-bottom:1%;
+}
+.loginbox li p{
+    font-size: 18px;
+}
+.loginuser,.loginpwd{
+    width:76.6%;
+    height:50%;
+    background: #F8FAFC;
+    border: 1px solid #D8D8D8;
+    border-radius: 5px;
+    margin-top:2%;
+    padding-left:5%;
+}
+.check{
+    width:21px;
+    height:21px;
+    background: url('../images/check_no.png') no-repeat;
+    float:left;
+}
+.ck{
+    background: url('../images/Group_3.png') no-repeat;
+}
+ .get_pass{
+    width:21px;
+    height:21px;
+    border:none;
+    opacity: 0;
+
+}
+ .lab_1{
+     font-family: PingFangSC-Thin;
+     font-size: 14px;
+     color: #162D3D;
+     letter-spacing: 0;
+     padding-left:4%;
+ }
+ .login_in{
+     width:31.2%;
+     height:4.6%;
+     position: relative;
+     left:6%;
+     top:40%;
+ }
+ .loginbtn{
+     width:40%;
+     height:100%;
+     background: #1F5480;
+     border:none;
+     border-radius: 5px;
+     font-family: PingFangSC-Regular;
+     font-size: 18px;
+     color: #FFFFFF;
+ }
+ .login_in a{
+     text-decoration: none;
+     color:white;
+     padding-left:15%;
+ }
+ .login_bottom{
+     width:15%;
+     height:0.18%;
+     position: relative;
+     left:6%;
+     top:57%;
+     font-family: PingFangSC-Light;
+     font-size: 14px;
+     color: #FFFFFF;
+ }
+ .login_bottom a{
+     text-decoration: none;
+     color:#ffffff;
+     padding-left:20%;
+     font-weight: 600;
+ }

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="admin/admins/css/pintuer.css">
+    <link rel="stylesheet" href="admin/admins/css/admin.css">
+    <link rel="stylesheet" href="admin/assets/css/pintuer.css">
+    <script src="admin/admins/js/jquery.js"></script>
+    <script src="admin/admins/js/pintuer.js"></script>
+    <style>
+        .short_button {
+            width: 6.1%;
+            height: 3em;
+            border:none;
+            background:url('admin/admins/images/submit.png') no-repeat;
+        }
+    </style>
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 管理员添加</strong></div>
+    <div class="body-content">
+        <div class="form-x">
+            <div class="form-group">
+                <div class="label">
+                    <label>管理员账号：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" id="admin_user" data-validate="required:请输入管理员账号" />
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>管理员密码：</label>
+                </div>
+                <div class="field">
+                    <input type="password" class="input w50" id="admin_pwd" data-validate="required:请输入管理员密码" />
+                    <div class="dips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>所属角色 ：</label>
+                </div>
+                <div class="field" style="padding-top:8px;">
+                    {volist name="role" id="v"}
+                    <div class="field_list">
+                            <input type="checkbox" name="role[]"  value="{$v.role_id}"/>
+                        {$v.role_name}
+                    </div>
+                    {/volist}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <button class=" short_button" id="submit"> </button><div class="divError"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body></html>
+<script>
+    var falg = false;
+    var plag = false;
+    $(document).ready(function(){
+        var flag = 1;
+        $(".check").click(function(){
+            if(flag == 1){
+                $(this).addClass('ck');
+                flag = 0;
+            } else{
+                $(this).removeClass('ck');
+                flag = 1;
+            }
+        })
+    });
+    /**验证用户名**/
+    $(document).on('blur',"#admin_user",function(){
+        var admin_user = $("#admin_user").val();
+        var userRegex = /^[a-zA-Z][a-zA-Z0-9_]{6,24}/;
+        if(!userRegex.test($('#admin_user').val())){
+            $(".tips").text("");
+            $(".tips").append("<span style=color:#ff7800>用户名只能为以字母开头,字母、数字下划线组成且不能少于六个字符</span>");
+            falg = false;
+            return false;
+
+        }else{
+            $(".tips").text("");
+            falg = true;
+            return true;
+        }
+    });
+    /**验证密码**/
+    $("#admin_pwd").on('blur',function(){
+        var admin_pwd = $("#admin_pwd").val();
+        var pwdRegex = /^[a-zA-z0-9_]{6,24}/;
+        if(!pwdRegex.test(admin_pwd)){
+            $(".dips").html("");
+            $(".dips").append("<span style=color:#ff7800>密码必须以字母开通且不能少于六个字符</span>");
+            falg = false;
+            return false;
+        }else{
+            $(".dips").html("");
+            plag = true;
+            return true;
+        }
+    });
+    /**验证登录**/
+
+    $(document).on('click keyup','#submit',function(){
+        if(falg&&plag){
+            var admin_user = $("#admin_user").val();
+            var admin_pwd = $("#admin_pwd").val();
+            //1.先获取当前input下的对象
+            //2.获取对象个数 依次循环 判断里面的值是否被选中
+            //3.选中后则即可获取到面的值 输出到数组中 push输出
+            var str = [];
+            var role_id = $("input[name='role[]']");
+            for(var i=0;i<role_id.length;i++){
+                if(role_id[i].checked == true){
+                    str.push(role_id[i].value);
+                }
+            }
+            $.ajax({
+                async:false,
+                url:"admin_add",
+                type:"post",
+//       dataType:"json",
+                data:{
+                    admin_user:admin_user,
+                    admin_pwd:admin_pwd
+                    ,str:str},
+                success:function(msg){
+                    if(msg.status==1){
+                        $(".divError").html("");
+                        $(".divError").html("<font style='color: #00a4ac' size='6' face='微软雅黑'>用户名已经存在：）</font>");
+                    }else if(msg.status==2){
+                        $(".divError").html("");
+                        $(".divError").html("<font style='color: #00a4ac' size='6' face='微软雅黑'>您还没有为管理员选择相对应的权限：）</font>");
+                    }else if(msg.status==3){
+                        $(".divError").html("");
+                        $(".divError").html("<font style='color: #00a4ac' size='6' face='微软雅黑'>系统异常，发送失败：（</font>");
+                    }else if(msg.status==4){
+                        $(".divError").html("");
+                        $(".divError").html("<font style='color: #00a4ac' size='6' face='微软雅黑'>网络异常，请稍后再试：（</font>");
+                    }else if(msg.status==6){
+                        window.location.reload();
+                        $(".divError").html("");
+                        $(".divError").html("<font style='color: #00a4ac' size='6' face='微软雅黑'>添加管理员成功：）</font>");
+                    }
+                }
+            })
+        }
+
+    })
+</script>

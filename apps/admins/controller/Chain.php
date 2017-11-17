@@ -9,27 +9,24 @@ use think\Query;
 use think\View;
 use test\Page;
 use think\paginator;
-
-class Chain extends Controller{
+class Chain extends Common {
     public function index(){
+
         $date = Db::table('health_chain')->where('chain_file',0)->select();
-//        dump($date);die;
         foreach($date as $k=>$v){
             $time['chain_time'] = date("Y-m-d H:i",$v['chain_time']);
             $data[] = array_merge($v,$time);
         }
 //        dump($time);die;
 //        datetime_format=false;
-//dump($data);die;
         $auto_load = Db::table('health_autoload')->find();
-        return view('chain',['data'=>$data,'auto_load'=>$auto_load]);
+        return view('chain',['auto_load'=>$auto_load]);
 
 
     }
 //    /**入链操作**/
     public function block(){
         $data = input();
-        session_start();
         $admin_id = $_SESSION['admin_id'];
         $chainMsg = Db::table('health_chain')->where(['chain_id'=>$data['chain_id']])->find();
         $chainStr = implode($chainMsg);
@@ -80,7 +77,7 @@ class Chain extends Controller{
 
         $data = input();
         $page = isset($data['page']) ? $data['page'] : 1;
-        $page_size = 5;
+        $page_size = 10;
         $total = db('health_chain')->count();
         $total_page = ceil($total/$page_size);
 //        return $total_page;
@@ -117,7 +114,7 @@ class Chain extends Controller{
                 }else{
                     $result['status']=0;
                 }
-                return $result;
+              return $result;
             }
 
     }
@@ -191,7 +188,7 @@ class Chain extends Controller{
     }
     //病案归档
     public function file(){
-        $data = Db::table('health_chain')->where('chain_file',1)->paginate(5);
+        $data = Db::table('health_chain')->where('chain_file',1)->paginate(10);
         $auto_load = Db::table('health_autoload')->find();
         $arr = Db::table('health_chain')->where('chain_file',1)->select();
         if(!empty($arr)){
@@ -206,7 +203,6 @@ class Chain extends Controller{
         $id = input('id');
 //        dump($id);
         //记录下当前归档管理员id  只为记录使用
-        session_start();
         $admin_id = $_SESSION['admin_id'];
         $time = time();
         $result = Db::table('health_chain')->where('chain_id',$id)->update(['chain_file'=>0,'chain_time'=>$time]);
@@ -276,7 +272,6 @@ class Chain extends Controller{
     public function newdate(){
 //        echo 1;die;
         $data = input();
-//        dump($data);die;
         $flag = Db::table('health_chain')->where('chain_id',$data['id'])->update([
             'chain_title'=>$data['title'],'chain_user'=>$data['name'],
             'chain_age'=>$data['age'],'chain_sex'=>$data['sex'],
@@ -288,7 +283,6 @@ class Chain extends Controller{
             $chainStr = implode($chainMsg);
             //生成新的hash 验证唯一用户标识
             $NewHash = password_hash($chainStr,PASSWORD_DEFAULT);
-            session_start();
             $admin_id=$_SESSION['admin_id'];
             $update_time = time();
             $chain_id = $data['id'];

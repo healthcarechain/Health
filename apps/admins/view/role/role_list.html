@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>角色管理</title>
+    <link rel="stylesheet" href="admin/admins/css/pintuer.css">
+    <link rel="stylesheet" href="admin/admins/css/admin.css">
+    <link rel="stylesheet" href="admin/assets/css/pintuer.css">
+    <script src="admin/admins/js/jquery.js"></script>
+    <script src="admin/admins/js/pintuer.js"></script>
+    <style>
+        .border-bottom{
+            width: 13%;
+            height: 5em;
+        }
+        .admin_lisd{
+            width:100%;
+            height:100%;
+        }
+        .check{
+
+            margin-left: 40%;
+        }
+        #page{
+            margin-left:4%;
+        }
+    </style>
+</head>
+<body>
+<div class="panel admin-panel"><!--<a href="" style="float:right; display:none;">添加字段</a>-->
+    <div class="panel-head"><strong class="icon-reorder">角色管理</strong></div>
+    <div class="padding border-bottom" style="margin-left: 4%;">
+        <a href="admin_lisd"><div class="long_button"></div></a>
+    </div>
+</div>
+<table class="table table-hover text-center" border="0" cellspacing="0">
+    <tr style="background-color: #F0F0F0;">
+        <th><button class="checkall" style="border:none;background-color: #F0F0F0;">全选</button></th>
+        <th>角色名称</th>
+        <th>角色简介</th>
+        <th>操作</th>
+    </tr>
+    <tbody id="show"></tbody>
+</table>
+
+<tr>
+    <td class="button border-yellow"><div id="page"></div></td>
+</tr>
+<div id="DivError"></div>
+</body>
+</html>
+<script>
+    function check_check(obj){
+        var flag = 1;
+        if(flag == 1){
+            $(obj).addClass('ck');
+            flag = 0;
+        } else{
+            $(obj).removeClass('ck');
+            flag = 1;
+        }
+    }
+    //加载样式
+    //    window.alert = function(){
+    //        //创建一个大盒子
+    //        var box = document.createElement("div");
+    //        //创建一个关闭按钮
+    //        var button = document.createElement("button");
+    //        //定义一个对象保存样式
+    //        var boxName = {
+    //            width:"500px",
+    //            height:"180px",
+    //            backgroundColor:"#f8f8f8",
+    //            border:"1px solid #ccc",
+    //            position:"absolute",
+    //            top:"50%",
+    //            left:"50%",
+    //            margin:"-90px 0 0 -250px",
+    //            zIndex:"999",
+    //            textAlign:"center",
+    //            lineHeight:"180px"
+    //        }
+    //        //给元素添加元素
+    //        for(var k in boxName){
+    //            box.style[k] = boxName[k];
+    //        }
+    //        //把创建的元素添加到body中
+    //        document.body.appendChild(box);
+    //        //把alert传入的内容添加到box中
+    //        if(arguments[0]){
+    //            box.innerHTML = arguments[0];
+    //        }
+    //        button.innerHTML = "关闭";
+    //        //定义按钮样式
+    //        var btnName = {
+    //            border:"1px solid #ccc",
+    //            backgroundColor:"#fff",
+    //            width:"70px",
+    //            height:"30px",
+    //            textAlign:"center",
+    //            lineHeight:"30px",
+    //            outline:"none",
+    //            position:"absolute",
+    //            bottom:"10px",
+    //            right:"20px",
+    //        }
+    //        for(var j in btnName){
+    //            button.style[j] = btnName[j];
+    //        }
+    //        //把按钮添加到box中
+    //        box.appendChild(button);
+    //        //给按钮添加单击事件
+    //        button.addEventListener("click",function(){
+    //            box.style.display = "none";
+    //        })
+    //    }
+    /***全选反选**/
+    $(document).on('click','.checkall',function(){
+        $("input[name='check[]']").each(function(){
+            if(this.checked){
+                this.checked=false;
+            }else{
+                this.checked=true;
+            }
+        });
+    });
+    //页面加载事件
+    $(document).on('ready',function(){
+        page(1);
+    });
+    function page(page)
+    {
+        $.ajax({
+            async:false
+        });
+        var url = 'role_lis';
+        $.post(url,{page:page},function(msg){
+            var str='';
+//           alert(msg)
+            if(msg.status==1)
+            {
+                $.each(msg.data,function(k,v){
+                    str+='<tr><td style="text-align:left; padding-left:20px;"><input type="checkbox" name="check[]"  value="'+v.role_id+'"/></td>';
+                    str+='<td>'+v.role_name+'</td>';
+                    str+='<td width="10%">'+v.role_desc+'</td>';
+                    str+='<td><div class="button-group" style="width:40%;"> <a class="button border-main" href="role_update?id='+v.role_id+'" style="width: 50%;"><span class="icon-edit"></span> 修改</a> <a class="button border-red" href="javascript:void(0)" id="'+v.role_id+'" onclick="del(this)" style="width: 50%;"><span class="icon-trash-o"></span> 删除</a> </div></td>';
+                    str+='<tr/>';
+                });
+                $("#show").html(str);
+                $("#page").html(msg.page);
+            }
+        });
+    }
+
+    /**删除**/
+    function del(obj)
+    {
+        var id=obj.id;
+//        alert(id)
+        var xml = new XMLHttpRequest();
+//        alert(xml)
+        xml.onreadystatechange=function(){
+            if(xml.readyState==4){
+                if(xml.responseText==1){
+                    obj.parentNode.parentNode.parentNode.parentNode.removeChild(obj.parentNode.parentNode.parentNode);
+                }else{
+                    $("#DivError").html("");
+                    $("#DivError").html("<font style='color: #00a4ac' size='6' face='微软雅黑'>删除失败，请重试</font>");
+                }
+            }
+        };
+        xml.open('get',"role_del?id="+id);
+        xml.send();
+    }
+</script>

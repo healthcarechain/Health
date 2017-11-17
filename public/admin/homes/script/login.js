@@ -19,7 +19,20 @@
         var invist_flag = true;
         var $changeCapcherButton = $("._changeCapcherButton");
         var $phoneMsg = $('#phoneJy');
+        var verifyCode = new GVerify("v_container");
+        var fash = false;
+        // document.getElementById("my_button").onclick = function(){
+        //     var res = verifyCode.validate(document.getElementById("code_input").value);
+        //     if(res){
+        //         return true;
+        //     }else{
+        //
+        //         alert("验证码错误");
+        //         return false;
+        //     }
+        // };
         var login = {
+
             init: function() {
                 login._bind();
             },
@@ -47,11 +60,11 @@
                     login.phoneYz();
                     return false;
                 });
-                $("._phonVerify").on('blur', function(event) {
-                    event.preventDefault();
-                    login.checkSecurity($(this));
-                    return false;
-                });
+                // $("._phonVerify").on('blur', function(event) {
+                //     event.preventDefault();
+                //     login.checkSecurity($(this));
+                //     return false;
+                // });
                 $("._userName").on('blur', function(event) {
                     event.preventDefault();
                     login.strVerify($(this));
@@ -269,7 +282,7 @@
                     }
                     else if (strVal.length < 6 || strVal.length > 15) {
                         $(ids).text("");
-                        $(ids).append("<span style=color:#ff7800>密码小于6位或者大于24位</span>");
+                        $(ids).append("<span style=color:#ff7800>密码不能小于6位或者大于24位</span>");
                     }
                     else {
                         $(ids).text("");
@@ -402,78 +415,105 @@
                     return false;
                 } else if($("#userEmail").val() == null || $("#userEmail").val() == ''){
                     $("#userEmailAlt").text("");
-                    $('#userEmailAlt').append("<span style='color: #ff7800'>邮箱不可以为空</span>");
+                    $('#userEmailAlt').append("<span style='color: #ff7800'>邮箱不能为空</span>");
                     return false;
                 } else if(!/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/.test($("#userEmail").val())){
                     $("#userEmailAlt").text("");
                     $('#userEmailAlt').append("<span style='color: #ff7800'>请输入正确的邮箱格式</span>");
                     return false;
                 }
-                // else if (!flag1) {
-                //     // $("#phonVerifys").html("<span style=color:#ff7800>验证失败</span>");
-                //     return false;
-                // }
-                else {
-                    if (subFlag == "1") {
-                        $.ajax({
-                            type: "post",
-                            dataType: "json",
-                            async: false,
-                            cache: false,
-                            url: "user_add", //发送请求地址
-                            data: {
-                                "user_account": $('#userName').val(),
-                                "user_pwd": $('#password').val(),
-                                "user_tel": $("#phone").val(),
-                                "user_email":$("#userEmail").val(),
-                            },
-                            //请求成功后的回调函数有两个参数
-                            success: function(data) {
-
-                                if (data.msg == '1') {
-                                    //if (!asdfasdf){
-                                    //    window.location = path.base + "/user!registerFinish.action?userName=" + data['userName'] + "&time=" + new Date();
-                                    //} else {
-                                        window.location.href = "login_success";
-                                    //}
-                                } else if (data.msg == "2") {
-                                    $(ids).text("");
-                                    $(ids).append("<span style=color:#ff7800>用户名不可用</span>")
-                                } else if(data.msg == "6"){
-                                    $("#userEmailAlt").text("");
-                                    $('#userEmailAlt').append("<span style='color:#ff7800'>邮箱已经存在</span>")
-                                } else if(data.msg == "9"){
-                                    $phoneMsg.text("");
-                                    $phoneMsg.html("<span style=color:#ff7800>该号码已经注册</span>");
-                                    // window.location.href = "login_index";
-                                }else{
-                                    alert("添加失败");
-                                }
-                            }
-                        });
-                        subFlag = "2";
-                    }
+                else if (!/^1[3-9]\d{9}$/.test($("#phone").val()))
+                {
+                    $("#phoneJy").html("");
+                    $("#phoneJy").append("<span style=color:#ff7800>手机号格式不正确</span>");
+                    return false;
                 }
-            },
-            _daojishi: function() {
-                login._setti(_t);
-            },
-            _setti: function(i) {
-                setTimeout(function() {
-                    if (i == 0) {
-                        $getKey.html("获取验证码");
-                        flag4 = 1;
-                    } else {
-                        $getKey.html("重新发送(" + i + ")");
-                        login._setti(parseInt(i - 1));
+                else if($("#phone").val() == null || $("#phone").val() == '')
+                {
+                    $("#phoneJy").html("");
+                    $("#phoneJy").append("<span style=color:#ff7800>手机号不能为空</span>");
+                    return false;
+                }
+                else {
+                    var res = verifyCode.validate(document.getElementById("code_input").value);
+                    if(res){
+                        if (subFlag == "1") {
+                            $.ajax({
+                                type: "post",
+                                dataType: "json",
+                                async: false,
+                                cache: false,
+                                url: "user_add", //发送请求地址
+                                data: {
+                                    "user_account": $('#userName').val(),
+                                    "user_pwd": $('#password').val(),
+                                    "user_tel": $("#phone").val(),
+                                    "user_email":$("#userEmail").val(),
+                                },
+                                //请求成功后的回调函数有两个参数
+                                success: function(msg) {
+
+                                    if (msg.msg == 1)
+                                    {
+                                        window.location.href = "login_success";
+                                    }
+                                    else if (msg.msg == 2)
+                                    {
+                                        $(ids).text("");
+                                        $(ids).append("<span style=color:#ff7800>用户名不可用</span>")
+                                    }
+                                    else if(msg.msg == 6)
+                                    {
+                                        $("#userEmailAlt").text("");
+                                        $('#userEmailAlt').append("<span style='color:#ff7800'>邮箱已经存在</span>")
+                                    }
+                                    else if(msg.msg == 9)
+                                    {
+                                        $phoneMsg.text("");
+                                        $phoneMsg.html("<span style=color:#ff7800>该号码已经注册</span>");
+                                    }
+                                    else
+                                    {
+                                        alert("注册失败，请重新注册");
+                                        window.location.reload();
+                                    }
+                                }
+                            });
+                            subFlag = "2";
+                        }
+                        fash = true;
+                        return fash;
+                    }else{
+
+                        alert("验证码错误");
+                        fash = false;
+                        return fash;
                     }
-                }, 1000);
+
+
+                    }
+
+
             },
-            _changetCapther: function() {
-                $changeCapcherButton.trigger('click');
-                flag3 = 1;
-                return false;
-            }
+            // _daojishi: function() {
+            //     login._setti(_t);
+            // },
+            // _setti: function(i) {
+            //     setTimeout(function() {
+            //         if (i == 0) {
+            //             $getKey.html("获取验证码");
+            //             flag4 = 1;
+            //         } else {
+            //             $getKey.html("重新发送(" + i + ")");
+            //             login._setti(parseInt(i - 1));
+            //         }
+            //     }, 1000);
+            // },
+            // _changetCapther: function() {
+            //     $changeCapcherButton.trigger('click');
+            //     flag3 = 1;
+            //     return false;
+            // }
         };
         login.init();
     });

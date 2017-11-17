@@ -66,11 +66,16 @@ ul,li{ list-style-type:none;}
 .search{ overflow:hidden;}
 .search li{float:left; margin-right:15px; line-height:35px;}
 
-.button.bg-main.icon-check-square-o{ padding:10px 30px;}
-.button.bg-main.icon-check-square-o:hover{ background:#08bbe1;}
-input[type="checkbox"], input[type="radio"]{ width:15px; height:15px; vertical-align:-3px; margin-right:5px;}
+.button.bg-main.icon-check-square-o{background:url('../images/submit.png') no-repeat;background-size: contain;}
+.button.bg-main.icon-check-square-o:hover{ background:url('../images/submit.png') no-repeat;background-size: contain;}
+input[type="checkbox"], input[type="radio"]{ width:20px; height:20px; vertical-align:-3px; margin-right:5px;}
 
 textarea[name=content]{width:100%; height:500px; border:1px solid #ddd; border-radius:3px; -webkit-border-radius:3px;}
+.field_list{
+    width:9%;
+    float:left;
+    text-align: center;
+}
 
 
 

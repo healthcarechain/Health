@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="renderer" content="webkit">
-    <title>病案添加</title>
+    <title>病案修改</title>
     <link rel="stylesheet" href="admin/admins/css/pintuer.css">
     <link rel="stylesheet" href="admin/admins/css/admin.css">
     <script src="admin/admins/js/jquery.js"></script>
@@ -94,7 +94,7 @@
                 </div>
                 <div class="field">
                     <span id="Eerror"></span>
-                    <input type="button" onclick="Submit()" value="提交" class="button bg-main icon-check-square-o">
+                    <input type="button" onclick="Submit()" value="" class="button bg-main icon-check-square-o">
                 </div>
             </div>
         </form>
@@ -114,7 +114,6 @@
         var content = $("#chain_content").val();
         var url ='medical_newup';
         $.post(url,{id:id,title:title,name:name,age:age,sex:sex,num:num,department:department,lesion:lesion,content:content},function(msg){
-            alert(msg.status)
             if(msg.status==0){
                 location.href="medical_up";
             }else if(msg.status==1){

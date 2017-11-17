@@ -66,10 +66,40 @@ return [
     'pass_index'=>'admins/Pass/index',
     'pass_result'=>'admins/Pass/go_result',
     'pass_pro'=>'admins/Pass/pass_pro',
-    'admin_list'=>'admins/Admin/index',
     //自动加载类
     'chain_load'=>"admins/Auto/file_index",
     'chain_loca'=>"admins/Auto/file_chain",
     //10.09 消息通知
     'invest_list'=>'admins/Invest/index',
+    //管理员添加
+    'admin_lisd'=>'admins/Admin/admin_lisd',
+    'admin_add'=>'admins/Admin/admin_add',
+    //管理员管理
+    'admin_list'=>'admins/Admin/index',
+    'admin_lis'=>'admins/Admin/admin_lis',
+    'admin_jin'=>'admins/Admin/admin_jin',
+    'admin_role'=>'admins/Admin/admin_role',
+    'admin_update'=>'admins/Admin/admin_update',
+    //角色管理
+    'role_add'=>'admins/Role/index',
+    'role_list'=>'admins/Role/role_list',
+    'role_lis'=>'admins/Role/role_lis',
+    'role_update'=>'admins/Role/role_update',
+    'role_up'=>'admins/Role/role_up',
+    //角色添加
+    'role_adds'=>'admins/Role/role_add',
+    'role_del'=>'admins/Role/role_del',
+    //权限管理
+    'node_index'=>'admins/Node/node_index',
+    'node_list'=>'admins/Node/node_list',
+    'node_add'=>'admins/Node/node_add',
+    'node_page'=>'admins/Node/node_page',
+    'node_del'=>'admins/Node/node_del',
+    'node_uplist'=>'admins/Node/node_uplist',
+    'node_update'=>'admins/Node/node_update',
+    //系统设置
+    'clear_cache'=>'admins/Clear/index', //清除缓存
+    'export_excel'=>'admins/Pass/export_excel',
+    'export_demo'=>'admins/Pass/export_demo',
+    'clear_bom'=>'admins/Excel/Bom',
 ];

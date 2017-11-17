@@ -6,69 +6,98 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="renderer" content="webkit">
     <title>后台管理中心</title>
-    <link rel="stylesheet" href="/admin/assets/css/pintuer.css">
-    <link rel="stylesheet" href="/admin/assets/css/admin.css">
-    <script src="/admin/assets/js/jquery.js"></script>
+    <link rel="stylesheet" href="admin/assets/css/pintuer.css">
+    <link rel="stylesheet" href="admin/assets/css/admin.css">
+    <script src="admin/assets/js/jquery.js"></script>
 </head>
-<body style="background-color:#f2f9fd;">
+<body>
 <div class="header bg-main">
-    <div class="logo margin-big-left fadein-top">
-        <h1><img src="/admin/assets/images/y.jpg" class="radius-circle rotate-hover" height="50" alt="" />后台管理中心</h1>
+    <div class=" margin-big-left ">
+        <div class="header_left_1"><img src="admin/admins/images/index_top_left.png" /></div><div class="header_left_2"><img src="admin/admins/images/HCC.png" /></div>
     </div>
-    <div class="head-l"><a class="button button-little bg-green" href="index_admin"><span class="icon-home"></span>后台首页</a>&nbsp;&nbsp;<a class="button button-little bg-red" href="logout"><span class="icon-power-off"></span> 退出登录</a> </div>
+
+    <div class="head-l">
+        <ul class="bread">
+            <li><img src="admin/admins/images/index_top_house.png" /><a href="personal" target="right" class="icon-home"> 首页</a></li>
+            <li><a href="##" id="a_leader_txt">个人信息</a></li>
+            <li id="bread_language">切换语言：<a href="##">中文</a> &nbsp;&nbsp;<a href="##">English</a> </li>
+        </ul>
+        <input type="image" src='admin/admins/images/index_green.png' class="button button-little bg-green" /><input type="image" src="admin/admins/images/index_red.png" class="button button-little bg-red"  />
+        <img src="admin/admins/images/Rectangle 16.png" class=" radius-circle rotate-hover" height="100" alt="" />
+    </div>
 </div>
 <div class="leftnav">
-    <div class="leftnav-title"><strong><span class="icon-list"></span>菜单列表</strong></div>
+    <div class="h2_2_top_left"></div>
+    <div class="h2_2">
 
-
-
-
-   <h2><span class="icon-user"></span>管理员控制</h2>
-        <ul style="display:none">
+        <div class="h2_2_top"><img src="admin/admins/images/point.png" /><div class="h2_2_title">管理员控制</div></div>
+        <ul>
             <li><a href="admin_list" target="right"><span class="icon-caret-right"></span>管理员管理</a></li>
-            <li><a href="admin_add" target="right"><span class="icon-caret-right"></span>管理员添加</a></li>
+            <li><a href="admin_lisd" target="right"><span class="icon-caret-right"></span>管理员添加</a></li>
         </ul>
+    </div>
 
-        <h2><span class="icon-user"></span>权限控制</h2>
-        <ul style="display:none">
+    <div class="h2_2">
+        <div class="h2_2_top"><img src="admin/admins/images/point.png" /><div class="h2_2_title">角色控制</div></div>
+        <ul>
+            <li><a href="role_add" target="right"><span class="icon-caret-right"></span>角色添加</a></li>
             <li><a href="role_list" target="right"><span class="icon-caret-right"></span>角色管理</a></li>
+        </ul>
+    </div>
+
+    <div class="h2_2">
+        <div class="h2_2_top"><img src="admin/admins/images/point.png" /><div class="h2_2_title">权限控制</div></div>
+        <ul>
+            <li><a href="node_index" target="right"><span class="icon-caret-right"></span>权限添加</a></li>
             <li><a href="node_list" target="right"><span class="icon-caret-right"></span>权限管理</a></li>
         </ul>
-        <h2><span class="icon-user"></span>病案管理</h2>
-        <ul style="display:none">
-        <li><a href="medical_add" target="right"><span class="icon-caret-right"></span>添加病案</a></  li>
-        <li><a href="medical_delete" target="right"><span class="icon-caret-right"></span>病案删除</a></li>
-        <li><a href="medical_up" target="right"><span class="icon-caret-right"></span>病案修改</a></li>
+    </div>
+
+    <div class="h2_2">
+        <div class="h2_2_top"><img src="admin/admins/images/point.png" /><div class="h2_2_title">病案管理</div></div>
+
+        <ul>
+            <li><a href="medical_add" target="right"><span class="icon-caret-right"></span>添加病案</a></  li>
+            <li><a href="medical_delete" target="right"><span class="icon-caret-right"></span>病案删除</a></li>
+            <li><a href="medical_up" target="right"><span class="icon-caret-right"></span>病案修改</a></li>
         </ul>
-        <h2><span class="icon-user"></span>监控查询</h2>
-        <ul style="display:none">
+    </div>
+
+    <div class="h2_2">
+
+        <div class="h2_2_top"><img src="admin/admins/images/point.png" /><div class="h2_2_title">监控查询</div></div>
+        <ul>
             <li><a href="pass_index" target="right"><span class="icon-caret-right"></span>病案修改情况查询</a></li>
             <li><a href="pass_pro" target="right"><span class="icon-caret-right"></span>病案高级查询</a></li>
-            <!--<li><a href="adv.html" target="right"><span class="icon-caret-right"></span>风险</a></li>-->
-            <!--<li><a href="adv.html" target="right"><span class="icon-caret-right"></span>列表</a></li>-->
         </ul>
+    </div>
 
-        <h2><span class="icon-user"></span>病案入链</h2>
-        <ul style="display:none">
+
+    <div class="h2_2">
+        <div class="h2_2_top"><img src="admin/admins/images/point.png" /><div class="h2_2_title">病案入链</div></div>
+        <ul>
             <li><a href="chain_list" target="right"><span class="icon-caret-right"></span>病案入链</a></li>
             <li><a href="chain_file" target="right"><span class="icon-caret-right"></span>病案归档</a></li>
             <li><a href="chain_uplist" target="right"><span class="icon-caret-right"></span>入链修改</a></li>
-            <!--<li><a href="adv.html" target="right"><span class="icon-caret-right"></span>自动入链</a></li>-->
         </ul>
+    </div>
 
-        <h2><span class="icon-user"></span>消息通知</h2>
-        <ul style="display:none">
+
+    <div class="h2_2">
+        <div class="h2_2_top"><img src="admin/admins/images/point.png" /><div class="h2_2_title">消息通知</div></div>
+        <ul>
             <li><a href="invest_list" target="right"><span class="icon-caret-right"></span>通知列表</a></li>
-            <!--<li><a href="invest_record" target="right"><span class="icon-caret-right"></span>记录</a></li>-->
-            <!--<li><a href="invest_plan" target="right"><span class="icon-caret-right"></span>进度统计</a></li>-->
         </ul>
+    </div>
 
-      <h2><span class="icon-pencil-square-o"></span>系统设置</h2>
-      <ul>
-        <li><a href="adv" target="right"><span class="icon-caret-right"></span>系统首页</a></li>
-        <li><a href="notice_list" target="right"><span class="icon-caret-right"></span>系统管理</a></li>
-        <li><a href="notice_add" target="right"><span class="icon-caret-right"></span>清楚缓存</a></li>
-      </ul>
+
+    <div class="h2_2">
+        <div class="h2_2_top"><img src="admin/admins/images/point.png" /><div class="h2_2_title">系统设置</div></div>
+        <ul>
+            <!--<li><a href="#" target="right"><span class="icon-caret-right"></span>系统管理</a></li>-->
+            <li><a href="clear_cache" target="right"><span class="icon-caret-right"></span>清除缓存</a></li>
+        </ul>
+    </div>
 
 </div>
 <script type="text/javascript">
@@ -83,18 +112,16 @@
             $(this).addClass("on");
         })
     });
+    $('.bg-green').click(function(){
+        location.href = 'index_admin';
+    })
+    $('.bg-red').click(function(){
+        location.href = '/';
+    })
 </script>
-<ul class="bread">
-    <li><a href="personal" target="right" class="icon-home"> 首页</a></li>
-    <li><a href="##" id="a_leader_txt">个人信息</a></li>
-    <li><b>当前语言：</b><span style="color:red;">中文</php></span>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;切换语言：<a href="##">中文</a> &nbsp;&nbsp;<a href="##">英文</a> </li>
-</ul>
+
 <div class="admin">
-    <iframe scrolling="auto" rameborder="0" src="personal" name="right" width="100%" height="100%"></iframe>
-</div>
-<div style="text-align:center;">
-    <p>医疗链网站后台</p>
+    <iframe scrolling="auto" class='admin_frame' border=0 rameborder="0" src="personal" name="right" width="98%" height="95%" style="background-color: #ffffff"></iframe>
 </div>
 </body>
 </html>

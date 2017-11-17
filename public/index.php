@@ -10,7 +10,6 @@
 // +----------------------------------------------------------------------
 
 // [ 应用入口文件 ]
-//echo 'Hello World';
 // 定义应用目录
 define('APP_PATH', __DIR__ . '/../apps/');
 //define('EXTEND_PATH','../extend/');
@@ -18,7 +17,6 @@ define('EXTEND_PATH','../extend/');
 //define('CONF_PATH',APP_PATH.'config/');
 // 加载框架引导文件
 require __DIR__ . '/../thinkphp/start.php';
-
 //$TopClient = require __DIR__.'/admin/Ali/top/TopClient.php';
 //$TopClient = require __DIR__.'/admin/Ali/top/ResultSet.php';
 //$TopClient = require __DIR__.'/admin/Ali/top/RequestCheckUtil.php';

@@ -8,19 +8,47 @@
     <title>病案删除</title>
     <link rel="stylesheet" href="admin/admins/css/pintuer.css">
     <link rel="stylesheet" href="admin/admins/css/admin.css">
+    <link rel="stylesheet" href="admin/assets/css/pintuer.css">
     <script src="admin/admins/js/jquery.js"></script>
     <script src="admin/admins/js/pintuer.js"></script>
+    <style>
+        .border-bottom{
+            width: 15%;
+            height: 5em;
+            margin-left: 4%;
+        }
+        .admin_lisd{
+            width:100%;
+            height:100%;
+        }
+        .long_button{
+            background: url('admin/admins/images/medical_del.png') no-repeat;
+        }
+        .short_button {
+            width: 24.1%;
+            height: 3em;
+            border:none;
+            background:url('admin/admins/images/medical_del_all.png') no-repeat;
+        }
+        .check{
+
+            margin-left: 40%;
+        }
+        .am-pagination{
+            margin-left:4%;
+        }
+    </style>
 </head>
 <body>
 <div class="panel admin-panel"><!--<a href="" style="float:right; display:none;">添加字段</a>-->
     <div class="panel-head"><strong class="icon-reorder"> 病案删除</strong></div>
     <div class="padding border-bottom">
-        <a href="#"><button type="button" class="button border-yellow" id="button"><span class="icon-plus-square-o"></span>病案删除不可追溯</button></a>
+        <a href="#"><div class="long_button"></div></a>
     </div>
 </div>
-<table class="table table-hover text-center" border="1">
-    <tr>
-        <th class="checkall">全选</th>
+<table class="table table-hover text-center" cellspacing="0">
+    <tr style="background-color: #F0F0F0;">
+        <th class="checkall" style="border:none;background-color: #F0F0F0;">全选</th>
         <th width="100" style="text-align:left; padding-left:20px;">病案标题</th>
         <th>姓名</th>
         <th>年龄</th>
@@ -30,9 +58,9 @@
         <th>出院病区</th>
         <th>操作</th>
     </tr>
-        {volist name="data" id="v"}
+    {volist name="data" id="v"}
     <tr>
-        <td><input type="checkbox" name="check[]" value="{$v.chain_id}"></td>
+        <td><input type="checkbox" name="check[]" value="{$v.chain_id}"/></td>
         <td>{$v.chain_title}</td>
         <td>{$v.chain_user}</td>
         <td>{$v.chain_age}</td>
@@ -41,18 +69,18 @@
             {else/}
             女
             {/if}
-            </td>
+        </td>
         <td>{$v.chain_num}</td>
         <td>{$v.chain_department}</td>
         <td>{$v.chain_lesion}</td>
         <td><a href="javascript:void(0)" id="{$v.chain_id}" class="aa" onclick="del(this)">删除</a></td>
     </tr>
-        {/volist}
+    {/volist}
 </table>
-<div class="field" style="margin-left: 1570px">
+<div class="field" style="margin-left: 1190px">
     <span id="Eerror"></span>
     <!--<input type="checkbox" value="批量删除" onclick="check_del();">-->
-    <input type="button" onclick="check_del();" value="批量删除" class="button bg-main icon-check-square-o">
+    <input type="button" onclick="check_del();"  class="short_button">
 </div>
 <tr>
     <td class="button border-yellow">{$data->render()}</td>
@@ -60,6 +88,18 @@
 
 </div>
 <script type="text/javascript">
+    $(document).ready(function(){
+        var flag = 1;
+        $(".check").click(function(){
+            if(flag == 1){
+                $(this).addClass('ck');
+                flag = 0;
+            } else{
+                $(this).removeClass('ck');
+                flag = 1;
+            }
+        })
+    });
     function page(page){
         $url='medical_delete';
         $.get(url,{page:page},function(){
@@ -111,48 +151,62 @@
     }
     //全选
     $(".checkall").click(function(){
-      $("input[name='check[]']").each(function(){
-            if (this.checked) {
-                this.checked = false;
-            }
-            else {
-                this.checked = true;
-            }
+        $("input[name='check[]']").each(function(){
+           if(this.checked)
+           {
+               this.checked=false;
+           }
+           else
+           {
+               this.checked=true;
+           }
         });
     })
     //批量删除
-//    function DelSelect(){
-//        var Checkbox=false;
-//        $("input[name='check[]']").each(function(){
-//            if (this.checked==true) {
-//                Checkbox=true;
-//            }
-//        });
-//        if (Checkbox){
-//            var t=confirm("您确认要删除选中的内容吗？");
-//            if (t==false) return false;
-//            $("#listform").submit();
-//        }
-//        else{
-//            alert("请选择您要删除的内容!");
-//            return false;
-//        }
-//    }
+    //    function DelSelect(){
+    //        var Checkbox=false;
+    //        $("input[name='check[]']").each(function(){
+    //            if (this.checked==true) {
+    //                Checkbox=true;
+    //            }
+    //        });
+    //        if (Checkbox){
+    //            var t=confirm("您确认要删除选中的内容吗？");
+    //            if (t==false) return false;
+    //            $("#listform").submit();
+    //        }
+    //        else{
+    //            alert("请选择您要删除的内容!");
+    //            return false;
+    //        }
+    //    }
     function check_del()
     {
-        //获取所有选中的值
         var id =$("input[name='check[]']");
         var str=Array();
         for(var i=0;i<id.length;i++)
         {
             if(id[i].checked==true)
             {
-                 str.push(id[i].value);
+                str.push(id[i].value);
 
 
             }
         }
-        alert(str)
+//        alert(str)
+        //获取所有选中的值
+//        var ids =$('.check').find('.ck');
+//        var id = ids.children();
+//        var str=Array();
+//        for(var i=0;i<id.length;i++)
+//        {
+//            if(id[i].checked==true)
+//            {
+//                str.push(id[i].value);
+//
+//
+//            }
+//        }
         var ajax=new XMLHttpRequest();
         ajax.onreadystatechange=function() {
             if(ajax.readyState == 4) {
@@ -160,7 +214,8 @@
                 if(ajax.responseText==1) {
 
                     for (var j = id.length - 1; j >= 0; j--) {
-                        if (id[j].checked) {
+                        if (id[j].checked){
+//                            alert(id[j].parentNode.parentNode.parentNode.nodeName);
                             id[j].parentNode.parentNode.parentNode.removeChild(id[j].parentNode.parentNode);
                         }
                     }
@@ -176,6 +231,50 @@
         ajax.open("get","medical_delall?new_str="+str);
         ajax.send(null);
 
+    }
+    window.alert = function(str)
+    {
+        var shield = document.createElement("DIV");
+        shield.id = "shield";
+        shield.style.position = "absolute";
+        shield.style.left = "0px";
+        shield.style.top = "0px";
+        shield.style.width = "100%";
+        shield.style.height = document.body.scrollHeight+"px";
+//弹出对话框时的背景颜色
+        shield.style.background = "#fff";
+        shield.style.textAlign = "center";
+        shield.style.zIndex = "25";
+//背景透明 IE有效
+//shield.style.filter = "alpha(opacity=0)";
+        var alertFram = document.createElement("DIV");
+        alertFram.id="alertFram";
+        alertFram.style.position = "absolute";
+        alertFram.style.left = "50%";
+        alertFram.style.top = "50%";
+        alertFram.style.marginLeft = "-225px";
+        alertFram.style.marginTop = "-75px";
+        alertFram.style.width = "450px";
+        alertFram.style.height = "150px";
+        alertFram.style.background = "#ff0000";
+        alertFram.style.textAlign = "center";
+        alertFram.style.lineHeight = "150px";
+        alertFram.style.zIndex = "300";
+        strHtml = "<ul style=\"list-style:none;margin:0px;padding:0px;width:100%\">\n";
+        strHtml += " <li style=\"background:#00a6fe;text-align:left;padding-left:20px;font-size:14px;font-weight:bold;height:25px;line-height:25px;border:1px solid #F9CADE;\">[系统提示]</li>\n";
+        strHtml += " <li style=\"background:#fff;text-align:center;font-size:12px;height:120px;line-height:120px;border-left:1px solid #F9CADE;border-right:1px solid #F9CADE;\">"+str+"</li>\n";
+        strHtml += " <li style=\"background:#FDEEF4;text-align:center;font-weight:bold;height:25px;line-height:25px; border:1px solid #F9CADE;\"><input type=\"button\" value=\"确 定\" onclick=\"doOk()\" /></li>\n";
+        strHtml += "</ul>\n";
+        alertFram.innerHTML = strHtml;
+        document.body.appendChild(alertFram);
+        document.body.appendChild(shield);
+        var ad = setInterval("doAlpha()",5);
+        this.doOk = function(){
+            alertFram.style.display = "none";
+            shield.style.display = "none";
+        }
+        alertFram.focus();
+        document.body.onselectstart = function(){return false;};
     }
 </script>
 </body>

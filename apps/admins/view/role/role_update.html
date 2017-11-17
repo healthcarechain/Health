@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="admin/admins/css/pintuer.css">
+    <link rel="stylesheet" href="admin/admins/css/admin.css">
+    <script src="admin/admins/js/jquery.js"></script>
+    <script src="admin/admins/js/pintuer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 角色修改</strong></div>
+    <div class="body-content">
+        <div class="form-x">
+            <div class="form-group">
+                <div class="label">
+                    <label>角色名称：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" id="role_user" value="{$roleStatus.role_name}"/>
+                    <div class="tips"></div><input type="hidden" id="role_id" value="{$role_id}">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>角色简介：</label>
+                </div>
+                <div class="field">
+                    <textarea id="role_desc" class="input w50">{$roleStatus.role_desc}</textarea>
+                    <div class="dips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>所属权限 ：</label>
+                </div>
+                <div class="field" style="padding-top:8px;">
+                    <?php foreach($node as $k=>$v):?>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="node[]" value="<?=$v['node_id']?>" id="node" class="nods"<?php if(in_array($v['node_id'],$role_node)):?><?php echo ("checked");?><?php endif;?>><span>{$v.node_name}</span>
+                        </label>
+                    </div>
+                    <?php endforeach;?>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <button class="button bg-main icon-check-square-o" id="submit"></button><div class="divError"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body></html>
+<script>
+    var falg = false;
+    /**验证角色**/
+    $(document).on('blur',"#role_user",function(){
+        var role_user = $("#role_user").val();
+        var userRegex = /[\u4e00-\u9fa5]+/g;
+        if(!userRegex.test($('#role_user').val())){
+            $(".tips").text("");
+            $(".tips").append("<span style=color:#ff7800>角色名称必须是中文</span>");
+            falg = false;
+            return false;
+
+        }else{
+            $(".tips").text("");
+            falg = true;
+            return true;
+        }
+    });
+    /**验证修改**/
+
+    $(document).on('click keyup','#submit',function(){
+        //防止重复提交
+        var btn_target = $(this);
+        if(btn_target.hasClass("disabled"))
+        {
+            alert("正在处理请求，请不要重复提交");
+            return false;
+        }
+        if(falg){
+            var role_id=$("#role_id").val();
+            //获取复选框里选中的数据
+            var node_id = $("input[name='node[]']");
+            var node = [];
+            for(var i=0;i<node_id.length;i++)
+            {
+                if(node_id[i].checked==true)
+                {
+                    node.push(node_id[i].value);
+                }
+            }
+
+
+            var role_name = document.getElementById('role_user').value;
+            var role_desc = $("#role_desc").val();
+            var role_id = $("#role_id").val();
+            $.ajax({
+                url:'role_up',
+                type:'post',
+                data:{
+                    role_name:role_name,
+                    role_desc:role_desc,
+                    role_id:role_id,
+                    node:node,
+                },
+                success:function(data)
+                {
+                    if(data.status==0)
+                    {
+                        $(".divError").html("");
+                        $(".divError").html("<span style='margin-left: 25%;font-size: 28px;'>用户名已存在：）</span>");
+                    }
+                    else if(data.status==1)
+                    {
+                        alert('修改角色成功：）');
+                    }
+
+                }
+            })
+        }
+
+//
+    });
+
+    //alert（）
+    window.alert = function(str)
+    {
+        var shield = document.createElement("DIV");
+        shield.id = "shield";
+        shield.style.position = "absolute";
+        shield.style.left = "0px";
+        shield.style.top = "0px";
+        shield.style.width = "100%";
+        shield.style.height = document.body.scrollHeight+"px";
+//弹出对话框时的背景颜色
+        shield.style.background = "#fff";
+        shield.style.textAlign = "center";
+        shield.style.zIndex = "25";
+//背景透明 IE有效
+//shield.style.filter = "alpha(opacity=0)";
+        var alertFram = document.createElement("DIV");
+        alertFram.id="alertFram";
+        alertFram.style.position = "absolute";
+        alertFram.style.left = "50%";
+        alertFram.style.top = "50%";
+        alertFram.style.marginLeft = "-225px";
+        alertFram.style.marginTop = "-75px";
+        alertFram.style.width = "450px";
+        alertFram.style.height = "150px";
+        alertFram.style.background = "#ff0000";
+        alertFram.style.textAlign = "center";
+        alertFram.style.lineHeight = "150px";
+        alertFram.style.zIndex = "300";
+        strHtml = "<ul style=\"list-style:none;margin:0px;padding:0px;width:100%\">\n";
+        strHtml += " <li style=\"background:#DD828D;text-align:left;padding-left:20px;font-size:14px;font-weight:bold;height:25px;line-height:25px;border:1px solid #F9CADE;\">[系统提示]</li>\n";
+        strHtml += " <li style=\"background:#fff;text-align:center;font-size:12px;height:120px;line-height:120px;border-left:1px solid #F9CADE;border-right:1px solid #F9CADE;\">"+str+"</li>\n";
+        strHtml += " <li style=\"background:#FDEEF4;text-align:center;font-weight:bold;height:25px;line-height:25px; border:1px solid #F9CADE;\"><input type=\"button\" value=\"确 定\" onclick=\"doOk()\" /></li>\n";
+        strHtml += "</ul>\n";
+        alertFram.innerHTML = strHtml;
+        document.body.appendChild(alertFram);
+        document.body.appendChild(shield);
+        var ad = setInterval("doAlpha()",5);
+        this.doOk = function(){
+            alertFram.style.display = "none";
+            shield.style.display = "none";
+        }
+        alertFram.focus();
+        document.body.onselectstart = function(){return false;};
+    }
+</script>

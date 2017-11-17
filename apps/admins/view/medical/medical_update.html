@@ -8,19 +8,39 @@
     <title>病案修改</title>
     <link rel="stylesheet" href="admin/admins/css/pintuer.css">
     <link rel="stylesheet" href="admin/admins/css/admin.css">
+    <link rel="stylesheet" href="admin/assets/css/pintuer.css">
     <script src="admin/admins/js/jquery.js"></script>
     <script src="admin/admins/js/pintuer.js"></script>
+    <style>
+        .border-bottom{
+            width: 15%;
+            height: 5em;
+            margin-left:4%;
+        }
+        .admin_lisd{
+            width:100%;
+            height:100%;
+        }
+        .check{
+
+            margin-left: 40%;
+        }
+        .am-pagination{
+            margin-left:4%;
+        }
+    </style>
+
 </head>
 <body>
 <div class="panel admin-panel"><!--<a href="" style="float:right; display:none;">添加字段</a>-->
     <div class="panel-head"><strong class="icon-reorder"> 病案修改</strong></div>
     <div class="padding border-bottom">
-        <a href="#"><button type="button" class="button border-yellow" id="button"><span class="icon-plus-square-o"></span>病案修改不可追溯</button></a>
+        <a href="#"><div class="long_button"></div></a>
     </div>
 </div>
-<table class="table table-hover text-center" border="1">
-    <tr>
-        <th class="checkall">全选</th>
+<table class="table table-hover text-center" cellspacing="0">
+    <tr style="background-color: #F0F0F0;">
+        <th class="checkall" >全选</th>
         <th width="100" style="text-align:left; padding-left:20px;">病案标题</th>
         <th>姓名</th>
         <th>年龄</th>
@@ -32,7 +52,7 @@
     </tr>
     {volist name="data" id="v"}
     <tr>
-        <td><input type="checkbox" name="check[]" value="{$v.chain_id}"></td>
+        <td><input type="checkbox" name="check[]" value="{$v.chain_id}"/></td>
         <td>{$v.chain_title}</td>
         <td>{$v.chain_user}</td>
         <td>{$v.chain_age}</td>
@@ -60,6 +80,24 @@
 
 </div>
 <script type="text/javascript">
+    $(document).ready(function(){
+        var flag = 1;
+        $(".check").click(function(){
+            if(flag == 1){
+                $(this).addClass('ck');
+                flag = 0;
+            } else{
+                $(this).removeClass('ck');
+                flag = 1;
+            }
+        })
+    });
+    function update(obj){
+        var id = obj.id;
+        var url = '';
+        $.get()
+
+    }
     function page(page){
         $url='medical_delete';
         $.get(url,{page:page},function(){
